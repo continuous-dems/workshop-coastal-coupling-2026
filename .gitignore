@@ -1,0 +1,9 @@
+# Jupyter ephemera
+.ipynb_checkpoints
+
+# pixi environments
+.pixi
+*.egg-info
+
+# MyST build outputs
+_build
