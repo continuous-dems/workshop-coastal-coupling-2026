@@ -1,18 +1,21 @@
-# 🗓️ Schedule
+# Schedule
 
-TODO: Intro prose?
+## Newport, OR Coastal DEM Workflow
 
-### Agenda
+This two-hour workshop is organized around the generation of a 1/9 arc-second coastal DEM for Newport, Oregon. The Newport test DEM provides a shared example for demonstrating how source data discovery, vertical datum harmonization, recipe-based DEM generation, and independent validation fit together.
 
-TODO: Edit
+Participants will work in a hosted JupyterHub environment and follow a reproducible **build → inspect → run → validate** workflow.
+
+By the end of the workshop, participants should understand how the main workflow components connect and how the Newport recipe can be adapted to another coastal region.
+
+## Workshop agenda
+
+All times are Eastern.
 
 | Time | Topic | Description |
 |---|---|---|
-| 9:00–9:20 AM | Introductions and Workshop Overview ([slides](https://github.com/continuous-dems/workshop-gebco-2026/releases/download/slide-decks-v1/CUDEM_Overview_GEBCO_Scholars_2026.07.20.pptx)) | `fetchez`, `transformez`, `globato`, and `ivert` as parts of one CUDEM workflow. |
-| 9:20–10:30 AM | Environment Setup | Set up a consistent `cudem` conda environment |
-| 10:30–11:00 AM | Installation Tests and Troubleshooting | Confirm that the main tools are installed and responding: `fetchez`, `transformez`, `globato`, and `ivert` |
-| 11:00–11:30 AM | Run the Fiji Test DEM | Run the test region to verify the environment |
-| 11:30 AM–1:00 PM | Lunch | offsite |
-| 1:00–2:00 PM | Check DEM Outputs | Review the generated DEM outputs |
-| 2:00–2:50 PM | Deconstruct the YAML Recipe | Walk through the YAML recipe used to generate the test DEM |
-| 2:50–3:00 PM | Day 1 Wrap-Up | Review what worked, what broke, and what questions should carry into Day 2. |
+| 2:00–2:20 p.m. | Welcome and workshop setup | Introduce the coastal DEM workflow, access the JupyterHub environment, and confirm that the core tools are working. |
+| 2:20–2:50 p.m. | Build the Newport workflow | Review source data with `fetchez`, introduce vertical reference harmonization with `transformez`, and use `globato` to generate and export the Newport YAML recipe. |
+| 2:50–3:25 p.m. | Inspect and run the recipe | Examine the main recipe components, make a small modification, and run the workflow to generate the 1/9 arc-second Newport test DEM. |
+| 3:25–3:50 p.m. | Review and validate the DEM | Inspect the generated DEM and supporting outputs, then review independent validation results produced with `ivert`. |
+| 3:50–4:00 p.m. | Discussion and next steps | Discuss how the workflow can be adapted to another coastal region and address participant questions. |
