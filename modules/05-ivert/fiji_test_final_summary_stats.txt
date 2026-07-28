@@ -1,0 +1,34 @@
+Number of DEM cells validated (cells): 2506
+Total number of ground photons used to validate this DEM (photons): 79117
+Mean number of photons used to validate each cell (photons): 31.57
+Mean bias error (DEM - ICESat-2) (m): 4.53
+RMSE (m): 10.16
+Number of cells with bathymetry photons: 115
+Mean roughness (stddev. of photon elevations within each cell (m)): 1.77
+== Decile ranges of errors (DEM - ICESat-2) (m) (Look for long-tails, indicating possible artifacts.) ===
+      0 percentile error level (m): -29.29
+      1 percentile error level (m): -18.27
+      5 percentile error level (m): -7.76
+     10 percentile error level (m): -3.97
+     20 percentile error level (m): -1.06
+     30 percentile error level (m): 0.15
+     40 percentile error level (m): 1.11
+     50 percentile error level (m): 2.72
+     60 percentile error level (m): 4.71
+     70 percentile error level (m): 7.09
+     80 percentile error level (m): 10.56
+     90 percentile error level (m): 17.31
+     95 percentile error level (m): 23.23
+     99 percentile error level (m): 30.68
+    100 percentile error level (m): 36.49
+== RMSE by ICESat-2 coverage decile (how coverage/sampling bias affects reported accuracy) ===
+    RMSE for grid cells with >0.4% coverage (100% of cells) (m): 10.16
+    RMSE for grid cells with >1.8% coverage (90% of cells) (m): 10.21
+    RMSE for grid cells with >2.2% coverage (80% of cells) (m): 10.25
+    RMSE for grid cells with >3.1% coverage (70% of cells) (m): 9.79
+    RMSE for grid cells with >3.6% coverage (60% of cells) (m): 9.61
+    RMSE for grid cells with >4.0% coverage (50% of cells) (m): 9.57
+    RMSE for grid cells with >4.9% coverage (40% of cells) (m): 9.01
+    RMSE for grid cells with >5.8% coverage (30% of cells) (m): 8.61
+    RMSE for grid cells with >7.1% coverage (20% of cells) (m): 7.85
+    RMSE for grid cells with >10.2% coverage (10% of cells) (m): 5.80
