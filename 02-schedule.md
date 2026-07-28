@@ -4,8 +4,6 @@
 
 This two-hour workshop is organized around the generation of a 1/9 arc-second coastal DEM for Newport, Oregon. The Newport test DEM provides a shared example for demonstrating how source data discovery, vertical datum harmonization, recipe-based DEM generation, and independent validation fit together.
 
-Participants will work in a hosted JupyterHub environment and follow a reproducible **build → inspect → run → validate** workflow.
-
 By the end of the workshop, participants should understand how the main workflow components connect and how the Newport recipe can be adapted to another coastal region.
 
 ## Workshop agenda
