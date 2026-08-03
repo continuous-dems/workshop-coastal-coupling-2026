@@ -12,8 +12,8 @@ All times are Eastern.
 
 | Time | Topic | Description |
 |---|---|---|
-| 2:00–2:20 p.m. | Welcome and workshop setup | Introduce the coastal DEM workflow, access the JupyterHub environment, and confirm that the core tools are working. |
-| 2:20–2:50 p.m. | Build the Newport workflow | Review source data with `fetchez`, introduce vertical reference harmonization with `transformez`, and use `globato` to generate and export the Newport YAML recipe. |
-| 2:50–3:25 p.m. | Inspect and run the recipe | Examine the main recipe components, make a small modification, and run the workflow to generate the 1/9 arc-second Newport test DEM. |
-| 3:25–3:50 p.m. | Review and validate the DEM | Inspect the generated DEM and supporting outputs, then review independent validation results produced with `ivert`. |
+| 2:00–2:30 p.m. | Welcome and workshop setup | Introduce the coastal DEM workflow, access the JupyterHub environment, and confirm that the core tools are working. |
+| 2:30–3:00 p.m. | Build the Newport DEM | Review source data with `fetchez`, introduce vertical references with `transformez`, and use `globato` to generate the Newport YAML recipe. |
+| 3:00–3:30 p.m. | Inspect and run the recipe | Examine the main recipe components, make a small modification, and run the workflow to generate the 1/9 arc-second Newport test DEM. |
+| 3:30–3:50 p.m. | Review and validate the DEM | Inspect the generated DEM and supporting outputs, then review independent validation results produced with `ivert`. |
 | 3:50–4:00 p.m. | Discussion and next steps | Discuss how the workflow can be adapted to another coastal region and address participant questions. |
