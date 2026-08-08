@@ -1,7 +1,5 @@
 ---
 
-## title: "1 - Getting Started"
-
 # Getting Started
 
 Welcome to the **NOAA NCEI/CIRES Coastal DEM Workshop**.
