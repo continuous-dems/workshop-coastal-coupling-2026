@@ -1,4 +1,6 @@
 ---
+title: "1 - Getting Started"
+---
 
 # Getting Started
 
@@ -15,10 +17,11 @@ All of the software required for the workshop is already installed.
 3. Start your JupyterHub server.
 4. Wait for JupyterLab to open.
 
-{tip}
+:::{tip}
 Starting the JupyterHub server may take a few minutes. We will introduce the workshop and Continuous DEMs while everyone is connecting.
+:::
 
-# Open a terminal
+## Open a terminal
 
 In JupyterLab:
 
