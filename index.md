@@ -18,9 +18,10 @@ This workshop builds on the April 16, 2026 webinar, [“Open-Source Workflows fo
 
 By the end of the workshop, participants will be able to:
 
-- Access and verify the hosted CUDEM environment.
-- Describe the roles of `fetchez`, `transformez`, `globato`, and `ivert`.
-- Inspect and run the Newport YAML recipe.
-- Review the generated DEM and validation results.
-- Identify the key settings needed to adapt the workflow to another coastal region.
-
+- Build a coastal DEM from multiple topographic and bathymetric datasets.
+- Understand how source data are discovered, standardized, filtered, prioritized, and combined.
+- Understand why coastline masking and multiresolution interpolation are important for coastal DEM generation.
+- Inspect DEM provenance and supporting outputs.
+- Independently evaluate the DEM using ICESat-2.
+- Apply the same standardized recipe to another coastal region by changing the region of interest.
+  
