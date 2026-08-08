@@ -1,19 +1,33 @@
-# Schedule
+# Workshop Schedule
 
-## Newport, OR Coastal DEM Workflow
+**NOAA NCEI/CIRES Coastal DEM Workshop**
+**August 13, 2026 | 2:00–4:00 p.m. ET**
 
-This two-hour workshop is organized around the generation of a 1/9 arc-second coastal DEM for Newport, Oregon. The Newport test DEM provides a shared example for demonstrating how source data discovery, vertical datum harmonization, recipe-based DEM generation, and independent validation fit together.
+This two-hour workshop will walk through an end-to-end coastal DEM workflow using the Continuous DEMs open-source tools in a hosted JupyterHub environment.
 
-By the end of the workshop, participants should understand how the main workflow components connect and how the Newport recipe can be adapted to another coastal region.
+| Time          | Topic                                                                                                |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| **2:00–2:10** | Welcome, introductions, and JupyterHub setup                                                         |
+| **2:10–2:20** | Coastal DEM overview: what we are building and why                                                   |
+| **2:20–2:45** | Start the Newport DEM and follow data discovery, transformations, masking, weighting, and provenance |
+| **2:45–2:55** | Multiresolution stacking and blending                                                                |
+| **2:55–3:05** | Inspect the finished DEM and hillshade                                                               |
+| **3:05–3:15** | **Break / Explore your DEM**                                                                         |
+| **3:15–3:25** | Inspect provenance, receipt, and source information                                                  |
+| **3:25–3:40** | Fetchez and Transformez examples                                                                     |
+| **3:40–3:50** | IVERT and ICESat-2 validation                                                                        |
+| **3:50–4:00** | Apply the same recipe to a new region, wrap-up, and questions                                        |
 
-## Workshop agenda
+## Workshop workflow
 
-All times are Eastern.
+During the workshop, we will:
 
-| Time | Topic | Description |
-|---|---|---|
-| 2:00–2:30 p.m. | Welcome and workshop setup | Introduce the coastal DEM workflow, access the JupyterHub environment, and confirm that the core tools are working. |
-| 2:30–3:00 p.m. | Build the Newport DEM | Review source data with `fetchez`, introduce vertical references with `transformez`, and use `globato` to generate the Newport YAML recipe. |
-| 3:00–3:30 p.m. | Inspect and run the recipe | Examine the main recipe components, make a small modification, and run the workflow to generate the 1/9 arc-second Newport test DEM. |
-| 3:30–3:50 p.m. | Review and validate the DEM | Inspect the generated DEM and supporting outputs, then review independent validation results produced with `ivert`. |
-| 3:50–4:00 p.m. | Discussion and next steps | Discuss how the workflow can be adapted to another coastal region and address participant questions. |
+1. Build a coastal DEM for Newport, Oregon, using multiple topographic and bathymetric datasets.
+2. Follow the workflow as it discovers, processes, transforms, masks, prioritizes, and combines source data.
+3. Explore how multiresolution stacking and blending help integrate dense topographic data with sparser bathymetric measurements.
+4. Inspect the finished DEM, hillshade, provenance, and supporting outputs.
+5. Use Fetchez and Transformez independently for data discovery and vertical datum transformation.
+6. Evaluate the finished DEM using IVERT and ICESat-2 observations.
+7. If time allows, run the same DEM recipe for a second study area by changing only the input region of interest.
+
+The goal is not only to create a DEM for Newport, but to demonstrate how standardized, reproducible recipes can be applied consistently to other coastal locations.
