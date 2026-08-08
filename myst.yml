@@ -2,39 +2,40 @@ version: 1
 
 project:
   title: "CUDEM/Coastal Coupling Workshop 2026"
-  # description:
-  # keywords: []
-  # authors: []
   license: "MIT"
   github: &repo-url "https://github.com/continuous-dems/workshop-coastal-coupling-2026"
+
   error_rules:
     - rule: "doi-link-valid"
       severity: "warn"
+
   exclude:
     - "_*"
     - "README.md"
+
   toc:
     - file: "index.md"
     - pattern: "0*.md"
-  - title: "Workshop"
-    children:
-    - file: "modules/01-getting-started/index.md"
-#   - file: "modules/02-newport-dem/index.md"
-#   - file: "modules/03-explore-validate/index.md"
-#   - file: "modules/04-new-region/index.md"
+
+    - title: "Workshop"
+      children:
+        - file: "modules/01-getting-started/index.md"
+
     - title: "Reference"
       children:
         - pattern: "reference/*.md"
+
     - title: "For instructors"
       children:
         - pattern: "for-instructors/*.md"
 
-
 site:
   template: "book-theme"
+
   actions:
     - title: "View source"
       url: *repo-url
+
   options:
     folders: true
     style: "assets/styles/style.css"
