@@ -1,7 +1,5 @@
 # 🚀 Starting your server
 
-TODO: Edit for Openscapes hub
-
 Everything in this workshop will be done on your own personal server on
 [the 2i2c NMFS workshops JupyterHub](https://workshop.nmfs-openscapes.2i2c.cloud/).
 It provides a computer in the cloud that's set up with all the necessary software that
