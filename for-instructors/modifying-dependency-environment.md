@@ -1,6 +1,6 @@
 # 🔧 Modifying the dependency environment
 
-The CryoCloud image we use comes with dependencies pre-installed.
+The Docker image we use comes with dependencies pre-installed.
 To modify the environment, you must push to the
 [continuous-dems/docker-jupyter](https://github.com/continuous-dems/docker-jupyter)
 repository.
