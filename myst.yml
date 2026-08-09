@@ -20,6 +20,7 @@ project:
     - title: "Workshop"
       children:
         - file: "modules/01-getting-started/index.md"
+        - file: "modules/02-newport-dem/index.md"
 
     - title: "Reference"
       children:
