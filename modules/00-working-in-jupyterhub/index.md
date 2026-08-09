@@ -10,9 +10,13 @@ authors:
     github: "tsnow03"
 ---
 
-# ❄️ 1 - Working in JupyterHub with CryoCloud
+# 0 - Working in JupyterHub
 
-TODO: Update for Openscapes hub or remove
+:::{important}
+This module was written for another JupyterHub, CryoCloud, by its wonderful director, Tasha Snow.
+Please note that this workshop is running on the NMFS 2i2c JupyterHub, which works very
+similarly.
+:::
 
 :::{note} 🛝 Slides
 :class: dropdown

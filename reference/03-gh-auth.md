@@ -1,7 +1,5 @@
 # 🔐 Configuring GitHub authentication
 
-TODO: Update for Openscapes hub or remove
-
 GitHub authentication on shared cloud infrastructure is complicated.
 
 Always remember, "cloud" is the same as "someone else's computer".
@@ -11,34 +9,15 @@ For this reason, we use a special tool called `gh-scoped-creds` to provide a spe
 credential which grants restricted access to only certain GitHub resources for a limited
 amount of time.
 
+For more info, see the
+[full docs for using `gh-scoped-creds` on 2i2c JupyterHubs](https://2i2c.org/community-showcase/user/topics/data/git.html#using-gh-scoped-creds).
 
-## Copy the GitHub authentication Notebook
+## Run `gh-scoped-creds`
 
-There's a special notebook titled `GHAUTH.ipynb` in the `shared/` directory.
+At the terminal, run the command:
 
-Right-click it, select "**Copy**", then return to your home directory by clicking the 📁
-icon at the top of your file browser.
-Finally, right click in the empty space in your home directory and select "**Paste**".
+```bash
+gh-scoped-creds
+```
 
-:::{hint}
-Right-click this notebook and select "Add Favorite" to enable quick access in the
-future!
-:::
-
-
-## Follow the instructions in the Notebook
-
-**The first time you use this Notebook, you should open the "First time setup" hint and
-follow the instructions within.**
-
-After you've completed first-time setup, run the code cell at the end of the Notebook
-and carefully follow the instructions output by this cell.
-
-
-## Granting permission for pushing to additional repository
-
-If you only granted access to one repository (recommended), you may want to add more
-later.
-
-You can update the list of repositories you want to grant access to by visiting the
-[configuration page for the CryoCloud GitHub application](https://github.com/apps/cryocloud-github-access).
+Follow the printed instructions carefully!
