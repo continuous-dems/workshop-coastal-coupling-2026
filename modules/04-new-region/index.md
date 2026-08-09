@@ -105,17 +105,74 @@ For Newport, we added:
 dav:survey_id=9693,weight=100
 ```
 
-For Sarasota, we will instead add:
-
-```text
-dav:survey_id=10196,weight=100
-```
+For Sarasota, we will use NOAA Digital Coast DAV to identify an appropriate local topobathymetric lidar survey before we run the build.
 
 This is important.
 
 The `coupling-bathy-topo` bundle represents the **reusable part of the recipe**.
 
 The Digital Coast survey is **local knowledge** that can change from one study area to another.
+
+---
+
+# Find the local topobathymetric lidar
+
+Before running the Sarasota build, let's see how we can find a useful local lidar survey ourselves.
+
+NOAA's **Digital Coast Data Access Viewer (DAV)** lets us explore available coastal lidar geographically.
+
+Open DAV already focused on our Sarasota workshop area:
+
+[Open NOAA Digital Coast DAV for the Sarasota study area](https://coast.noaa.gov/dataviewer/#/lidar/search/-9198602.505474905,3155893.0057734232,-9186314.531330857,3155893.0057734232,-9186314.531330857,3166415.89275869,-9198602.505474905,3166415.89275869,-9198602.505474905,3155893.0057734232)
+
+::{important}
+## Focus on our Sarasota study area
+
+The link opens DAV around the same small region we are using for this exercise:
+
+```text
+West:  -82.59
+East:  -82.53
+South:  27.28
+North:  27.34
+```
+
+We are interested in lidar coverage that is useful for this specific coastal DEM.
+:::
+
+Look through the lidar datasets available in this area.
+
+As you inspect the results, ask:
+
+- Which dataset covers our study area?
+- Which dataset includes **topobathymetric lidar**?
+- Which survey looks most appropriate to add to our coastal DEM recipe?
+
+For this Sarasota example, the useful Digital Coast survey is:
+
+```text
+survey_id=10196
+```
+
+That survey ID can be passed directly to `globato` as:
+
+```text
+dav:survey_id=10196,weight=100
+```
+
+This is a useful example of how **local knowledge enters a reusable recipe**:
+
+```text
+define the region
+        ↓
+explore available data in NOAA Digital Coast DAV
+        ↓
+identify an appropriate local survey
+        ↓
+add its DAV survey ID to the standard recipe
+```
+
+The `coupling-bathy-topo` bundle remains our reusable starting point. The locally appropriate survey can change from one study area to another.
 
 ---
 
