@@ -35,6 +35,9 @@ The default settings are correct, you don't need to change anything.
 For reference, the default image is
 `ghcr.io/continuous-dems/cudem-jupyter:workshop-coastal-coupling-2026`.
 
+You can find the source code for that Docker image on the
+[continuous-dems/docker-jupyter GitHub repository](https://github.com/continuous-dems/docker-jupyter).
+
 You can change it to any Docker image you like using the "Image" dropdown.
 :::
 
