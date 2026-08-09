@@ -10,7 +10,7 @@ authors:
     github: "tsnow03"
 ---
 
-# 🌐 0 - Working in JupyterHub
+# 0 - Working in JupyterHub
 
 :::{important}
 This module was written for another JupyterHub, CryoCloud, by its wonderful director, Tasha Snow.
