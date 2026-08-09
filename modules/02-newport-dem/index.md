@@ -60,7 +60,7 @@ Depending on the location, the bundle may include sources such as:
 
 | Source | What it contributes |
 |---|---|
-| **The National Map (TNM)** | Topographic elevation data, including lidar-derived products |
+| **USGS The National Map (TNM)** | Topographic elevation data, including lidar-derived products |
 | **NOAA hydrographic surveys** | Modern measured bathymetry, including BAG and point-based survey data |
 | **USACE eHydro** | Hydrographic survey data from maintained navigation channels and waterways |
 | **NOAA nautical charts** | Supplemental chart-derived bathymetric information |
@@ -102,7 +102,7 @@ Open NOAA's **Digital Coast Data Access Viewer (DAV)** already focused on our Ne
 
 [Open NOAA Digital Coast DAV for Newport](https://coast.noaa.gov/dataviewer/#/lidar/search/-13815132.111459369,5557767.363023302,-13802740.194591334,5557767.363023302,-13802740.194591334,5565765.68390708,-13815132.111459369,5565765.68390708,-13815132.111459369,5557767.363023302)
 
-::{important}
+:::{important}
 ## Find the survey
 
 Look at the lidar datasets intersecting this small area.
@@ -120,7 +120,7 @@ Use the ID you found to complete:
 dav:survey_id=____,weight=100
 ```
 
-::{dropdown} Reveal the survey
+:::{dropdown} Reveal the survey
 
 The Newport topobathymetric lidar is Digital Coast survey:
 
@@ -163,7 +163,7 @@ globato build \
   dav:survey_id=9693,weight=100
 ```
 
-::{important}
+:::{important}
 ## Start this command now
 
 Leave the build running.
@@ -182,7 +182,7 @@ Before looking at the answers, find these four things in the command:
 3. **What resolution** are we requesting?
 4. **What horizontal + vertical reference system** are we using?
 
-::{dropdown} Check your answers
+:::{dropdown} Check your answers
 
 | Question | Answer |
 |---|---|
@@ -209,7 +209,7 @@ Other important pieces are:
 
 Now that the Newport build is running, consider what you would need to change if we moved somewhere else.
 
-::{dropdown} Reusable or region-specific?
+:::{dropdown} Reusable or region-specific?
 
 **Mostly reusable**
 
