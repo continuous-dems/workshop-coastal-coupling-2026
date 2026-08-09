@@ -12,16 +12,67 @@ The final question is:
 
 One of the main goals of the Continuous DEMs project is to make coastal DEM generation **reusable and reproducible**.
 
-Instead of rebuilding a new workflow from scratch for every location, we can reuse the same standardized recipe and change only the parts that are specific to the new study area.
+Instead of rebuilding a workflow from scratch for every location, we can reuse the same standardized recipe and change only the parts that are specific to the new study area.
+
+---
+
+# Our second study area
+
+For our second example, we will move south along the Oregon coast to the **Coos Bay region**.
+
+Our new region of interest is:
+
+```text
+West:  -124.35
+East:  -124.25
+South:   43.30
+North:   43.40
+```
+
+We will use the same output resolution and reference system as the Newport exercise:
+
+```text
+Resolution: 1/9 arc-second
+Horizontal: NAD83
+Vertical:   NAVD88
+```
+
+represented by:
+
+```text
+epsg:4269+5703
+```
 
 ---
 
 # What stays the same?
 
-For a new coastal region, much of the workflow can remain unchanged:
+Most of the workflow does not need to change.
+
+We will continue to use:
 
 ```text
 coupling-bathy-topo
+```
+
+as our standardized coastal data recipe.
+
+We will also continue to use the high-quality topobathymetric lidar survey:
+
+```text
+dav:survey_id=9693,weight=100
+```
+
+because this survey also covers the Coos Bay study area.
+
+The processing logic remains the same:
+
+```text
+standard coastal recipe
+        +
+high-quality local lidar
+        +
+region of interest
         ↓
 data discovery
         ↓
@@ -33,100 +84,193 @@ data weighting and stacking
         ↓
 multiresolution interpolation
         ↓
-final DEM
-        ↓
-provenance and validation
+final coastal DEM
 ```
-
-The same bundle can search for the configured source types wherever they are available.
-
-The workflow then determines which datasets actually overlap the requested region.
 
 ---
 
 # What changes?
 
-At minimum, we need a new region of interest.
+Only a few command-line options need to change.
 
 For Newport, we used:
 
 ```text
 -R -124.1/-124/44.59/44.64
+-O newport
+-D newport_cudem
 ```
 
-For another study area, replace that region with the new:
+For Coos Bay, we will use:
 
 ```text
-WEST/EAST/SOUTH/NORTH
+-R -124.35/-124.25/43.30/43.4
+-O coos
+-D coos_dem
 ```
 
-We should also give the new project its own output name and directory.
+The recipe itself remains the same.
 
-For example:
+This is the key idea:
+
+> **The study area changes, but the reusable workflow does not need to be rebuilt from scratch.**
+
+---
+
+# Build the Coos Bay DEM
+
+Run:
 
 ```bash
 globato build \
-  -R WEST/EAST/SOUTH/NORTH \
-  -E .11111111s \
-  -P epsg:4269+5703 \
+  -R -124.35/-124.25/43.30/43.4 \
   -X 6:5 \
-  -O second_area \
-  -D second_area_cudem \
+  -P epsg:4269+5703 \
+  -E .1111111s \
+  -O coos \
+  -D coos_dem \
   --shared-cache coupling-shared-dir \
   coupling-bathy-topo \
   dav:survey_id=9693,weight=100
 ```
 
 :::{important}
-Use the second study-area bounds provided by the instructors during the workshop.
+## Start the Coos Bay build
 
-The second region should be tested in advance so that the available source data and runtime are appropriate for the live exercise.
+This command uses the same standard coastal recipe and the same topobathymetric lidar source as the Newport exercise.
+
+Only the study area and output names have changed.
 :::
+
+---
+
+# Compare the two commands
+
+The Newport build was:
+
+```bash
+globato build \
+  -R -124.1/-124/44.59/44.64 \
+  -E .11111111s \
+  -P epsg:4269+5703 \
+  -X 6:5 \
+  -O newport \
+  -D newport_cudem \
+  --shared-cache coupling-shared-dir \
+  coupling-bathy-topo \
+  dav:survey_id=9693,weight=100
+```
+
+The Coos Bay build is:
+
+```bash
+globato build \
+  -R -124.35/-124.25/43.30/43.4 \
+  -E .11111111s \
+  -P epsg:4269+5703 \
+  -X 6:5 \
+  -O coos \
+  -D coos_dem \
+  --shared-cache coupling-shared-dir \
+  coupling-bathy-topo \
+  dav:survey_id=9693,weight=100
+```
+
+The major differences are simply:
+
+| Option | Newport | Coos Bay |
+|---|---|---|
+| Region | `-124.1/-124/44.59/44.64` | `-124.35/-124.25/43.30/43.4` |
+| Output name | `newport` | `coos` |
+| Output directory | `newport_cudem` | `coos_dem` |
+
+Everything else stays the same.
+
+---
+
+# Watch the data discovery
+
+Even though we are using the same recipe, the source data available in each study area may differ.
+
+As the Coos Bay workflow runs, watch the terminal output.
+
+Ask:
+
+1. Which sources are available in both Newport and Coos Bay?
+2. Are the same NOAA hydrographic products available?
+3. Is the density of terrestrial elevation data similar?
+4. Does the topobathymetric lidar cover the same kinds of environments?
+5. Are there areas with much sparser bathymetric measurements?
+6. Does the workflow need more interpolation in one region than the other?
+
+This demonstrates an important distinction:
+
+> **The recipe can stay consistent even when the underlying data coverage changes.**
 
 ---
 
 # Reuse relevant local data
 
-Our Newport command included:
+Our workshop recipe adds:
 
 ```text
 dav:survey_id=9693,weight=100
 ```
 
-The second workshop region is also covered by this topobathymetric lidar survey, so we should keep it in the recipe.
+to the standard bundle.
 
-This illustrates an important point:
+This topobathymetric lidar survey covers both workshop regions, so it is appropriate to keep it in both builds.
 
-> **Location-specific data should be included wherever they are spatially and scientifically relevant.**
-
-The recipe for both workshop regions is therefore:
+Conceptually:
 
 ```text
 coupling-bathy-topo
         +
-dav:survey_id=9693,weight=100
+dav survey 9693
+        ↓
+Newport DEM
 ```
 
-If we later move to a region outside this survey footprint, we would remove it and add any other locally appropriate datasets instead.
+and:
 
-The goal is not to carry every local dataset everywhere. The goal is to reuse high-quality local observations wherever they actually apply.
+```text
+coupling-bathy-topo
+        +
+dav survey 9693
+        ↓
+Coos Bay DEM
+```
+
+If we later moved to a region outside the footprint of survey 9693, we would no longer include it.
+
+Instead, we could:
+
+- use the standard bundle by itself
+- add another locally appropriate source
+- change source options or weights
+- remove a predefined source when needed
+
+The goal is:
+
+> **Reuse high-quality local observations wherever they are spatially and scientifically relevant.**
 
 ---
 
 # A bundle is a starting point
 
-The `coupling-bathy-topo` bundle provides a standardized starting recipe.
+The `coupling-bathy-topo` bundle gives us a standardized starting recipe.
 
 It does not lock us into a fixed set of inputs.
 
-We can:
+We can add sources directly:
 
-- add another data source
-- change source options
-- adjust source weights
-- remove a predefined source when it is not appropriate
+```text
+dav:survey_id=9693,weight=100
+```
 
-For example, a module can be dynamically excluded before the recipe runs:
+and we can also dynamically remove a predefined source before the recipe runs.
+
+For example:
 
 ```bash
 --modifier exclude_module:modules=MODULE_NAME
@@ -138,75 +282,9 @@ This gives us a useful balance:
 
 ---
 
-# Run the second study area
-
-Once the instructors provide the second region, run:
-
-```bash
-globato build \
-  -R WEST/EAST/SOUTH/NORTH \
-  -E .11111111s \
-  -P epsg:4269+5703 \
-  -X 6:5 \
-  -O second_area \
-  -D second_area_cudem \
-  --shared-cache coupling-shared-dir \
-  coupling-bathy-topo \
-  dav:survey_id=9693,weight=100
-```
-
-While it runs, compare the terminal output with the Newport build.
-
-Ask:
-
-1. Which datasets are available in both regions?
-2. Which sources are available only in one region?
-3. Does the same preprocessing logic apply?
-4. Are the data densities similar?
-5. Does the workflow need more interpolation in the new region?
-6. Is there a local dataset that should be added to improve the standard recipe?
-
----
-
-# Compare the two DEMs
-
-The goal is not for the two study areas to contain identical source data.
-
-The goal is for them to use the same **reproducible workflow logic**.
-
-Conceptually:
-
-```text
-Newport ROI
-    +
-coupling-bathy-topo
-    +
-Newport-specific lidar
-        ↓
-Newport DEM
-```
-
-and:
-
-```text
-New ROI
-    +
-coupling-bathy-topo
-    +
-dav survey 9693
-        ↓
-New coastal DEM
-```
-
-Because both workshop regions intersect the same high-quality topobathymetric lidar survey, that local enhancement remains part of both builds.
-
-The available measurements may differ substantially between locations, but the process used to discover, prepare, combine, document, and evaluate them remains consistent.
-
----
-
 # Reproducibility does not mean identical data coverage
 
-A standardized workflow does not guarantee that every location has the same quantity or quality of source data.
+A reusable workflow does not guarantee that every study area contains the same amount or quality of source data.
 
 One region may contain:
 
@@ -217,18 +295,50 @@ One region may contain:
 while another may rely more heavily on:
 
 - sparse hydrographic measurements
-- lower-priority supplemental bathymetry
+- supplemental bathymetry
 - interpolation between observations
 
-That difference is scientifically meaningful.
+Those differences are scientifically meaningful.
 
-The workflow should help us **see and document those differences**, rather than hide them.
+The workflow should help us **identify and document those differences**, rather than hide them.
+
+---
+
+# Inspect the Coos Bay DEM
+
+When the workflow finishes, look inside:
+
+```text
+coos_dem/
+```
+
+for the resulting DEM and supporting products.
+
+As you explore the Coos Bay result, compare it with Newport.
+
+Look for:
+
+- coastline behavior
+- topographic detail
+- bathymetric morphology
+- areas of dense measured coverage
+- areas of sparse bathymetric coverage
+- transitions between measured and interpolated terrain
+- differences in which source datasets contribute
+
+Ask yourself:
+
+> **Does the same recipe behave reasonably in both regions?**
+
+and:
+
+> **What differences are caused by the data rather than by the workflow itself?**
 
 ---
 
 # The complete workflow
 
-Across the four workshop modules, we have followed the full coastal DEM process:
+Across the four workshop modules, we have now followed the full coastal DEM process:
 
 ```text
 define a region
@@ -253,18 +363,16 @@ inspect provenance
         ↓
 validate with independent observations
         ↓
-reuse and refine the workflow
+reuse the workflow in another region
 ```
 
 ---
 
 # Workshop takeaways
 
-The main ideas from today's workshop are:
-
 ## 1. Start with the scientific problem
 
-The goal is not to run a particular software package.
+The goal is not simply to run a software package.
 
 The goal is to build a defensible coastal elevation model from the best available observations.
 
@@ -278,19 +386,17 @@ coupling-bathy-topo
 
 make it possible to capture commonly useful data sources and processing choices in a reusable recipe.
 
-## 3. Keep local knowledge easy to add
+## 3. Add local knowledge when it improves the result
 
-A general recipe will never contain every useful local dataset.
-
-For the workshop regions, we improve the standard recipe by adding:
+For both workshop study areas, we enhance the standard bundle with:
 
 ```text
 dav:survey_id=9693,weight=100
 ```
 
-Both regions are covered by this survey, so the same high-quality local source is retained in each build. The same principle applies elsewhere: add local data wherever they are actually relevant.
+because that high-quality topobathymetric lidar survey is relevant to both regions.
 
-## 4. Treat source datasets appropriately
+## 4. Treat different source datasets appropriately
 
 Different datasets may require different:
 
@@ -308,7 +414,7 @@ Dense measurements can support fine-scale terrain information.
 
 Sparse observations require progressively broader interpolation.
 
-Multiresolution processing helps bring those different data densities together in one continuous surface.
+Multiresolution processing helps bring those different measurement densities together in a continuous surface.
 
 ## 6. Keep provenance
 
@@ -324,7 +430,7 @@ Independent observations such as ICESat-2 provide another way to evaluate the fi
 
 ## 8. Reuse the workflow
 
-The most important outcome is not a single Newport DEM.
+The most important outcome is not a single Newport or Coos Bay DEM.
 
 It is a workflow that can be applied, inspected, evaluated, and refined for other coastal regions.
 
@@ -333,9 +439,15 @@ It is a workflow that can be applied, inspected, evaluated, and refined for othe
 :::{tip}
 ## Where to go next
 
-Try a region that matters to your own work.
+Try a coastal region that matters to your own work.
 
-Start with the standard bundle, inspect which data are available, and then decide whether local datasets or recipe changes would improve the result.
+Start with:
+
+```text
+coupling-bathy-topo
+```
+
+inspect which data are available, and then decide whether additional local datasets or recipe changes would improve the result.
 
 The same workflow can become the starting point for a new coastal DEM rather than a one-off exercise.
 :::
@@ -344,7 +456,7 @@ The same workflow can become the starting point for a new coastal DEM rather tha
 
 # Questions and discussion
 
-What would you want to change for your own study area?
+What would you change for your own study area?
 
 Consider:
 
@@ -358,4 +470,3 @@ Consider:
 - repeatable production across many regions
 
 These are the kinds of choices the Continuous DEMs framework is designed to make easier to express, reproduce, and revisit.
-
