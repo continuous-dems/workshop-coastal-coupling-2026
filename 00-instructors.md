@@ -2,8 +2,8 @@
 
 ## Christopher Amante
 ## Matthew Love
-## Elliot Lim
 ## Michael MacFerrin
+## Elliot Lim
 
 **CIRES / University of Colorado Boulder, in support of NOAA National Centers for Environmental Information**
 
