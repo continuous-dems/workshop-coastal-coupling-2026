@@ -373,7 +373,7 @@ Other important pieces are:
 
 | Part | Purpose |
 |---|---|
-| `-X 6:5` | Multiresolution DEM settings |
+| `-X 6:5` | #cells to extend DEM beyound study area:input data buffer percentage |
 | `-O newport` | Output name |
 | `-D newport_cudem` | Processing/output directory |
 | `--shared-cache coupling-shared-dir` | Shared workshop source-data cache |
