@@ -4,23 +4,31 @@ title: "4 - Same Recipe, New Region"
 
 # Same Recipe, New Region
 
-We have now built, inspected, and evaluated a coastal DEM for **Newport, Oregon**.
+We have built and explored a coastal DEM for **Newport, Oregon**.
 
-For our final exercise, we will ask:
+For our final exercise, we will test one of the main ideas behind the Continuous DEMs framework:
 
-> **How much of the workflow needs to change if we want to build a coastal DEM somewhere completely different?**
+> **Can we reuse the same workflow in a very different coastal region without starting over?**
 
-One of the main goals of the Continuous DEMs project is to make coastal DEM generation **reusable and reproducible**.
+We will move from Oregon to **Sarasota, Florida**.
 
-Instead of rebuilding a workflow from scratch for every location, we can reuse the same standardized recipe and change only the parts that are specific to the new study area.
+:::{important}
+## Short on time?
+
+If we only have a few minutes left, focus on three things:
+
+1. Identify what should change from Newport to Sarasota.
+2. Find the local Sarasota topobathymetric lidar in NOAA Digital Coast DAV.
+3. Launch the Sarasota build.
+
+The Sarasota DEM does **not** need to finish during the workshop for this exercise to be useful.
+:::
 
 ---
 
-# Our second study area
+# 1. What should change?
 
-For our second example, we will move from the Pacific Northwest to the **Sarasota, Florida** coast.
-
-Our new region of interest is:
+Our Sarasota study area is:
 
 ```text
 West:  -82.59
@@ -29,154 +37,103 @@ South:  27.28
 North:  27.34
 ```
 
-We will use the same output resolution and reference system as the Newport exercise:
+Before looking below, think about the Newport build.
+
+Which parts of the recipe should stay the same?
+
+Which parts should change?
+
+:::{dropdown} Check your answer
+
+**Mostly reusable**
 
 ```text
-Resolution: 1/9 arc-second
-Horizontal: NAD83
-Vertical:   NAVD88
+coupling-bathy-topo
+-X 6:5
+-P epsg:4269+5703
+-E 0.1111111s
 ```
 
-represented by:
+**Region-specific**
 
 ```text
-epsg:4269+5703
+-R bounds
+local Digital Coast survey
+output name
+output directory
+shared-cache location
 ```
+
+The important separation is:
+
+```text
+reusable coastal workflow
+        +
+local data choices
+        +
+new study area
+        ↓
+new coastal DEM
+```
+
+:::
 
 ---
 
-# What stays the same?
+# 2. Find useful local data
 
-Most of the workflow does not need to change.
-
-We will continue to use:
+Just as we did for Newport, we will start with the nationally available sources in:
 
 ```text
 coupling-bathy-topo
 ```
 
-as our standardized coastal data recipe.
+and then look for a useful **local topobathymetric lidar survey**.
 
-We will also keep the same:
+Open NOAA Digital Coast DAV already focused on the Sarasota workshop area:
 
-- 1/9-arc-second output resolution
-- NAD83 horizontal reference
-- NAVD88 vertical datum
-- multiresolution DEM settings
-- overall data-discovery, processing, stacking, and interpolation workflow
+[Open NOAA Digital Coast DAV for Sarasota](https://coast.noaa.gov/dataviewer/#/lidar/search/-9198602.505474905,3155893.0057734232,-9186314.531330857,3155893.0057734232,-9186314.531330857,3166415.89275869,-9198602.505474905,3166415.89275869,-9198602.505474905,3155893.0057734232)
 
-Conceptually:
+:::{important}
+## Your turn: find the survey
 
-```text
-standard coastal recipe
-        +
-local knowledge
-        +
-region of interest
-        ↓
-data discovery
-        ↓
-source-specific processing
-        ↓
-horizontal and vertical standardization
-        ↓
-data weighting and stacking
-        ↓
-multiresolution interpolation
-        ↓
-final coastal DEM
-```
+Look only at the lidar datasets intersecting this small area.
 
-The key idea is:
-
-> **The study area changes, but the reusable workflow does not need to be rebuilt from scratch.**
-
----
-
-# What changes?
-
-For Sarasota, we need a new region of interest and new output names.
-
-We also use a **different locally appropriate topobathymetric lidar survey**.
-
-For Newport, we added:
-
-```text
-dav:survey_id=9693,weight=100
-```
-
-For Sarasota, we will use NOAA Digital Coast DAV to identify an appropriate local topobathymetric lidar survey before we run the build.
-
-This is important.
-
-The `coupling-bathy-topo` bundle represents the **reusable part of the recipe**.
-
-The Digital Coast survey is **local knowledge** that can change from one study area to another.
-
----
-
-# Find the local topobathymetric lidar
-
-Before running the Sarasota build, let's see how we can find a useful local lidar survey ourselves.
-
-NOAA's **Digital Coast Data Access Viewer (DAV)** lets us explore available coastal lidar geographically.
-
-Open DAV already focused on our Sarasota workshop area:
-
-[Open NOAA Digital Coast DAV for the Sarasota study area](https://coast.noaa.gov/dataviewer/#/lidar/search/-9198602.505474905,3155893.0057734232,-9186314.531330857,3155893.0057734232,-9186314.531330857,3166415.89275869,-9198602.505474905,3166415.89275869,-9198602.505474905,3155893.0057734232)
-
-::{important}
-## Focus on our Sarasota study area
-
-The link opens DAV around the same small region we are using for this exercise:
-
-```text
-West:  -82.59
-East:  -82.53
-South:  27.28
-North:  27.34
-```
-
-We are interested in lidar coverage that is useful for this specific coastal DEM.
+Find the survey that includes **topobathymetric lidar** and note its Digital Coast survey ID.
 :::
 
-Look through the lidar datasets available in this area.
-
-As you inspect the results, ask:
-
-- Which dataset covers our study area?
-- Which dataset includes **topobathymetric lidar**?
-- Which survey looks most appropriate to add to our coastal DEM recipe?
-
-For this Sarasota example, the useful Digital Coast survey is:
+Complete:
 
 ```text
-survey_id=10196
+dav:survey_id=____,weight=100
 ```
 
-That survey ID can be passed directly to `globato` as:
+:::{dropdown} Reveal the Sarasota survey
+
+The Sarasota topobathymetric lidar we want is Digital Coast survey:
+
+```text
+10196
+```
+
+So the source specification is:
 
 ```text
 dav:survey_id=10196,weight=100
 ```
 
-This is a useful example of how **local knowledge enters a reusable recipe**:
+Notice that the **workflow stayed the same**, but the locally appropriate lidar changed from:
 
 ```text
-define the region
-        ↓
-explore available data in NOAA Digital Coast DAV
-        ↓
-identify an appropriate local survey
-        ↓
-add its DAV survey ID to the standard recipe
+Newport:   survey_id=9693
+Sarasota:  survey_id=10196
 ```
 
-The `coupling-bathy-topo` bundle remains our reusable starting point. The locally appropriate survey can change from one study area to another.
+:::
 
 ---
 
-# Build the Sarasota DEM
+# 3. Build the Sarasota DEM
 
 Run:
 
@@ -196,248 +153,139 @@ globato build \
 :::{important}
 ## Start the Sarasota build
 
-This command uses the same standardized coastal recipe and DEM settings as the Newport exercise, but applies them to a new region with a different locally appropriate topobathymetric lidar survey.
+This is the same basic workflow we used for Newport.
+
+The main changes are the **region**, **local survey**, and **output/cache locations**.
 :::
 
 ---
 
-# Compare the two examples
+# 4. Compare Newport and Sarasota
 
-The major differences are:
+While the Sarasota build starts, compare the two commands.
 
-| Option | Newport | Sarasota |
+| Setting | Newport | Sarasota |
 |---|---|---|
 | Region | `-124.1/-124/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
-| Output name | `newport` | `sarasota` |
-| Output directory | `newport_cudem` | `sarasota_dem` |
-| Shared cache | `coupling-shared-dir` | `shared/sarasota_data` |
-| Local Digital Coast survey | `9693` | `10196` |
+| Standard bundle | `coupling-bathy-topo` | `coupling-bathy-topo` |
+| Local DAV survey | `9693` | `10196` |
+| Resolution | ~1/9 arc-second | ~1/9 arc-second |
+| Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
+| Multiresolution settings | `-X 6:5` | `-X 6:5` |
 
-The important settings remain the same:
+:::{dropdown} What is the main lesson?
 
-```text
--X 6:5
--P epsg:4269+5703
--E ~1/9 arc-second
-coupling-bathy-topo
-```
+We did **not** create a new workflow for Florida.
 
-This demonstrates the separation between:
+We:
 
 ```text
-reusable recipe
-        +
-region-specific choices
+changed the study area
+        ↓
+looked for useful local data
+        ↓
+added the local survey
+        ↓
+reused the same coastal recipe
 ```
+
+That is the portability we want from the framework.
+
+:::
 
 ---
 
-# A bundle is a starting point
+# If time allows: watch the data discovery
 
-The `coupling-bathy-topo` bundle gives us a standardized starting recipe.
+Look at the Sarasota terminal output.
 
-It does not lock us into a fixed set of inputs.
+Can you identify:
 
-For Newport, local knowledge told us to add:
+- data discovery
+- cached data being reused
+- the Digital Coast lidar source
+- transformations
+- source preparation
 
-```text
-dav:survey_id=9693,weight=100
-```
+Compare what you see with Newport.
 
-For Sarasota, local knowledge tells us to add:
-
-```text
-dav:survey_id=10196,weight=100
-```
-
-This gives us a useful balance:
-
-> **Make the common workflow simple, while preserving the ability to apply local scientific judgment.**
-
-If we moved to another region, we could:
-
-- use the standard bundle by itself
-- add a different locally appropriate dataset
-- change source options or weights
-- remove a predefined source when needed
-
-The goal is to reuse the workflow while still making scientifically appropriate choices for each study area.
+> **The workflow can stay consistent even when the available source data change from place to place.**
 
 ---
 
-# Watch the data discovery
+:::{dropdown} If the Sarasota DEM finishes
 
-As the Sarasota workflow runs, watch the terminal output.
-
-You do not need to follow every message.
-
-Instead, notice:
-
-1. Which datasets are discovered for Sarasota?
-2. How does the available source coverage differ from Newport?
-3. Where does the Sarasota topobathymetric lidar contribute?
-
-This demonstrates an important distinction:
-
-> **The recipe can stay consistent even when the underlying data coverage changes.**
-
----
-
-# Inspect the Sarasota DEM
-
-When the workflow finishes, look inside:
+Look inside:
 
 ```text
 sarasota_dem/
 ```
 
-for the resulting DEM and supporting products.
+Open the final DEM or hillshade and compare it briefly with Newport.
 
-Compare the Sarasota result with Newport.
+Look for obvious differences in:
 
-Look for differences in:
+- coastal morphology
+- nearshore detail
+- source-data coverage
+- areas that require more interpolation
 
-- coastline and nearshore morphology
-- topographic and bathymetric detail
-- measured-data coverage
-- areas requiring more interpolation
-- which source datasets contribute to the final DEM
+Do not try to perform a full evaluation here.
 
-Ask yourself:
+The purpose of this final example is to demonstrate that the **same recipe can be transferred to a new region and adapted with local data**.
 
-> **Does the same recipe behave reasonably in two very different coastal regions?**
-
-and:
-
-> **Which differences come from the available data, rather than from the workflow itself?**
-
----
-
-# The complete workflow
-
-Across the workshop, we have now followed the full coastal DEM process:
-
-```text
-define a region
-        ↓
-start with a reusable data recipe
-        ↓
-add local knowledge when appropriate
-        ↓
-discover available source data
-        ↓
-apply source-specific processing
-        ↓
-standardize horizontal and vertical references
-        ↓
-prioritize and stack measurements
-        ↓
-interpolate across multiple spatial scales
-        ↓
-generate the coastal DEM
-        ↓
-inspect provenance
-        ↓
-validate with independent observations
-        ↓
-reuse the workflow in another region
-```
-
----
-
-# Workshop takeaways
-
-## 1. Start with the scientific problem
-
-The goal is not simply to run a software package.
-
-The goal is to build a defensible coastal elevation model from the best available observations.
-
-## 2. Standardize the common workflow
-
-Bundles such as:
-
-```text
-coupling-bathy-topo
-```
-
-capture commonly useful data sources and processing choices in a reusable recipe.
-
-## 3. Add local knowledge when it improves the result
-
-The Newport and Sarasota examples use the same standard bundle, but each uses a different locally appropriate topobathymetric lidar survey.
-
-## 4. Treat different source datasets appropriately
-
-Different datasets may require different:
-
-- transformations
-- masks
-- filters
-- weights
-- processing steps
-
-A reproducible workflow should preserve those source-specific decisions.
-
-## 5. Match interpolation scale to data support
-
-Dense measurements can support fine-scale terrain information.
-
-Sparse observations require progressively broader interpolation.
-
-Multiresolution processing helps bring those different measurement densities together in a continuous surface.
-
-## 6. Keep provenance
-
-A DEM should not be a black box.
-
-We should be able to determine where the input data came from and how they contributed to the final surface.
-
-## 7. Validate independently
-
-Visual inspection is necessary but not sufficient.
-
-Independent observations such as ICESat-2 provide another way to evaluate the finished DEM and identify areas that may need further investigation.
-
-## 8. Reuse the workflow
-
-The most important outcome is not a single Newport or Sarasota DEM.
-
-It is a workflow that can be applied, inspected, evaluated, and refined for other coastal regions.
-
----
-
-:::{tip}
-## Where to go next
-
-Try a coastal region that matters to your own work.
-
-Start with:
-
-```text
-coupling-bathy-topo
-```
-
-inspect which data are available, and then decide whether additional local datasets or recipe changes would improve the result.
-
-The same workflow can become the starting point for a new coastal DEM rather than a one-off exercise.
 :::
 
 ---
 
-# Questions and discussion
+# The workflow we used today
 
-What would you change for your own study area?
+Across the workshop, we followed a repeatable pattern:
 
-Consider:
+```text
+define the study area
+        ↓
+start with a national coastal data recipe
+        ↓
+look for useful local data
+        ↓
+add local data to the recipe
+        ↓
+build the coastal DEM
+        ↓
+inspect the sources and processing
+        ↓
+evaluate with appropriate independent observations
+        ↓
+reuse the workflow somewhere else
+```
 
-- additional local datasets
-- different output resolution
-- another vertical datum
-- source priorities
-- masking requirements
-- interpolation behavior
-- validation data
-- repeatable production across many regions
+---
 
-These are the kinds of choices the Continuous DEMs framework is designed to make easier to express, reproduce, and revisit.
+# Final takeaway
+
+The most important outcome of the workshop is not the Newport DEM or the Sarasota DEM.
+
+It is the ability to start with a **reusable national-scale recipe**, add **local scientific knowledge**, and build a transparent workflow that can be applied to another coastal region.
+
+:::{tip}
+## Try your own study area
+
+For another U.S. coastal region:
+
+1. Define your bounds.
+2. Start with `coupling-bathy-topo`.
+3. Look in NOAA Digital Coast DAV for useful local lidar.
+4. Add the appropriate survey when it improves the recipe.
+5. Build, inspect, and evaluate the result.
+
+That is the same pattern we used for both Newport and Sarasota.
+:::
+
+---
+
+# Questions
+
+If you applied this workflow to your own region:
+
+> **What local dataset would you want to add first?**
