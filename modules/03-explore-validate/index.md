@@ -357,56 +357,96 @@ That modularity makes it easier to reuse or extend parts of the workflow later.
 
 ---
 
-# 5. What do the available validation observations sample?
+# 5. Evaluate the DEM with IVERT
 
-Next we will use **IVERT** to compare the DEM with independent ICESat-2 observations.
+So far, we have looked at:
 
-Before calculating or interpreting any statistics, we need to understand the validation coverage.
+- the finished Newport DEM
+- the hillshade
+- the spatial metadata showing where source elevation data contribute
 
-In this small Newport workshop area, the available observations primarily sample the **topographic portion** of the DEM.
+Those products help us understand **how the DEM was built**.
 
-That makes this a useful focused example of the validation workflow.
+Next, we want to ask a different question:
+
+> **How well does the finished DEM agree with independent elevation observations?**
+
+For that, we will use **IVERT**.
+
+IVERT provides a repeatable way to compare a DEM with independent observations and generate useful validation products.
+
+In this workshop, we will use available **ICESat-2 observations** as an independent check on the Newport DEM.
+
+Conceptually:
+
+```text
+finished DEM
+      +
+independent observations
+      ↓
+elevation differences
+      ↓
+statistics + spatial quality-control products
+      ↓
+better understanding of DEM performance
+```
 
 <!-- IMAGE PLACEHOLDER
-Highest-value IVERT figure:
+Suggested visual:
 
-Map showing the Newport DEM or hillshade with the available IVERT / ICESat-2
-validation observations overlaid.
+A simple IVERT concept diagram showing:
 
-This figure should make it visually obvious that the available observations
-are primarily terrestrial/topographic.
+Newport DEM
+     +
+ICESat-2 observations
+     ↓
+IVERT
+     ↓
+comparison statistics + spatial outputs
 
 Suggested caption:
-"Available independent IVERT observations in the Newport workshop area primarily sample the topographic portion of the DEM."
+"IVERT compares a DEM with independent observations to support quantitative and spatial evaluation."
 -->
 
 :::{important}
-## Predict the interpretation, not the error
+## Why use independent observations?
 
-Before running the comparison, look at the validation-coverage map.
+The measurements used to build a DEM tell us what data support the surface.
 
-Ask:
+Independent observations give us a separate reference for evaluating the finished result.
 
-> **What part of the Newport DEM will these observations actually evaluate?**
+Together, they answer two different questions:
 
-Do not try to predict where the largest errors will be.
+```text
+Spatial metadata:
+Where did the DEM elevations come from?
 
-Focus on the **domain being sampled**.
+IVERT:
+How does the finished DEM compare with independent observations?
+```
 :::
 
-:::{dropdown} Check your interpretation
+:::{dropdown} Why not just inspect the hillshade?
 
-For this workshop area, the available observations primarily provide an independent evaluation of the **topographic portion** of the DEM.
+Visual inspection is extremely useful for finding obvious artifacts, discontinuities, or unrealistic terrain.
 
-They do not provide equivalent independent coverage of:
+But a DEM can look reasonable and still contain vertical bias or other elevation differences.
 
-- Yaquina Bay bathymetry
-- offshore bathymetry
-- most submerged topobathymetric lidar
-- the entire land-to-seafloor DEM
+IVERT complements visual inspection by adding an independent, quantitative comparison.
 
-That is a limitation of the **available observations in this small AOI**, not of the IVERT workflow itself.
+The two approaches work best together:
+
+```text
+visual inspection
+        +
+independent validation
+        ↓
+stronger DEM evaluation
+```
+
 :::
+
+Now we will get the available independent observations for Newport and run the comparison.
 
 ---
 
@@ -625,10 +665,10 @@ If we wanted to independently evaluate the bathymetric portion of the Newport DE
 
 Examples could include:
 
+- ICESat-2 ATL24 data product
 - independent hydrographic soundings
 - withheld sonar observations
 - independent bathymetric lidar
-- other appropriate seafloor measurements not used to build the DEM
 
 The validation data should match the **domain we want to evaluate**.
 
