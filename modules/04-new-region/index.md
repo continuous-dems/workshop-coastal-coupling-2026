@@ -312,13 +312,13 @@ Newport used:
 
 ```bash
 globato build \
-  -R -124.1/-124/44.59/44.64 \
+  -R -124.10/-124.00/44.59/44.64 \
   -X 6:5 \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O newport \
-  -D newport_cudem \
-  --shared-cache coupling-shared-dir \
+  -D newport_dem \
+  --shared-cache shared/newport_data \
   coupling-bathy-topo \
   dav:survey_id=9693,weight=100
 ```
@@ -403,12 +403,14 @@ While Sarasota starts, compare the two builds.
 
 | Setting | Newport | Sarasota |
 |---|---|---|
-| Region | `-124.1/-124/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
+| Region | `-124.10/-124.00/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
 | National bundle | `coupling-bathy-topo` | `coupling-bathy-topo` |
 | Local DAV dataset | `9693` | `10196` |
+| Output directory | `newport_dem` | `sarasota_dem` |
+| Shared cache | `shared/newport_data` | `shared/sarasota_data` |
 | Resolution | ~1/9 arc-second | ~1/9 arc-second |
 | Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
-| DEM buffer settings | `-X 6:5` | `-X 6:5` |
+| Tile overlap / source-data buffer | `-X 6:5` | `-X 6:5` |
 
 :::{important}
 ## One-sentence challenge
