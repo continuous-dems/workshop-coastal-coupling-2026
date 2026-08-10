@@ -24,7 +24,7 @@ interpret the results in context
 
 The key question is:
 
-> **Which areas of the DEM are acccurate?**
+> **What part of the DEM are our validation observations actually testing?**
 
 ---
 
@@ -33,14 +33,14 @@ The key question is:
 The two primary workshop products are:
 
 ```text
-newport_cudem/newport_final.tif
-newport_cudem/newport_hs.tif
+newport_dem/newport_final.tif
+newport_dem/newport_hs.tif
 ```
 
 If your build has finished, run:
 
 ```bash
-ls -lh newport_cudem/newport_final.tif newport_cudem/newport_hs.tif
+ls -lh newport_dem/newport_final.tif newport_dem/newport_hs.tif
 ```
 
 :::{important}
@@ -75,8 +75,8 @@ for the remainder of Module 3."
 Open:
 
 ```text
-newport_cudem/newport_final.tif
-newport_cudem/newport_hs.tif
+newport_dem/newport_final.tif
+newport_dem/newport_hs.tif
 ```
 
 Use the hillshade first to get oriented.
@@ -140,7 +140,7 @@ The exact filename is based on the DEM tile or region, so yours may differ sligh
 First, find it:
 
 ```bash
-ls -lh newport_cudem/*_sm.gpkg
+ls -lh newport_dem/*_sm.gpkg
 ```
 
 :::{important}
@@ -164,13 +164,13 @@ The most useful way to inspect this product is to view the spatial metadata **on
 Use:
 
 ```text
-newport_cudem/newport_hs.tif
+newport_dem/newport_hs.tif
 ```
 
 as the background, and overlay:
 
 ```text
-newport_cudem/*_sm.gpkg
+newport_dem/*_sm.gpkg
 ```
 
 <!-- CODE PLACEHOLDER
@@ -187,8 +187,8 @@ Example placeholder:
 
 ```python
 # TODO: exact visualization code
-hillshade = "newport_cudem/newport_hs.tif"
-spatial_metadata = "newport_cudem/newport_n44x64_w124x10_sm.gpkg"
+hillshade = "newport_dem/newport_hs.tif"
+spatial_metadata = "newport_dem/newport_n44x64_w124x10_sm.gpkg"
 
 # display hillshade
 # overlay spatial metadata
@@ -383,7 +383,7 @@ Make sure the IVERT database contains the available ICESat-2 observations for Ne
 ivert database download \
   -ds 2022.01.01 \
   -de 2024.11.06 \
-  -- -124.1/-124/44.59/44.64
+  -- -124.10/-124.00/44.59/44.64
 ```
 
 These observations may already be available in the workshop environment.
@@ -410,7 +410,7 @@ Run:
 
 ```bash
 ivert validate \
-  newport_cudem/newport_final.tif \
+  newport_dem/newport_final.tif \
   -V navd88 \
   -n newport \
   -mc
@@ -418,7 +418,7 @@ ivert validate \
 
 | Option | Meaning |
 |---|---|
-| `newport_cudem/newport_final.tif` | DEM to evaluate |
+| `newport_dem/newport_final.tif` | DEM to evaluate |
 | `-V navd88` | Vertical datum of the DEM |
 | `-n newport` | Validation-run name |
 | `-mc` | Generate the configured validation products |
