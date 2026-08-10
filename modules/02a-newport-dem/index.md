@@ -314,13 +314,13 @@ Run:
 
 ```bash
 globato build \
-  -R -124.1/-124/44.59/44.64 \
+  -R -124.10/-124.00/44.59/44.64 \
   -X 6:5 \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O newport \
-  -D newport_cudem \
-  --shared-cache coupling-shared-dir \
+  -D newport_dem \
+  --shared-cache shared/newport_data \
   coupling-bathy-topo \
   dav:survey_id=9693,weight=100
 ```
@@ -363,7 +363,7 @@ Can you identify:
 
 | Question | Answer |
 |---|---|
-| Study area | `-R -124.1/-124/44.59/44.64` |
+| Study area | `-R -124.10/-124.00/44.59/44.64` |
 | Local dataset | `dav:survey_id=9693,weight=100` |
 | Resolution | `-E 0.1111111s` |
 | Reference system | `-P epsg:4269+5703` = NAD83 + NAVD88 |
@@ -375,8 +375,8 @@ Other important pieces are:
 |---|---|
 | `-X 6:5` | #cells to extend DEM beyound study area:input data buffer percentage |
 | `-O newport` | Output name |
-| `-D newport_cudem` | Processing/output directory |
-| `--shared-cache coupling-shared-dir` | Shared workshop source-data cache |
+| `-D newport_dem` | Processing/output directory |
+| `--shared-cache shared/newport_data` | Shared workshop source-data cache |
 
 :::
 
