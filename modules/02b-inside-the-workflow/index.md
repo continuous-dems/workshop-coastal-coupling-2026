@@ -32,16 +32,18 @@ A single workflow diagram showing:
 National + local data sources
         ↓
 Fetchez
+workflow + data orchestration
         ↓
 source-specific processing
-        ↓
-Transformez / reference-system standardization
-        ↓
-weighted stacking
-        ↓
-Globato multiresolution interpolation
-        ↓
-final DEM + hillshade
+   ↙                   ↘
+Transformez          Globato
+transformations   elevation tools
+   ↘                   ↙
+    stacked measurements
+            ↓
+    DEM interpolation
+            ↓
+    final DEM + hillshade
 
 Suggested caption:
 "Major stages in the Newport coastal DEM workflow."
@@ -134,7 +136,7 @@ If a particular source interests you, inspect it with:
 fetchez modules info MODULE_NAME
 ```
 
-For example, learn more about the USACE ehdyro module:
+For example, learn more about the USACE eHydro module:
 ```text
 fetchez modules info ehydro
 ```
@@ -161,7 +163,7 @@ local Newport topobathymetric lidar
 :::{tip}
 You do not need to explore every Fetchez module.
 
-The goal is simply to see that the individual data providers are accessible components that Globato can combine into a larger DEM recipe.
+The goal is simply to see that the individual data providers are accessible components that Fetchez can coordinate as part of a larger DEM recipe.
 :::
 
 As the terminal runs, watch for data being:
@@ -198,7 +200,7 @@ Can you recognize the name of **one dataset or provider** from the national bund
 Our command includes:
 
 ```text
---shared-cache coupling-shared-dir
+--shared-cache shared/newport_data
 ```
 
 The logic is simple:
@@ -216,7 +218,7 @@ For the workshop, this avoids unnecessary duplicate downloads.
 Your own Newport processing and output files are still written to:
 
 ```text
-newport_cudem/
+newport_dem/
 ```
 
 <!-- OPTIONAL VISUAL PLACEHOLDER
@@ -333,15 +335,15 @@ or:
 NAD83 + NAVD88
 ```
 
-You do not need to run the transformations manually here. Globato coordinates the transformations required by the recipe.
+You do not need to run the transformations manually here. Fetchez coordinates the workflow, using Transformez where transformations are required.
 
 :::{tip}
 This modular design is useful because the individual capabilities remain available on their own:
 
 ```text
-Fetchez      → discover and access data
-Transformez  → transform reference systems
-Globato      → coordinate the DEM workflow
+Fetchez      → orchestrate the recipe and data pipeline
+Transformez  → support reference-system transformations
+Globato      → provide elevation-specific DEM tools
 ```
 :::
 
@@ -519,8 +521,8 @@ When processing is complete, Globato writes the final DEM and supporting product
 The two primary workshop products are:
 
 ```text
-newport_cudem/newport_final.tif
-newport_cudem/newport_hs.tif
+newport_dem/newport_final.tif
+newport_dem/newport_hs.tif
 ```
 
 where:
@@ -545,7 +547,7 @@ Suggested caption:
 You can confirm the two main products with:
 
 ```bash
-ls -lh newport_cudem/newport_final.tif newport_cudem/newport_hs.tif
+ls -lh newport_dem/newport_final.tif newport_dem/newport_hs.tif
 ```
 
 Do not spend much time interpreting them yet.
