@@ -24,7 +24,7 @@ interpret the results in context
 
 The key question is:
 
-> **What part of the DEM are our validation observations actually testing?**
+> **Which areas of the DEM are acccurate?**
 
 ---
 
