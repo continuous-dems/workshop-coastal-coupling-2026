@@ -88,29 +88,78 @@ Just as we did for Newport, we will start with the nationally available sources 
 coupling-bathy-topo
 ```
 
-and then look for a useful **local topobathymetric lidar survey**.
+and then look for a useful **local topobathymetric lidar dataset**.
 
 Open NOAA Digital Coast DAV already focused on the Sarasota workshop area:
 
 [Open NOAA Digital Coast DAV for Sarasota](https://coast.noaa.gov/dataviewer/#/lidar/search/-9198602.505474905,3155893.0057734232,-9186314.531330857,3155893.0057734232,-9186314.531330857,3166415.89275869,-9198602.505474905,3166415.89275869,-9198602.505474905,3155893.0057734232)
 
 :::{important}
-## Your turn: find the survey
+## Your turn: find the local topobathymetric lidar
 
-Look only at the lidar datasets intersecting this small area.
+Look at the lidar datasets intersecting this small area.
 
-Find the survey that includes **topobathymetric lidar** and note its Digital Coast survey ID.
+Find the dataset that:
+
+1. overlaps our Sarasota study area
+2. contains **topobathymetric lidar**
+3. looks useful for improving a combined land-and-water DEM
+
+Select the dataset to open its details.
 :::
 
-Complete:
+## Find the DAV dataset ID
+
+The dataset details panel does not prominently display the numeric ID we need.
+
+Instead:
+
+1. Scroll down to **Bulk Download**.
+2. Click **Link to All Dataset Files**.
+3. A new page will open showing the files for that dataset.
+4. Look at the URL in your browser.
+
+Near the end of the URL, you will see a number like:
+
+```text
+.../10196/index.html
+      ↑
+  DAV dataset ID
+```
+
+That number is what we need.
+
+:::{note}
+DAV calls this the **dataset ID**.
+
+Globato/Fetchez uses the same number with the `dav` source as:
+
+```text
+survey_id=10196
+```
+:::
+
+Now complete:
 
 ```text
 dav:survey_id=____,weight=100
 ```
 
-:::{dropdown} Reveal the Sarasota survey
+:::{tip}
+## You do not need to download the files
 
-The Sarasota topobathymetric lidar we want is Digital Coast survey:
+DAV is helping us **discover and inspect** the local dataset.
+
+Once we know the dataset ID, Globato/Fetchez can access it through the `dav` source. You can close the Bulk Download page after identifying the number.
+:::
+
+:::{dropdown} Reveal the Sarasota dataset
+
+The dataset is:
+
+**2024 USACE FEMA Topobathy Lidar: Post Hurricane Milton, FL**
+
+Its DAV dataset ID is:
 
 ```text
 10196
@@ -122,12 +171,14 @@ So the source specification is:
 dav:survey_id=10196,weight=100
 ```
 
-Notice that the **workflow stayed the same**, but the locally appropriate lidar changed from:
+Compare that with Newport:
 
 ```text
-Newport:   survey_id=9693
-Sarasota:  survey_id=10196
+Newport:   dav:survey_id=9693,weight=100
+Sarasota:  dav:survey_id=10196,weight=100
 ```
+
+The DAV/Globato pattern stays the same. Only the locally appropriate dataset ID changes.
 
 :::
 
