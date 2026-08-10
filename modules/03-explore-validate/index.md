@@ -6,249 +6,214 @@ title: "3 - Explore and Evaluate the DEM"
 
 We now have a finished coastal DEM for Newport, Oregon.
 
-The next questions are:
+In this module, we will inspect the DEM, look at where its elevations came from, and use IVERT to evaluate it with independent ICESat-2 observations.
 
-> **Where did the DEM elevations come from?**
+Our workflow is:
 
-> **How can we use the underlying Continuous DEMs tools directly?**
+```text
+inspect the DEM
+      ↓
+inspect source provenance
+      ↓
+look at the available validation observations
+      ↓
+evaluate the sampled portion of the DEM
+      ↓
+interpret the results in context
+```
 
-> **How well does the finished DEM agree with independent observations?**
-
-In this module, we will inspect the supporting Globato outputs, use Fetchez and Transformez directly, and evaluate the Newport DEM with ICESat-2 observations using IVERT.
+> **The goal is not just to calculate an accuracy statistic. It is to understand what the validation observations are actually telling us about the DEM.**
 
 ---
 
-# Inspect the DEM provenance
+# 1. Explore the finished DEM
 
-A finished DEM should not be treated as a black box.
+Open:
 
-Globato produces supporting information that helps us understand:
+```text
+newport_cudem/newport_final.tif
+newport_cudem/newport_hs.tif
+```
 
-- which datasets were discovered
-- which datasets were actually used
-- where different sources contributed
-- how overlapping sources were prioritized
-- which areas relied more heavily on interpolation
-- what processing steps were applied
+Spend a minute exploring the surface.
 
-Look inside the Newport project directory:
+Look at:
+
+- Yaquina Bay
+- the entrance channel
+- the coastline
+- adjacent terrestrial terrain
+- nearshore bathymetry
+- transitions between detailed and smoother areas
+
+:::{important}
+## Pick one place to inspect
+
+Choose one feature that catches your attention.
+
+It might be:
+
+- a detailed topographic feature
+- the shoreline
+- the entrance channel
+- an area of smooth bathymetry
+- a transition between different-looking parts of the DEM
+
+Keep it in mind as we look at the source data.
+:::
+
+---
+
+# 2. Where did the DEM elevations come from?
+
+A finished DEM should not be a black box.
+
+Look inside:
 
 ```text
 newport_cudem/
 ```
 
-In addition to the final DEM and hillshade, you may see supporting products related to:
+Globato creates supporting information that can help us determine:
 
-```text
-provenance
-source masks
-audit information
-download reports
-processing outputs
-```
+- which source datasets were used
+- where different sources contributed
+- where sources overlapped
+- where interpolation played a larger role
 
-The exact filenames and directory structure may vary as the software evolves, but the goal is the same:
+Exact filenames may evolve, but the scientific question stays the same:
 
-> **We should be able to trace the finished DEM back to the source datasets and processing decisions that produced it.**
+> **What observations support the DEM at a particular location?**
 
-## Questions to explore
+## Your turn: trace one source
 
-As we inspect these outputs, consider:
+Try to identify at least one area supported by:
 
-1. Where does the Newport topobathymetric lidar contribute?
-2. Where do NOAA hydrographic data contribute?
-3. Where does terrestrial elevation data contribute?
-4. Where do lower-priority supplemental datasets contribute?
-5. Where does the DEM appear to rely more heavily on interpolation?
-6. Are there places where several datasets overlap?
+- the Newport topobathymetric lidar
+- NOAA hydrographic data
+- terrestrial elevation data
+- interpolation between measurements
 
-This provenance information is especially useful when something in the DEM looks unusual.
+Then return to the feature you picked above.
 
-Instead of asking only:
-
-> "Does this area look wrong?"
-
-we can also ask:
-
-> "Which source data and processing steps contributed here?"
+> **What appears to support the DEM there?**
 
 ---
 
-# The tools behind the workflow
+# 3. Look under the hood
 
-So far, Globato has coordinated the complete workflow for us.
-
-At a high level:
+Globato coordinated the complete build, but the underlying tools can also be used directly:
 
 ```text
-Fetchez
-   ↓
-data discovery and access
-
-Transformez
-   ↓
-reference-system transformations
-
-Globato
-   ↓
-DEM workflow orchestration and generation
-
-IVERT
-   ↓
-independent DEM evaluation
+Fetchez      → data discovery and access
+Transformez  → reference-system transformations
+Globato      → DEM generation
+IVERT        → independent DEM evaluation
 ```
 
-These tools can also be used independently.
+## Explore Fetchez
 
-We will briefly try Fetchez and Transformez directly before evaluating the finished DEM.
-
----
-
-# Use Fetchez directly
-
-Fetchez provides a common interface for discovering, inspecting, downloading, and preparing elevation data from many different providers.
-
-## List available data modules
-
-Run:
+List the available data modules:
 
 ```bash
 fetchez modules list
 ```
 
-This shows the data-source modules currently available through Fetchez.
+Choose one source that interests you and inspect it:
 
-Different modules can represent very different providers and data types, but Fetchez gives us a standardized interface for working with them.
+```bash
+fetchez modules info MODULE_NAME
+```
 
-## Inspect the coastal bundle
-
-We can also inspect the same bundle used to build the Newport DEM:
+Now inspect the national coastal bundle used for Newport:
 
 ```bash
 fetchez modules bundles info coupling-bathy-topo
 ```
 
-This shows the predefined source recipe that Globato used as the starting point for our coastal DEM.
-
-Recall that we then added the Newport-specific topobathymetric lidar separately:
+Recall that we added the locally selected Digital Coast survey:
 
 ```text
 dav:survey_id=9693,weight=100
 ```
 
-The combination was:
+So the Newport recipe is:
 
 ```text
-standard coastal bundle
+national coastal data
         +
-Newport-specific topobathymetric lidar
-        ↓
-Newport DEM recipe
+local Newport topobathymetric lidar
 ```
-
-## Inspect an individual source
-
-For example, inspect the USACE eHydro source:
-
-```bash
-fetchez modules info ehydro
-```
-
-This lets us examine the source independently of the larger Globato workflow.
-
-:::{tip}
-The point of this exercise is not to learn every Fetchez command.
-
-The important idea is that the same data-discovery and access logic used automatically by Globato can also be used directly when you need individual datasets.
-:::
 
 ---
 
-# Use Transformez directly
+## Explore Transformez
 
-Coastal elevation datasets are frequently referenced to different vertical datums.
-
-Before combining them, their elevations need to be expressed in a common reference system.
-
-Transformez provides the vertical-transformation functionality used by the Continuous DEMs framework.
-
-Start by inspecting the transformations available in the installed version:
+List the available transformations:
 
 ```bash
 transformez list
 ```
 
-During the Newport workflow, source datasets were transformed as needed into the requested output reference:
-
-```text
-Horizontal: NAD83
-Vertical:   NAVD88
-```
-
-specified as:
+Our Newport DEM is requested in:
 
 ```text
 epsg:4269+5703
 ```
 
-Conceptually:
+or:
 
 ```text
-source elevation
-        ↓
-identify source reference
-        ↓
-calculate vertical transformation
-        ↓
-apply elevation offset
-        ↓
-output elevation in requested datum
+NAD83 + NAVD88
 ```
 
-This is particularly important in coastal environments, where datasets may be referenced to:
+Source datasets may begin in other horizontal or vertical reference systems, so they must be standardized before they are combined.
 
-- NAVD88
-- tidal datums
-- ellipsoidal heights
-- other geodetic vertical references
+:::{dropdown} Why does the vertical datum matter?
 
-:::{note}
-A vertical datum transformation changes the reference surface used to describe elevation.
+The same physical location can have different numerical elevation values when referenced to different vertical surfaces.
 
-It does **not** change the physical terrain being represented.
+A vertical transformation changes the **reference used to describe the elevation**. It does not change the physical terrain or seafloor.
+
+That standardization is essential before elevations from different sources can be stacked together.
 :::
 
 ---
 
-# Why independently evaluate the DEM?
+# 4. What do the available validation observations sample?
 
-Visual inspection is important, but a DEM can look smooth and realistic while still containing significant vertical errors.
+IVERT provides an independent way to evaluate the DEM using available ICESat-2 observations.
 
-We therefore want to compare the finished surface with elevation observations that were **not used to build the DEM**.
+In this small Newport workshop area, the available observations primarily sample the **topographic portion** of the DEM.
 
-For this workshop, we will use ICESat-2 observations through **IVERT**.
+That makes this a useful focused example of the validation workflow.
 
-The basic idea is:
+:::{important}
+## Look at the validation coverage first
 
-```text
-finished Newport DEM
-          +
-independent ICESat-2 elevations
-          ↓
-elevation differences
-          ↓
-statistics + spatial error patterns
-```
+Before interpreting any statistics, ask:
 
-Because the validation observations are independent of the source data used to generate the DEM, they provide an external check on the finished surface.
+- Where are the independent observations located?
+- Are they on land or in the water?
+- Which part of the DEM are they sampling?
+
+The spatial coverage of the observations tells us how to interpret the validation results.
+:::
+
+:::{dropdown} What does that mean for Newport?
+
+For this workshop area, the available IVERT observations primarily provide an independent check of the **topographic portion** of the DEM.
+
+Because the observations are concentrated on land, the resulting statistics mainly describe that sampled topographic domain.
+
+Other independent observations would be needed to evaluate the bathymetric portion with the same level of confidence.
+:::
 
 ---
 
-# Download the ICESat-2 validation data
+# 5. Get the independent observations
 
-First, make sure the ICESat-2 validation database contains observations for our Newport region.
-
-Run:
+Make sure the IVERT database contains the available ICESat-2 observations for Newport:
 
 ```bash
 ivert database download \
@@ -257,15 +222,13 @@ ivert database download \
   -- -124.1/-124/44.59/44.64
 ```
 
-This requests ICESat-2 observations covering the Newport region for the specified date range.
-
-For the workshop environment, these data may already be available locally.
+These observations may already be available in the workshop environment.
 
 ---
 
-# Validate the Newport DEM
+# 6. Run the IVERT comparison
 
-Now evaluate the finished DEM:
+Run:
 
 ```bash
 ivert validate \
@@ -275,118 +238,110 @@ ivert validate \
   -mc
 ```
 
-The important pieces are:
-
 | Option | Meaning |
 |---|---|
 | `newport_cudem/newport_final.tif` | DEM to evaluate |
 | `-V navd88` | Vertical datum of the DEM |
-| `-n newport` | Name for the validation run |
+| `-n newport` | Validation-run name |
 | `-mc` | Generate the configured validation products |
 
-IVERT compares the DEM elevations with the available ICESat-2 observations and generates statistical and spatial quality-control products.
+IVERT compares the DEM elevations with the available independent observations and produces statistical and spatial quality-control products.
 
 ---
 
-# What should we look at?
+# 7. Inspect the validation coverage
 
-The validation outputs can tell us both:
+Before focusing on RMSE or other summary statistics, look at where the validation observations occur.
 
-> **How large are the elevation differences?**
+Ask:
 
-and:
+1. How many observations are available?
+2. Where are they located?
+3. What part of the DEM do they sample?
 
-> **Where do those differences occur?**
+:::{tip}
+## Coverage gives the statistics context
 
-Useful summary statistics may include:
+Validation statistics are most useful when interpreted together with the location and type of the independent observations.
+
+Here, the available observations primarily sample the terrestrial portion of the Newport DEM.
+:::
+
+---
+
+# 8. Look at the topographic comparison
+
+Now inspect the available elevation-difference statistics.
+
+Depending on the IVERT output, these may include:
 
 - number of validation observations
-- mean error or bias
-- root mean square error (RMSE)
+- mean elevation difference or bias
+- RMSE
 - spread of elevation differences
-- other distribution statistics
 
-But a single summary statistic does not tell the whole story.
+These provide an independent evaluation of the portion of the DEM sampled by the available ICESat-2 observations.
 
-## Spatial error patterns
+## Your turn: summarize the result
 
-A DEM could have an acceptable overall RMSE while still containing localized areas with large errors.
+Complete:
 
-That is why spatial validation products are particularly useful.
+> **For the available topographic validation observations, the Newport DEM __________.**
 
-Look for:
+Then add:
 
-- clusters of larger residuals
-- differences between land and water
-- errors near the coastline
-- areas with sparse source measurements
-- areas dominated by interpolation
-- unusual terrain features
-- regions associated with a particular source dataset
+> **These observations primarily evaluate __________.**
+
+This keeps the interpretation tied directly to the validation coverage.
 
 ---
 
-# Connect validation back to provenance
+# 9. Connect validation back to the source data
 
-This is where the supporting Globato outputs become especially valuable.
+Much of the topographic portion of the Newport DEM is supported by the USGS national elevation data included in our standard recipe.
 
-If IVERT identifies an area with relatively large elevation differences, we can return to the provenance information and ask:
+Return to the Globato source/provenance products.
 
-```text
-Where is the error?
-        ↓
-Which source contributed there?
-        ↓
-How dense were the observations?
-        ↓
-Was the area mostly measured or interpolated?
-        ↓
-Was special preprocessing applied?
-```
+Ask:
 
-This turns validation into more than a single accuracy number.
+> **Which source data support the locations sampled by the IVERT observations?**
 
-It becomes a way to understand how the input data and processing choices affected the final surface.
+This helps connect the independent evaluation back to the data that contributed to the DEM.
 
----
-
-# Think critically about the result
-
-As you inspect the validation products, consider:
-
-1. Where are the largest elevation differences?
-2. Are the errors spatially clustered?
-3. Do larger errors coincide with sparse measurement coverage?
-4. Are there differences between terrestrial and bathymetric areas?
-5. Do any features visible in the hillshade correspond to validation errors?
-6. Does the source provenance help explain those locations?
-7. Would you change anything in the input recipe based on what you see?
-
-:::{important}
-## Validation is part of the workflow
-
-The goal is not simply:
+:::{tip}
+A useful validation workflow is:
 
 ```text
-build DEM → done
+Where are the independent observations?
+        ↓
+What part of the DEM do they sample?
+        ↓
+Which source data support that area?
+        ↓
+What do the comparison statistics tell us?
 ```
 
-A more useful workflow is:
-
-```text
-build DEM
-    ↓
-inspect
-    ↓
-validate
-    ↓
-understand errors
-    ↓
-refine data or processing when needed
-```
-
-A reproducible DEM workflow makes that cycle much easier to repeat.
+IVERT makes it possible to connect independent observations with the DEM in a repeatable evaluation workflow.
 :::
+
+---
+
+# 10. What would we need to evaluate the bathymetry?
+
+If we wanted to independently evaluate the bathymetric portion of the Newport DEM, we would need appropriate independent observations in the water.
+
+Examples might include:
+
+- independent hydrographic soundings
+- withheld sonar observations
+- independent bathymetric lidar
+- other appropriate seafloor measurements not used to build the DEM
+
+The validation observations should match the **domain we want to evaluate**.
+
+That leads to an important workshop takeaway:
+
+> **Validation is most informative when we interpret the results in the context of the observations that are available.**
 
 ---
 
@@ -394,18 +349,16 @@ A reproducible DEM workflow makes that cycle much easier to repeat.
 
 At this point, we have:
 
-- built a high-resolution coastal DEM from multiple datasets
-- used a standardized coastal data bundle
-- added a high-quality local dataset
-- followed source-specific processing and multiresolution interpolation
-- inspected provenance and supporting outputs
-- used Fetchez directly
-- examined the role of Transformez
-- independently evaluated the finished surface with ICESat-2
+- inspected the finished Newport DEM
+- connected the surface back to its source data
+- explored Fetchez and Transformez directly
+- used IVERT for independent DEM evaluation
+- inspected the validation coverage before interpreting statistics
+- recognized that the available observations primarily sample the topographic portion
+- connected the IVERT observations back to the source data they are evaluating
 
-The final question is:
+The next question is:
 
-> **Can we apply the same workflow somewhere else without rebuilding the entire process from scratch?**
+> **Can we reuse the same workflow somewhere else with different local data?**
 
-That is what we will do in the next module.
-
+Next we will move to **Sarasota, Florida**.
