@@ -282,82 +282,7 @@ It is to learn how to use the spatial metadata to interpret the finished DEM.
 
 ---
 
-# 4. Explore the tools directly
-
-Globato coordinated the build, but the individual tools can also be inspected directly.
-
-## Fetchez
-
-List the available data modules:
-
-```bash
-fetchez modules list
-```
-
-Inspect the coastal bundle again:
-
-```bash
-fetchez modules bundles info coupling-bathy-topo
-```
-
-If a particular source interests you:
-
-```bash
-fetchez modules info MODULE_NAME
-```
-
-Recall that we also added the Newport DAV lidar directly:
-
-```text
-dav:survey_id=9693,weight=100
-```
-
-So the source recipe was:
-
-```text
-national coastal data
-        +
-local Newport topobathymetric lidar
-```
-
----
-
-## Transformez
-
-List the available transformations:
-
-```bash
-transformez list
-```
-
-Our Newport DEM was requested in:
-
-```text
-epsg:4269+5703
-```
-
-or:
-
-```text
-NAD83 + NAVD88
-```
-
-:::{dropdown} Why inspect the individual tools?
-
-The workshop uses Globato to coordinate the complete workflow, but the framework is modular.
-
-Exploring Fetchez and Transformez separately helps show that:
-
-- data access is its own capability
-- reference-system transformation is its own capability
-- Globato combines those capabilities into a DEM-building recipe
-
-That modularity makes it easier to reuse or extend parts of the workflow later.
-:::
-
----
-
-# 5. Evaluate the DEM with IVERT
+# 4. Evaluate the DEM with IVERT
 
 So far, we have looked at:
 
@@ -365,7 +290,7 @@ So far, we have looked at:
 - the hillshade
 - the spatial metadata showing where source elevation data contribute
 
-Those products help us understand **how the DEM was built**.
+Together, those products help us understand **how the DEM was built and what measurements support the surface**.
 
 Next, we want to ask a different question:
 
@@ -450,7 +375,7 @@ Now we will get the available independent observations for Newport and run the c
 
 ---
 
-# 6. Get the independent observations
+# 5. Get the independent observations
 
 Make sure the IVERT database contains the available ICESat-2 observations for Newport:
 
@@ -479,7 +404,7 @@ Do not include a long terminal dump.
 
 ---
 
-# 7. Run the IVERT comparison
+# 6. Run the IVERT comparison
 
 Run:
 
@@ -525,7 +450,7 @@ Avoid making participants inspect a large output tree.
 
 ---
 
-# 8. Look at validation coverage first
+# 7. Look at validation coverage first
 
 Before focusing on RMSE or any other summary statistic, inspect the validation observations spatially.
 
@@ -559,7 +484,7 @@ For Newport, those observations primarily sample the terrestrial/topographic dom
 
 ---
 
-# 9. Now look at the elevation differences
+# 8. Now look at the elevation differences
 
 Inspect the available IVERT comparison statistics.
 
@@ -613,7 +538,7 @@ That keeps the conclusion aligned with the evidence.
 
 ---
 
-# 10. Connect validation back to spatial metadata
+# 9. Connect validation back to spatial metadata
 
 Much of the terrestrial portion of the Newport DEM is supported by the USGS national elevation data included in our standard coastal recipe.
 
@@ -659,16 +584,16 @@ One example is enough to demonstrate the reasoning process.
 
 ---
 
-# 11. What would we need to evaluate the bathymetry?
+# 10. What would we need to evaluate the bathymetry?
 
 If we wanted to independently evaluate the bathymetric portion of the Newport DEM, we would need appropriate independent observations in the water.
 
 Examples could include:
 
-- ICESat-2 ATL24 data product
 - independent hydrographic soundings
 - withheld sonar observations
 - independent bathymetric lidar
+- other appropriate seafloor measurements not used to build the DEM
 
 The validation data should match the **domain we want to evaluate**.
 
@@ -694,7 +619,6 @@ At this point, we have:
 
 - inspected the finished Newport DEM
 - used the spatial metadata to connect the finished surface back to its source data
-- explored Fetchez and Transformez directly
 - used IVERT for independent DEM evaluation
 - inspected validation coverage before interpreting statistics
 - recognized that the available Newport observations primarily sample the topographic portion
