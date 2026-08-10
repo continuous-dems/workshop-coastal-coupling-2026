@@ -103,6 +103,48 @@ Different providers may use different:
 
 Fetchez gives the larger workflow a common way to access those sources.
 
+## Explore Fetchez
+
+The Newport build is already using Fetchez behind the scenes.
+
+Open a **second terminal** so the Globato build can continue running, then list the available data modules:
+
+```bash
+fetchez modules list
+```
+
+You can inspect the national coastal bundle used for Newport:
+
+```bash
+fetchez modules bundles info coupling-bathy-topo
+```
+
+If a particular source interests you, inspect it with:
+
+```bash
+fetchez modules info MODULE_NAME
+```
+
+Recall that we also added the Newport Digital Coast lidar directly:
+
+```text
+dav:survey_id=9693,weight=100
+```
+
+So the Newport source recipe combines:
+
+```text
+national coastal data
+        +
+local Newport topobathymetric lidar
+```
+
+:::{tip}
+You do not need to explore every Fetchez module.
+
+The goal is simply to see that the individual data providers are accessible components that Globato can combine into a larger DEM recipe.
+:::
+
 As the terminal runs, watch for data being:
 
 - discovered
@@ -252,6 +294,38 @@ Watch the terminal for transformation steps.
 
 This is where **Transformez** and the broader transformation framework support the workflow.
 
+## Explore Transformez
+
+In your second terminal, list the available transformations:
+
+```bash
+transformez list
+```
+
+Our Newport DEM is requested in:
+
+```text
+epsg:4269+5703
+```
+
+or:
+
+```text
+NAD83 + NAVD88
+```
+
+You do not need to run the transformations manually here. Globato coordinates the transformations required by the recipe.
+
+:::{tip}
+This modular design is useful because the individual capabilities remain available on their own:
+
+```text
+Fetchez      → discover and access data
+Transformez  → transform reference systems
+Globato      → coordinate the DEM workflow
+```
+:::
+
 <!-- TERMINAL SCREENSHOT PLACEHOLDER
 Suggested figure:
 A short cropped terminal excerpt showing a representative transformation
@@ -380,6 +454,14 @@ Bathymetric observations may be much farther apart:
 ```
 
 A single interpolation scale is not ideal for both situations.
+
+The Newport build uses:
+
+```text
+-X 6:5
+```
+
+for multiresolution processing.
 
 The key idea is:
 
@@ -522,4 +604,3 @@ Next:
 
 > **Module 3 — Explore and Evaluate the DEM**
 :::
-
