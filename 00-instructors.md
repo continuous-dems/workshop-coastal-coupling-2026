@@ -5,8 +5,9 @@
 
 ### Christopher Amante
 ### Matthew Love
-### Elliot Lim
 ### Michael MacFerrin
+### Elliot Lim
+
 
 ---
 
