@@ -210,7 +210,7 @@ Suggested caption:
 Near the end of the URL, you will see the dataset number:
 
 ```text
-.../9693/index.html
+.../####/index.html
      ↑
  DAV dataset ID
 ```
@@ -220,7 +220,7 @@ DAV calls this the **dataset ID**.
 Globato/Fetchez uses the same number with the `dav` source as:
 
 ```text
-survey_id=9693
+survey_id=####
 ```
 
 So try completing:
