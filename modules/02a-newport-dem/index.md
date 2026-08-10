@@ -60,7 +60,7 @@ Depending on the location, the bundle may include sources such as:
 
 | Source | What it contributes |
 |---|---|
-| **USGS The National Map (TNM)** | Topographic elevation data, including lidar-derived products |
+| **The National Map (TNM)** | Topographic elevation data, including lidar-derived products |
 | **NOAA hydrographic surveys** | Modern measured bathymetry, including BAG and point-based survey data |
 | **USACE eHydro** | Hydrographic survey data from maintained navigation channels and waterways |
 | **NOAA nautical charts** | Supplemental chart-derived bathymetric information |
@@ -103,15 +103,45 @@ Open NOAA's **Digital Coast Data Access Viewer (DAV)** already focused on our Ne
 [Open NOAA Digital Coast DAV for Newport](https://coast.noaa.gov/dataviewer/#/lidar/search/-13815132.111459369,5557767.363023302,-13802740.194591334,5557767.363023302,-13802740.194591334,5565765.68390708,-13815132.111459369,5565765.68390708,-13815132.111459369,5557767.363023302)
 
 :::{important}
-## Find the survey
+## Find the local topobathymetric lidar
 
 Look at the lidar datasets intersecting this small area.
 
-Your goal is simple:
+Your goal is to find the dataset that:
 
-> **Find the topobathymetric lidar survey that you would add to the Newport coastal DEM.**
+1. overlaps our Newport DEM region
+2. contains **topobathymetric lidar**
+3. looks useful for improving a combined land-and-water DEM
 
-When you find it, note its **Digital Coast survey ID**.
+Select the dataset to open its details.
+:::
+
+## Find the DAV dataset ID
+
+The dataset details panel does not prominently display the numeric ID we need, so use the **Bulk Download** link:
+
+1. Scroll down in the dataset details.
+2. Find **Bulk Download**.
+3. Click **Link to All Dataset Files**.
+4. A new page will open showing the files for that dataset.
+5. Look at the URL in your browser.
+
+Near the end of the URL, you will see the dataset number:
+
+```text
+.../9693/index.html
+     ↑
+ DAV dataset ID
+```
+
+:::{note}
+DAV calls this the **dataset ID**.
+
+Globato/Fetchez uses that same number with the `dav` source as:
+
+```text
+survey_id=9693
+```
 :::
 
 Use the ID you found to complete:
@@ -120,9 +150,21 @@ Use the ID you found to complete:
 dav:survey_id=____,weight=100
 ```
 
-:::{dropdown} Reveal the survey
+:::{tip}
+## You do not need to download the files
 
-The Newport topobathymetric lidar is Digital Coast survey:
+We are using DAV to **discover and inspect** the local lidar dataset.
+
+Once we know the dataset ID, Globato/Fetchez can access the data through the `dav` source. You can close the Bulk Download page after identifying the number.
+:::
+
+:::{dropdown} Reveal the Newport dataset
+
+The dataset is:
+
+**2020 USACE NCMP Topobathy Lidar: Oregon**
+
+Its DAV dataset ID is:
 
 ```text
 9693
