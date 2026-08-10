@@ -512,7 +512,7 @@ Suggested caption:
 
 The most important result of the workshop is not a single Newport or Sarasota DEM.
 
-It is the pattern:
+It is the framework:
 
 > **Start with a reusable national-scale recipe, add locally appropriate data, and keep the workflow transparent enough to inspect and evaluate.**
 
@@ -539,3 +539,22 @@ That is the same workflow we used for both Newport and Sarasota.
 If you applied this workflow to your own region:
 
 > **What local dataset would you want to add first?**
+
+# Want to learn more? Join the Continuous-DEMs community!
+
+Have a dataset we should support?  
+Want to request a feature, suggest a new method, or ask a question?
+
+Join us on **Zulip**:
+
+[Join the CUDEM Zulip community](https://cudem.zulipchat.com/)
+
+We would love to hear how you are using the tools and what would make them more useful.
+
+## Want to contribute code?
+
+Continuous-DEMs is proudly open source, and we would love community contributions!
+
+[Explore Continuous-DEMs on GitHub](https://github.com/continuous-dems)
+
+If you are new to contributing to an open-source project, we are happy to help walk you through the process!
