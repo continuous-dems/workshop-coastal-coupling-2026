@@ -6,40 +6,96 @@ title: "1 - Getting Started"
 
 Welcome to the **NOAA NCEI/CIRES Coastal DEM Workshop**.
 
-During this workshop, we will use a hosted Openscapes JupyterHub environment to build, inspect, and evaluate a high-resolution coastal digital elevation model (DEM) for Newport, Oregon.
+Today we will use a hosted Openscapes JupyterHub environment to build and explore a high-resolution coastal DEM for **Newport, Oregon**, then reuse the same workflow for a second coastal region.
 
-All of the software required for the workshop is already installed.
+The workshop path is:
 
-## Open JupyterHub
+```text
+get connected
+      ↓
+build the Newport DEM
+      ↓
+look inside the workflow
+      ↓
+explore and evaluate the result
+      ↓
+reuse the recipe in Sarasota
+```
 
-1. Open the workshop JupyterHub link provided by the instructors.
-2. Enter the workshop login information.
-3. Start your JupyterHub server.
-4. Wait for JupyterLab to open.
+The goal of this first module is simple:
+
+> **Get everyone into JupyterLab, open a terminal, and confirm that the workshop tools are ready.**
+
+---
+
+# 1. Open the workshop JupyterHub
+
+Open the JupyterHub link provided by the instructors.
+
+<!-- IMAGE PLACEHOLDER
+Suggested figure: screenshot of the workshop JupyterHub login / server launch page.
+Caption: "Open the workshop JupyterHub and start your server."
+-->
+
+1. Sign in using the workshop instructions.
+2. Start your JupyterHub server.
+3. Wait for **JupyterLab** to open.
+
+<!-- TODO: Add the exact server/profile name here once finalized.
+Example wording:
+"Choose the **[PROFILE NAME]** server option for this workshop."
+-->
 
 :::{tip}
-Starting the JupyterHub server may take a few minutes. We will introduce the workshop and Continuous DEMs while everyone is connecting.
+Starting the server may take a few minutes.
+
+We will introduce the workshop while everyone is connecting.
 :::
 
-## Open a terminal
+:::{important}
+## Success check
+
+You are ready for the next step when you can see the JupyterLab interface.
+:::
+
+---
+
+# 2. Open a terminal
+
+We will run the workshop commands from a Linux terminal inside JupyterLab.
+
+<!-- IMAGE PLACEHOLDER
+Suggested figure: screenshot of the JupyterLab Launcher with Terminal highlighted.
+Caption: "Open a Terminal from the JupyterLab Launcher."
+-->
 
 In JupyterLab:
 
 1. Click the **+** button to open the Launcher.
 2. Under **Other**, select **Terminal**.
 
-You should now have a Linux command-line terminal.
+You should now see a command prompt.
 
-## Confirm the workshop tools
+:::{important}
+## Success check
 
-The workshop environment includes the primary Continuous DEMs tools:
+You should be able to click in the terminal and see a blinking cursor at the command prompt.
+:::
 
-- **Fetchez** — source-data discovery, access, and preprocessing
-- **Transformez** — vertical datum transformations
-- **Globato** — reproducible DEM-generation workflows
-- **IVERT** — independent DEM evaluation using ICESat-2
+---
 
-You can confirm that the tools are available with:
+# 3. Confirm the workshop tools
+
+The workshop environment already includes the main tools we will use:
+
+| Tool | Role in the workshop |
+|---|---|
+| **Fetchez** | Discover and access elevation data |
+| **Transformez** | Support horizontal and vertical reference transformations |
+| **Globato** | Coordinate and build the coastal DEM |
+| **IVERT** | Evaluate the DEM with independent observations |
+
+Run:
 
 ```bash
 fetchez --version
@@ -48,39 +104,67 @@ globato --version
 ivert --version
 ```
 
-## Workshop files
+:::{important}
+## Success check
 
-The Newport exercise uses a YAML recipe named:
+Each command should print a version number.
 
-```text
-newport.yaml
+If all four commands work, **do not install or update anything** during the workshop. The environment is already configured for the exercises.
+:::
+
+:::{dropdown} If a command is not found
+
+Do not try to fix the environment with `pip install`.
+
+Let an instructor know which command failed so we can keep your workshop environment consistent with everyone else's.
+:::
+
+---
+
+# 4. Get oriented in your workspace
+
+Run:
+
+```bash
+pwd
+ls
 ```
 
-The workflow will also use:
+`pwd` shows your current working directory.
 
-```text
-shared_data/
+`ls` shows the files and directories available there.
+
+You do not need to create the Newport DEM yet. We will start the build together in **Module 2**.
+
+<!-- TODO: If participants need to change into a specific workshop directory,
+add the exact `cd ...` command here.
+
+Example:
+
+```bash
+cd [WORKSHOP_DIRECTORY]
 ```
+-->
 
-for cached source data and:
+<!-- TODO: Add a one-line shared-cache check here if you want participants
+to verify the staged workshop data before Module 2. Use the exact path that
+will exist in the deployed JupyterHub environment. -->
 
-```text
-dems/
-```
+---
 
-in your home directory for DEM processing and outputs.
+# 5. What are we going to build?
 
-For this workshop, approximately 5–10 GB of downloaded source data and supporting files have been staged in shared storage. This avoids having every participant download a separate copy of the same source data.
+Our main study area is **Newport, Oregon**, including Yaquina Bay, the entrance channel, nearby coastal waters, and adjacent topography.
 
-If a required source were not already available in the shared cache, the workflow would normally download it automatically.
+<!-- IMAGE PLACEHOLDER
+High-value figure: a map or screenshot showing the Newport workshop AOI.
+Include the bounding box and enough coastline context to orient participants.
 
-Your processing and outputs will still be created in your own working directory.
+Suggested caption:
+"Newport workshop study area around Yaquina Bay, Oregon."
+-->
 
-## What are we going to build?
-
-Our study area is **Newport, Oregon**, including the Yaquina Bay coastal region.
-
-The region of interest is:
+The region is:
 
 ```text
 West:  -124.10
@@ -89,30 +173,89 @@ South:   44.59
 North:   44.64
 ```
 
-We will generate a **1/9-arc-second coastal DEM** referenced horizontally to NAD83 and vertically to NAVD88.
-
-During the workshop, we will follow the workflow from:
+We will build an approximately **1/9-arc-second** coastal DEM using:
 
 ```text
-source-data discovery
-        ↓
-source-specific processing
-        ↓
-horizontal and vertical standardization
-        ↓
-data weighting and stacking
-        ↓
-multiresolution interpolation
-        ↓
-final coastal DEM
-        ↓
-provenance and quality control
-        ↓
-independent ICESat-2 evaluation
+Horizontal: NAD83
+Vertical:   NAVD88
 ```
 
-:::{tip}
-### Ready?
+represented in the workflow as:
 
-If you can see JupyterLab, open a terminal, and see `newport.yaml`, you are ready to continue.
+```text
+epsg:4269+5703
+```
+
+You do not need to memorize these settings. They will appear in the build command in Module 2.
+
+---
+
+# 6. The workshop idea
+
+We are not starting from a blank DEM recipe.
+
+We will:
+
+```text
+start with strong nationally available coastal data
+        ↓
+look for useful local data
+        ↓
+add local knowledge where it improves the recipe
+        ↓
+build the DEM
+        ↓
+inspect how the workflow used the data
+        ↓
+evaluate the result
+        ↓
+reuse the approach in another region
+```
+
+For Newport, we will use NOAA Digital Coast to find a locally useful **topobathymetric lidar dataset** and add it to the national-scale recipe.
+
+Later, we will repeat the same process in **Sarasota, Florida**.
+
+---
+
+:::{important}
+# Ready?
+
+Before moving on, confirm that:
+
+- [ ] JupyterLab is open.
+- [ ] You have a terminal open.
+- [ ] `fetchez --version` works.
+- [ ] `transformez --version` works.
+- [ ] `globato --version` works.
+- [ ] `ivert --version` works.
+
+If those are all true, you are ready for **Module 2 — Build the Newport DEM**.
+:::
+
+---
+
+:::{dropdown} Quick troubleshooting
+
+**My JupyterHub server is still starting**
+
+Give it another minute. If it does not open, let an instructor know.
+
+**I cannot find Terminal**
+
+Open the JupyterLab Launcher with the **+** button and look under **Other**.
+
+**One of the version commands fails**
+
+Do not install or update the package yourself during the workshop. Show the error to an instructor.
+
+**I am not sure which directory I am in**
+
+Run:
+
+```bash
+pwd
+```
+
+We will make sure everyone is in the correct location before starting the Newport build.
 :::
