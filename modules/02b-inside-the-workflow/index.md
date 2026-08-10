@@ -63,17 +63,23 @@ That is more useful than trying to understand every terminal message.
 
 # The tools working together
 
-Three Continuous DEMs tools support the build:
+Three Continuous-DEMs tools support the build:
 
 | Tool | Main role |
 |---|---|
-| **Fetchez** | Discover and access source elevation data |
-| **Transformez** | Support horizontal and vertical transformations |
-| **Globato** | Coordinate the recipe and build the DEM |
+| **Fetchez** | Orchestrates the workflow, manages the recipe, and discovers and streams source data |
+| **Transformez** | Supports horizontal and vertical coordinate transformations |
+| **Globato** | Provides the elevation-specific tools for filtering, gridding, and building the DEM |
 
-We launched the workflow with **Globato**.
+We launch the workflow with **Globato**:
 
-Globato uses the other parts of the framework as needed while executing the recipe.
+```text
+globato build ...
+```
+
+From the user's perspective, Globato is the main entry point for building a DEM.
+
+Under the hood, **Fetchez coordinates the data pipeline**, while Globato provides the elevation-specific processing needed to turn those source data into a DEM. **Transformez** supports the coordinate and vertical-reference transformations required along the way.
 
 Our Newport recipe combines:
 
@@ -83,9 +89,12 @@ coupling-bathy-topo
 dav:survey_id=9693,weight=100
 ```
 
-The bundle provides our strong nationally available starting point for Globato to orchestrate Fetchez and Transformez.
+The bundle provides our strong nationally available starting point.
 
 The DAV source adds the locally useful Newport topobathymetric lidar.
+
+Together, Fetchez, Transformez, and Globato turn that recipe into the final coastal DEM.
+
 
 ---
 
