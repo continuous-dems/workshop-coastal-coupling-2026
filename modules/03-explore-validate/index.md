@@ -13,7 +13,7 @@ Our workflow is:
 ```text
 inspect the DEM
       ↓
-inspect source provenance
+inspect the spatial metadata
       ↓
 look at independent validation coverage
       ↓
@@ -125,62 +125,159 @@ We will try to determine **what source data support it**.
 
 # 3. Where did those elevations come from?
 
-A finished DEM should not be a black box.
+The hillshade shows us the shape of the finished surface.
 
-Look inside:
+The **spatial metadata** helps us understand where the elevation data came from.
+
+Globato writes a spatial-metadata GeoPackage in the Newport output directory with a name similar to:
 
 ```text
-newport_cudem/
+newport_n44x64_w124x10_sm.gpkg
 ```
 
-Run:
+The exact filename is based on the DEM tile or region, so yours may differ slightly.
+
+First, find it:
 
 ```bash
-ls -lh newport_cudem/
+ls -lh newport_cudem/*_sm.gpkg
 ```
 
-The directory contains the finished products plus supporting information created during the build.
+:::{important}
+## Success check
 
-Exact filenames may evolve, but the scientific question stays the same:
+You should see a spatial-metadata GeoPackage ending in:
 
-> **What observations support the DEM at a particular location?**
+```text
+_sm.gpkg
+```
+
+This is one of the most useful supporting products from the build.
+:::
+
+---
+
+## View the spatial metadata with the hillshade
+
+The most useful way to inspect this product is to view the spatial metadata **on top of the Newport hillshade**.
+
+Use:
+
+```text
+newport_cudem/newport_hs.tif
+```
+
+as the background, and overlay:
+
+```text
+newport_cudem/*_sm.gpkg
+```
+
+<!-- CODE PLACEHOLDER
+Add the exact workshop visualization command or notebook code here once finalized.
+
+The code should:
+1. display `newport_hs.tif`
+2. overlay the features from the `*_sm.gpkg`
+3. symbolize or label the spatial metadata by source dataset
+4. make it easy to distinguish directly supported areas from areas where
+   interpolation is more important
+
+Example placeholder:
+
+```python
+# TODO: exact visualization code
+hillshade = "newport_cudem/newport_hs.tif"
+spatial_metadata = "newport_cudem/newport_n44x64_w124x10_sm.gpkg"
+
+# display hillshade
+# overlay spatial metadata
+# symbolize by source
+```
+-->
 
 <!-- IMAGE PLACEHOLDER
-Very high-value figure:
+HIGHEST-VALUE FIGURE FOR THIS SECTION:
 
-A Newport source/provenance visualization showing which parts of the
-study area are supported by different source datasets.
+A Newport hillshade with the spatial-metadata GeoPackage overlaid.
 
-Ideally use the same extent as the DEM/hillshade figure.
-
-Possible legend categories:
-- local topobathymetric lidar
-- national terrestrial elevation
-- hydrographic observations
-- other bathymetric sources
-- interpolation / no direct measurement
-
-Use the actual Globato provenance/source product once its final filename
-and symbology are confirmed.
+Ideally:
+- use the Newport hillshade as a grayscale background
+- show the spatial metadata with transparent fills or outlines
+- distinguish source datasets clearly
+- include a concise legend
+- preserve enough hillshade visibility to see Yaquina Bay, the entrance
+  channel, coastline, and surrounding topography
 
 Suggested caption:
-"Source provenance helps connect the finished DEM back to the observations used to build it."
+"Newport hillshade with Globato spatial metadata showing where source elevation datasets contribute to the DEM."
+-->
+
+The spatial metadata lets us connect the finished surface back to the data used to build it.
+
+Instead of asking only:
+
+> **What does the DEM look like here?**
+
+we can also ask:
+
+> **What source data support this part of the DEM?**
+
+---
+
+## Your turn: connect the surface to the source data
+
+Return to the location you picked in the previous section.
+
+Using the hillshade and spatial metadata together, ask:
+
+1. Which source dataset covers this location?
+2. Is there more than one source nearby?
+3. Does the hillshade look especially detailed where dense measurements are available?
+4. Where do the spatial metadata become sparse or absent?
+5. Where might interpolation therefore play a larger role?
+
+:::{tip}
+## Spatial metadata and interpolation
+
+The spatial metadata identifies where source elevation data contribute to the DEM.
+
+Areas without direct source-data coverage are especially important to recognize because the final surface there depends more heavily on interpolation between available measurements.
+
+The hillshade shows the **surface**.
+
+The spatial metadata shows the **measurement support behind that surface**.
+:::
+
+---
+
+## Inspect the metadata attributes
+
+The GeoPackage also contains attributes describing the source-data features.
+
+<!-- TODO / CODE PLACEHOLDER
+Once the final spatial-metadata schema is confirmed, add one simple command
+or short Python snippet that prints only the useful columns.
+
+For example, show:
+- source/provider
+- dataset or survey identifier
+- weight/priority if present
+- any field that distinguishes source-data support from interpolation
+
+Do not expose a long table of implementation-specific fields.
 -->
 
 :::{important}
-## Your turn: trace one location
+## One-location challenge
 
-Return to the feature you picked above.
+Pick one location in the Newport DEM and be able to describe it in one sentence:
 
-Ask:
+> **This part of the DEM is supported by __________, and the surrounding surface appears __________.**
 
-1. Is this location supported by a direct measurement?
-2. Which source appears to contribute there?
-3. Is the surrounding surface measurement-dense or more dependent on interpolation?
+The purpose is not to catalog every source.
 
-You do not need to classify the whole DEM.
-
-Just trace **one location** from the finished surface back to its source support.
+It is to learn how to use the spatial metadata to interpret the finished DEM.
 :::
 
 ---
@@ -404,7 +501,7 @@ Ask:
 If IVERT produces a map/plot showing validation locations, insert the actual
 workshop output here.
 
-If possible, pair it with the source/provenance map using the same extent.
+If possible, pair it with the spatial metadata map using the same extent.
 
 Suggested caption:
 "Validation statistics should be interpreted together with the spatial distribution of the independent observations."
@@ -476,11 +573,11 @@ That keeps the conclusion aligned with the evidence.
 
 ---
 
-# 10. Connect validation back to source provenance
+# 10. Connect validation back to spatial metadata
 
 Much of the terrestrial portion of the Newport DEM is supported by the USGS national elevation data included in our standard coastal recipe.
 
-Return to the source/provenance information.
+Return to the spatial metadata.
 
 Ask:
 
@@ -493,7 +590,7 @@ independent observations
         ↓
 sampled part of DEM
         ↓
-source data supporting that area
+source data identified in the spatial metadata
         ↓
 comparison statistics
         ↓
@@ -512,7 +609,7 @@ validation observation
         ↓
 DEM elevation
         ↓
-source/provenance
+spatial metadata
 ```
 
 You do not need to do this for every point.
@@ -556,7 +653,7 @@ What conclusion is justified?
 At this point, we have:
 
 - inspected the finished Newport DEM
-- traced part of the surface back to its source data
+- used the spatial metadata to connect the finished surface back to its source data
 - explored Fetchez and Transformez directly
 - used IVERT for independent DEM evaluation
 - inspected validation coverage before interpreting statistics
