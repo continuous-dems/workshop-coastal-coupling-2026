@@ -4,7 +4,9 @@ title: "2 - Build the Newport DEM"
 
 # Build the Newport DEM
 
-We will start the Newport DEM early so it can run while we discuss how the workflow works.
+Now we will build our main workshop DEM for **Newport, Oregon**.
+
+The workflow is:
 
 ```text
 define the study area
@@ -18,11 +20,13 @@ add local data to the recipe
 build the coastal DEM
 ```
 
+We will start the build in this module and let it run while we move into **Module 2b — Inside the Workflow**.
+
 ---
 
-# Newport study area
+# 1. Newport study area
 
-Our main example is **Newport, Oregon**, including Yaquina Bay, the entrance channel, nearby coastal waters, and adjacent topography.
+Our study area includes **Yaquina Bay**, the entrance channel, nearby coastal waters, and adjacent topography.
 
 ```text
 West:  -124.10
@@ -31,18 +35,44 @@ South:   44.59
 North:   44.64
 ```
 
-We will build an approximately **1/9-arc-second** coastal DEM referenced to:
+We will build an approximately **1/9-arc-second** DEM referenced to:
 
 ```text
 Horizontal: NAD83
 Vertical:   NAVD88
 ```
 
-represented by:
+represented in the workflow as:
 
 ```text
 epsg:4269+5703
 ```
+
+<!-- IMAGE PLACEHOLDER
+High-value figure:
+Map or screenshot showing the Newport workshop AOI around Yaquina Bay.
+
+Ideally show:
+- coastline
+- Yaquina Bay
+- workshop bounding box
+- enough regional context to orient participants
+
+Suggested caption:
+"Newport workshop study area around Yaquina Bay, Oregon."
+-->
+
+:::{tip}
+You do not need to memorize the coordinates or EPSG codes.
+
+The important idea is that every DEM recipe begins with a **study area**, **resolution**, and **target reference system**.
+:::
+
+---
+
+# 2. Start with a national coastal data recipe
+
+We are not starting from an empty list of datasets.
 
 Our reusable starting recipe is:
 
@@ -50,81 +80,132 @@ Our reusable starting recipe is:
 coupling-bathy-topo
 ```
 
----
+This bundle brings together strong **nationally available coastal elevation data sources** that can provide a useful starting point almost anywhere along the U.S. coast.
 
-# Start with nationally available data
+Let's ask Fetchez what is in the bundle.
 
-The `coupling-bathy-topo` bundle brings together several strong **national-scale coastal elevation data sources** that are useful starting points for building a DEM anywhere in the United States.
+Run:
 
-Depending on the location, the bundle may include sources such as:
+```bash
+fetchez modules bundles info coupling-bathy-topo
+```
+
+:::{important}
+## Success check
+
+You should see a summary of the datasets and options included in the `coupling-bathy-topo` bundle.
+
+Do not worry about every parameter yet. Focus on the **types of elevation data** represented.
+:::
+
+The bundle may include sources such as:
 
 | Source | What it contributes |
 |---|---|
-| **The National Map (TNM)** | Topographic elevation data, including lidar-derived products |
-| **NOAA hydrographic surveys** | Modern measured bathymetry, including BAG and point-based survey data |
-| **USACE eHydro** | Hydrographic survey data from maintained navigation channels and waterways |
+| **The National Map (TNM)** | National topographic elevation data |
+| **NOAA hydrographic surveys** | Measured bathymetry, including BAG and point-based survey data |
+| **USACE eHydro** | Hydrographic surveys from navigation channels and waterways |
 | **NOAA nautical charts** | Supplemental chart-derived bathymetric information |
 | **Crowdsourced bathymetry (CSB)** | Additional depth observations where available |
 
 :::{note}
-The exact sources and options in the bundle may evolve, and not every source has useful coverage in every study area.
+The exact bundle contents and options may evolve as the Continuous DEMs tools are updated, and not every source has useful coverage in every study area.
 :::
 
-These national-scale datasets give us a strong, reusable baseline:
+<!-- IMAGE PLACEHOLDER
+Suggested visual:
+A simple diagram showing several national data sources feeding into
+`coupling-bathy-topo`.
+
+Example concept:
+
+TNM ─────────────┐
+NOAA hydro ──────┤
+eHydro ──────────┤
+Charts ──────────┼──> coupling-bathy-topo
+CSB ─────────────┘
+
+Suggested caption:
+"The coupling-bathy-topo bundle provides a reusable national-scale starting recipe."
+-->
+
+These sources give us a strong baseline:
 
 ```text
-national-scale data sources
-        ↓
-standard coastal DEM recipe
+nationally available elevation data
+                ↓
+      coupling-bathy-topo
+                ↓
+       starting DEM recipe
 ```
 
-But coastal elevation data are often especially rich at the **local and regional scale**.
+But national coverage is only the beginning.
 
-A state, federal program, or recent project may have collected newer or higher-resolution lidar, sonar, or topobathymetric data that are not part of the standard bundle.
+Coastal regions often have **local or regional surveys** that are newer, denser, or better suited to a particular study area.
 
-So a good workflow is:
+So our next question is:
 
-```text
-start with strong national-scale sources
-        ↓
-look for better local data
-        ↓
-add it when it improves the recipe
-```
-
-For Newport, NOAA Digital Coast gives us exactly that opportunity.
+> **Is there a useful local dataset that would improve the Newport recipe?**
 
 ---
 
-# Find the Newport topobathymetric lidar
+# 3. Find local topobathymetric lidar
 
-Open NOAA's **Digital Coast Data Access Viewer (DAV)** already focused on our Newport study area:
+NOAA's **Digital Coast Data Access Viewer (DAV)** lets us search geographically for coastal lidar.
+
+Open DAV already focused on our Newport study area:
 
 [Open NOAA Digital Coast DAV for Newport](https://coast.noaa.gov/dataviewer/#/lidar/search/-13815132.111459369,5557767.363023302,-13802740.194591334,5557767.363023302,-13802740.194591334,5565765.68390708,-13815132.111459369,5565765.68390708,-13815132.111459369,5557767.363023302)
 
+<!-- IMAGE PLACEHOLDER
+Suggested figure:
+Screenshot of DAV zoomed to the Newport workshop area with the relevant
+lidar footprints/results visible.
+
+Suggested caption:
+"NOAA Digital Coast DAV lets us search for lidar that overlaps the Newport study area."
+-->
+
 :::{important}
-## Find the local topobathymetric lidar
+## Your turn: choose the local dataset
 
-Look at the lidar datasets intersecting this small area.
+Look at the lidar datasets intersecting the workshop area.
 
-Your goal is to find the dataset that:
+Find a dataset that:
 
 1. overlaps our Newport DEM region
 2. contains **topobathymetric lidar**
-3. looks useful for improving a combined land-and-water DEM
+3. would be useful for a combined land-and-water DEM
 
 Select the dataset to open its details.
 :::
 
-## Find the DAV dataset ID
+---
 
-The dataset details panel does not prominently display the numeric ID we need, so use the **Bulk Download** link:
+# 4. Find the DAV dataset ID
 
-1. Scroll down in the dataset details.
-2. Find **Bulk Download**.
-3. Click **Link to All Dataset Files**.
-4. A new page will open showing the files for that dataset.
-5. Look at the URL in your browser.
+Globato/Fetchez needs the numeric DAV dataset ID.
+
+The DAV details panel does not prominently display that number, so we can get it from the **Bulk Download** link.
+
+In the dataset details:
+
+1. Scroll down to **Bulk Download**.
+2. Click **Link to All Dataset Files**.
+3. A new page will open showing the files for that dataset.
+4. Look at the URL in your browser.
+
+<!-- IMAGE PLACEHOLDER
+Very high-value figure:
+Screenshot of the DAV dataset details panel with:
+- "Bulk Download" highlighted
+- "Link to All Dataset Files" highlighted or arrowed
+
+This can be the screenshot supplied by the instructor/user.
+
+Suggested caption:
+"Use Bulk Download → Link to All Dataset Files to expose the numeric DAV dataset ID."
+-->
 
 Near the end of the URL, you will see the dataset number:
 
@@ -134,29 +215,19 @@ Near the end of the URL, you will see the dataset number:
  DAV dataset ID
 ```
 
-:::{note}
 DAV calls this the **dataset ID**.
 
-Globato/Fetchez uses that same number with the `dav` source as:
+Globato/Fetchez uses the same number with the `dav` source as:
 
 ```text
 survey_id=9693
 ```
-:::
 
-Use the ID you found to complete:
+So try completing:
 
 ```text
 dav:survey_id=____,weight=100
 ```
-
-:::{tip}
-## You do not need to download the files
-
-We are using DAV to **discover and inspect** the local lidar dataset.
-
-Once we know the dataset ID, Globato/Fetchez can access the data through the `dav` source. You can close the Bulk Download page after identifying the number.
-:::
 
 :::{dropdown} Reveal the Newport dataset
 
@@ -170,7 +241,7 @@ Its DAV dataset ID is:
 9693
 ```
 
-So the Globato source specification is:
+So the source specification is:
 
 ```text
 dav:survey_id=9693,weight=100
@@ -178,17 +249,66 @@ dav:survey_id=9693,weight=100
 
 :::
 
-This is how local data can be added to a reusable recipe:
+:::{tip}
+## You do not need to download the files from DAV
+
+We are using DAV to **discover and inspect** the local dataset.
+
+Once we know the dataset ID, Globato/Fetchez can access it through the `dav` source.
+
+You can close the Bulk Download page after identifying the number.
+:::
+
+:::{dropdown} Short on time?
+
+If you are still looking for the survey when the group is ready to continue, use:
 
 ```text
-coupling-bathy-topo
-        +
-local Newport lidar
+dav:survey_id=9693,weight=100
 ```
+
+and move on with the workshop.
+
+You can return to DAV later.
+:::
 
 ---
 
-# Start the Newport build
+# 5. Put the recipe together
+
+We now have:
+
+```text
+national coastal recipe
+coupling-bathy-topo
+        +
+local Newport topobathymetric lidar
+dav:survey_id=9693,weight=100
+```
+
+<!-- IMAGE PLACEHOLDER
+Suggested visual:
+Simple "national + local" recipe diagram.
+
+Example:
+
+coupling-bathy-topo
+        +
+DAV 9693
+        ↓
+Newport DEM recipe
+
+Suggested caption:
+"A reusable national recipe can be improved with locally appropriate data."
+-->
+
+This is one of the central ideas of the workshop:
+
+> **Start with strong nationally available data, then add local scientific knowledge when it improves the DEM.**
+
+---
+
+# 6. Start the Newport build
 
 Run:
 
@@ -210,28 +330,44 @@ globato build \
 
 Leave the build running.
 
-Everything below can be discussed while Globato is processing the DEM.
+The terminal should begin printing workflow and data-access messages as Globato starts processing the recipe.
+
+Once the build has started, **do not wait for it to finish here**. Continue with the rest of this page and then move to Module 2b.
 :::
+
+<!-- OPTIONAL CODE/OUTPUT PLACEHOLDER
+If useful, add a small screenshot or short copied terminal excerpt showing
+what a healthy build looks like immediately after launch.
+
+Suggested caption:
+"Example of Globato beginning the Newport workflow."
+
+Avoid a long terminal dump. 5–10 representative lines is enough.
+-->
 
 ---
 
-# Can you read the command?
+# 7. Can you read the build command?
 
-Before looking at the answers, find these four things in the command:
+While the DEM is running, look back at the command.
+
+Can you identify:
 
 1. **Where** are we building the DEM?
-2. **Which local lidar survey** did we add?
-3. **What resolution** are we requesting?
+2. **Which local dataset** did we add?
+3. **What output resolution** are we requesting?
 4. **What horizontal + vertical reference system** are we using?
+5. **Which part represents the reusable national recipe?**
 
 :::{dropdown} Check your answers
 
 | Question | Answer |
 |---|---|
 | Study area | `-R -124.1/-124/44.59/44.64` |
-| Local lidar | `dav:survey_id=9693,weight=100` |
+| Local dataset | `dav:survey_id=9693,weight=100` |
 | Resolution | `-E 0.1111111s` |
 | Reference system | `-P epsg:4269+5703` = NAD83 + NAVD88 |
+| National recipe | `coupling-bathy-topo` |
 
 Other important pieces are:
 
@@ -241,15 +377,18 @@ Other important pieces are:
 | `-O newport` | Output name |
 | `-D newport_cudem` | Processing/output directory |
 | `--shared-cache coupling-shared-dir` | Shared workshop source-data cache |
-| `coupling-bathy-topo` | Standard coastal recipe |
 
 :::
 
 ---
 
-# What would change in another region?
+# 8. What would change somewhere else?
 
-Now that the Newport build is running, consider what you would need to change if we moved somewhere else.
+Now that the Newport build is already running, consider another coastal region.
+
+Which parts would probably stay the same?
+
+Which parts would change?
 
 :::{dropdown} Reusable or region-specific?
 
@@ -259,21 +398,23 @@ Now that the Newport build is running, consider what you would need to change if
 coupling-bathy-topo
 -P epsg:4269+5703
 -X 6:5
+-E 0.1111111s
 ```
 
 **Region-specific**
 
 ```text
 -R bounds
-local DAV survey
+local DAV dataset
 output name
 output directory
+shared-cache location
 ```
 
-The key idea is:
+The pattern is:
 
 ```text
-reusable coastal recipe
+reusable coastal workflow
         +
 local data choices
         +
@@ -282,14 +423,43 @@ new study area
 new coastal DEM
 ```
 
-We will test exactly this idea later with **Sarasota, Florida**.
-
+We will test this directly later with **Sarasota, Florida**.
 :::
 
 ---
 
-# Continue while the DEM runs
+# 9. Continue while Newport builds
 
-Go directly to **Module 2b — Follow the Newport Build**.
+Keep the Newport terminal running.
 
-Keep the terminal visible if possible. In Module 2b, we will connect the messages appearing in the terminal to the major stages of the workflow.
+Next, go to:
+
+> **Module 2b — Inside the Workflow**
+
+There we will connect the messages appearing in the terminal to the major processing stages:
+
+```text
+discover data
+      ↓
+prepare each source
+      ↓
+standardize reference systems
+      ↓
+prioritize and stack measurements
+      ↓
+interpolate across multiple scales
+      ↓
+write the final DEM
+```
+
+:::{important}
+## Ready for Module 2b?
+
+You are ready to continue when:
+
+- [ ] you found or were given DAV dataset ID `9693`
+- [ ] the Newport `globato build` command is running
+- [ ] the terminal is printing workflow messages
+
+You do **not** need to wait for the DEM to finish.
+:::
