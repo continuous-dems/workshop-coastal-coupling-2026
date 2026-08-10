@@ -463,16 +463,6 @@ Bathymetric observations may be much farther apart:
                          •
 ```
 
-A single interpolation scale is not ideal for both situations.
-
-The Newport build uses:
-
-```text
--X 6:5
-```
-
-for multiresolution processing.
-
 The key idea is:
 
 > **Use fine spatial information where the observations support it, and progressively broader information where measurements are sparse.**
