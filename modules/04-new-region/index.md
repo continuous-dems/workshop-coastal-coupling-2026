@@ -408,7 +408,7 @@ While Sarasota starts, compare the two builds.
 | Local DAV dataset | `9693` | `10196` |
 | Resolution | ~1/9 arc-second | ~1/9 arc-second |
 | Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
-| Multiresolution settings | `-X 6:5` | `-X 6:5` |
+| DEM buffer settings | `-X 6:5` | `-X 6:5` |
 
 :::{important}
 ## One-sentence challenge
