@@ -83,7 +83,7 @@ coupling-bathy-topo
 dav:survey_id=9693,weight=100
 ```
 
-The bundle provides our strong nationally available starting point.
+The bundle provides our strong nationally available starting point for Globato to orchestrate Fetchez and Transformez.
 
 The DAV source adds the locally useful Newport topobathymetric lidar.
 
@@ -125,10 +125,20 @@ If a particular source interests you, inspect it with:
 fetchez modules info MODULE_NAME
 ```
 
+For example, learn more about the USACE ehdyro module:
+```text
+fetchez modules info ehydro
+```
+
 Recall that we also added the Newport Digital Coast lidar directly:
 
 ```text
 dav:survey_id=9693,weight=100
+```
+
+Learn more about the Digital Coast module dav:
+```text
+fetchez modules info dav
 ```
 
 So the Newport source recipe combines:
