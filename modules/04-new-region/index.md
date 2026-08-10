@@ -545,9 +545,12 @@ If you applied this workflow to your own region:
 Have a dataset we should support?  
 Want to request a feature, suggest a new method, or ask a question?
 
-Join us on **Zulip**:
-
-[Join the CUDEM Zulip community](https://cudem.zulipchat.com/)
+<p>
+  <a href="https://cudem.zulipchat.com/">
+    <img src="../../assets/images/zulip-icon-circle.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
+    <strong>Join the CUDEM Zulip community</strong>
+  </a>
+</p>
 
 We would love to hear how you are using the tools and what would make them more useful.
 
@@ -555,6 +558,12 @@ We would love to hear how you are using the tools and what would make them more 
 
 Continuous-DEMs is proudly open source, and we would love community contributions!
 
-[Explore Continuous-DEMs on GitHub](https://github.com/continuous-dems)
+<p>
+  <a href="https://github.com/continuous-dems">
+    <img src="../../assets/images/mark-github-24.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
+    <strong>Explore Continuous-DEMs on GitHub</strong>
+  </a>
+</p>
 
 If you are new to contributing to an open-source project, we are happy to help walk you through the process!
+
