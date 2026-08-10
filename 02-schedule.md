@@ -1,33 +1,41 @@
+---
+title: "Workshop Schedule"
+---
+
 # Workshop Schedule
 
-**NOAA NCEI/CIRES Coastal DEM Workshop**
+**NOAA NCEI/CIRES Coastal DEM Workshop**  
 **August 13, 2026 | 2:00–4:00 p.m. ET**
 
-This two-hour workshop will walk through an end-to-end coastal DEM workflow using the Continuous DEMs open-source tools in a hosted JupyterHub environment.
+This two-hour workshop follows an end-to-end coastal DEM workflow using the Continuous DEMs open-source tools in a hosted JupyterHub environment.
 
-| Time          | Topic                                                                                                |
-| ------------- | ---------------------------------------------------------------------------------------------------- |
-| **2:00–2:10** | Welcome, introductions, and JupyterHub setup                                                         |
-| **2:10–2:20** | Coastal DEM overview: what we are building and why                                                   |
-| **2:20–2:45** | Start the Newport DEM and follow data discovery, transformations, masking, weighting, and provenance |
-| **2:45–2:55** | Multiresolution stacking and blending                                                                |
-| **2:55–3:05** | Inspect the finished DEM and hillshade                                                               |
-| **3:05–3:15** | **Break / Explore your DEM**                                                                         |
-| **3:15–3:25** | Inspect provenance, receipt, and source information                                                  |
-| **3:25–3:40** | Fetchez and Transformez examples                                                                     |
-| **3:40–3:50** | IVERT and ICESat-2 validation                                                                        |
-| **3:50–4:00** | Apply the same recipe to a new region, wrap-up, and questions                                        |
+## Agenda
 
-## Workshop workflow
+All times are Eastern.
 
-During the workshop, we will:
+| Time | Activity |
+| --- | --- |
+| <span style="white-space: nowrap;">2:00–2:10 p.m.</span> | **Welcome and getting started** — Introductions, JupyterHub setup, and confirmation that the workshop tools are ready. |
+| <span style="white-space: nowrap;">2:10–2:30 p.m.</span> | **Build the Newport DEM** — Define the Newport study area, inspect the national coastal data recipe, find local topobathymetric lidar in NOAA Digital Coast DAV, and launch the DEM build. |
+| <span style="white-space: nowrap;">2:30–2:55 p.m.</span> | **Inside the workflow** — Follow the Newport build as it discovers and prepares source data, uses Fetchez and Transformez, standardizes reference systems, prioritizes measurements, and generates the coastal DEM. |
+| <span style="white-space: nowrap;">2:55–3:05 p.m.</span> | **Break / Newport build catch-up** — Short break while the Newport workflow finishes if needed. |
+| <span style="white-space: nowrap;">3:05–3:25 p.m.</span> | **Explore the Newport DEM and spatial metadata** — Inspect the DEM and hillshade, then use the spatial-metadata GeoPackage to connect the finished surface back to its source data. |
+| <span style="white-space: nowrap;">3:25–3:45 p.m.</span> | **Evaluate the DEM with IVERT** — Compare the Newport DEM with independent ICESat-2 observations and interpret the validation results in the context of their spatial coverage. |
+| <span style="white-space: nowrap;">3:45–3:55 p.m.</span> | **Same recipe, new region** — Move to Sarasota, Florida, find a locally appropriate Digital Coast lidar dataset, adapt the Newport recipe, and launch a second DEM build. |
+| <span style="white-space: nowrap;">3:55–4:00 p.m.</span> | **Wrap-up and questions** — Review the reusable workflow and discuss how participants can apply it to their own coastal study areas. |
 
-1. Build a coastal DEM for Newport, Oregon, using multiple topographic and bathymetric datasets.
-2. Follow the workflow as it discovers, processes, transforms, masks, prioritizes, and combines source data.
-3. Explore how multiresolution stacking and blending help integrate dense topographic data with sparser bathymetric measurements.
-4. Inspect the finished DEM, hillshade, provenance, and supporting outputs.
-5. Use Fetchez and Transformez independently for data discovery and vertical datum transformation.
-6. Evaluate the finished DEM using IVERT and ICESat-2 observations.
-7. If time allows, run the same DEM recipe for a second study area by changing only the input region of interest.
+## Workshop flow
 
-The goal is not only to create a DEM for Newport, but to demonstrate how standardized, reproducible recipes can be applied consistently to other coastal locations.
+**1. Get connected** — Open JupyterLab and confirm that Fetchez, Transformez, Globato, and IVERT are available.
+
+**2. Build Newport** — Start with a reusable national coastal data recipe, add locally appropriate topobathymetric lidar, and launch the Newport DEM.
+
+**3. Follow the workflow** — See how the tools discover, prepare, transform, prioritize, and combine source elevation data.
+
+**4. Explore the result** — Inspect the finished DEM, hillshade, and spatial metadata to understand where the elevations came from.
+
+**5. Evaluate independently** — Use IVERT and ICESat-2 observations to compare the finished DEM with independent elevation measurements.
+
+**6. Transfer the recipe** — Apply the same approach to Sarasota by changing the study area and locally appropriate data.
+
+The goal is not only to create a DEM for Newport, but to show how a transparent, reusable coastal DEM workflow can be adapted to other regions.
