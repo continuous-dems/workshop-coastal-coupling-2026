@@ -6,7 +6,7 @@ title: "1 - Getting Started"
 
 Welcome to the **NOAA NCEI/CIRES Coastal DEM Workshop**.
 
-Today we will use a hosted Openscapes JupyterHub environment to build and explore a high-resolution coastal DEM for **Newport, Oregon**, then reuse the same workflow for a second coastal region.
+Today we will use a hosted Openscapes JupyterHub environment to build and explore a high-resolution coastal DEM for **Newport, Oregon**, then reuse the same workflow for a second coastal DEM for **Sarasota, Florida** 
 
 The workshop path is:
 
@@ -37,7 +37,7 @@ Suggested figure: screenshot of the workshop JupyterHub login / server launch pa
 Caption: "Open the workshop JupyterHub and start your server."
 -->
 
-1. Sign in using the workshop instructions.
+1. Sign in using your email as the username and the provided password.
 2. Start your JupyterHub server.
 3. Wait for **JupyterLab** to open.
 
@@ -173,7 +173,7 @@ South:   44.59
 North:   44.64
 ```
 
-We will build an approximately **1/9-arc-second** coastal DEM using:
+We will build a **1/9-arc-second** (~3-m spatial resolution) coastal DEM referenced to:
 
 ```text
 Horizontal: NAD83
@@ -201,8 +201,6 @@ start with strong nationally available coastal data
         ↓
 look for useful local data
         ↓
-add local knowledge where it improves the recipe
-        ↓
 build the DEM
         ↓
 inspect how the workflow used the data
@@ -212,7 +210,7 @@ evaluate the result
 reuse the approach in another region
 ```
 
-For Newport, we will use NOAA Digital Coast to find a locally useful **topobathymetric lidar dataset** and add it to the national-scale recipe.
+For Newport, we will use NOAA Digital Coast to find a local **topobathymetric lidar dataset** and add it to the national-scale recipe.
 
 Later, we will repeat the same process in **Sarasota, Florida**.
 
@@ -239,7 +237,7 @@ If those are all true, you are ready for **Module 2 — Build the Newport DEM**.
 
 **My JupyterHub server is still starting**
 
-Give it another minute. If it does not open, let an instructor know.
+Give it another minute. If it does not open after ~5 minutes, let an instructor know in the chat.
 
 **I cannot find Terminal**
 
@@ -247,7 +245,7 @@ Open the JupyterLab Launcher with the **+** button and look under **Other**.
 
 **One of the version commands fails**
 
-Do not install or update the package yourself during the workshop. Show the error to an instructor.
+Do not install or update the package yourself during the workshop. Show the error to an instructor in the chat.
 
 **I am not sure which directory I am in**
 
