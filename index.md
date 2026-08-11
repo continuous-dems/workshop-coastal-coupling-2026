@@ -22,6 +22,7 @@ By the end of the workshop, participants will be able to:
 - Understand how source data are discovered, standardized, filtered, prioritized, and combined.
 - Understand why coastline masking and multiresolution interpolation are important for coastal DEM generation.
 - Inspect DEM provenance and supporting outputs.
-- Independently evaluate the DEM using ICESat-2.
-- Apply the same standardized recipe to another coastal region by changing the region of interest.
+- Apply the same standardized recipe to another coastal region DEM.
+- Independently evaluate the DEMs using ICESat-2.
+
   
