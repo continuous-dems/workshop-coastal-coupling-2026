@@ -17,9 +17,11 @@ build the Newport DEM
       ↓
 look inside the workflow
       ↓
-explore and evaluate the result
+explore the DEM
       ↓
 reuse the recipe in Sarasota
+      ↓
+evaluate the DEMs
 ```
 
 The goal of this first module is simple:
