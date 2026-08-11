@@ -161,26 +161,59 @@ This is one of the most useful supporting products from the build.
 
 The easiest way to interpret the spatial metadata is to view it **on top of the Newport hillshade**. This lets you compare the finished DEM surface with the source-data coverage behind it.
 
-You have two options:
+You have two options.
 
-1. **Use JupyterGIS in the workshop environment** to view the hillshade and spatial metadata together.
-2. **Download the files** and open them locally in QGIS, ArcGIS Pro, or another GIS application.
+### Option 1 — Download the files and use your desktop GIS
 
-If you have not used JupyterGIS before, see the introductory tour:
+You can download the outputs and open them locally in QGIS, ArcGIS Pro, or another GIS application.
 
-[JupyterGIS: Getting Started](https://jupytergis.readthedocs.io/en/latest/getting_started/index.html)
+In the **JupyterLab file browser** on the left side of the screen:
 
-Use:
+1. Open the `newport_dem` folder.
+2. Find the file you want to download.
+3. **Right-click the file.**
+4. Select **Download**.
+
+:::{tip} Files to download
+
+For this exercise, download these two files:
+
+**Hillshade**
 
 ```text
 newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
-as the background, and overlay:
+**Spatial metadata**
 
 ```text
 newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
+
+Open both files in your GIS and display the **spatial metadata on top of the hillshade**.
+:::
+
+### Option 2 — View the files in JupyterGIS
+
+You can also view the hillshade and spatial metadata directly in the workshop environment using JupyterGIS.
+
+In JupyterLab, open JupyterGIS and add:
+
+```text
+newport_dem/newport_n44x64_w124x10_hs.tif
+```
+
+and:
+
+```text
+newport_dem/newport_n44x64_w124x10_sm.gpkg
+```
+
+Display the **spatial metadata on top of the hillshade**, just as you would in a desktop GIS.
+
+If you have not used JupyterGIS before, see:
+
+[JupyterGIS: Getting Started](https://jupytergis.readthedocs.io/en/latest/getting_started/index.html)
 
 <!-- CODE PLACEHOLDER
 Add the exact workshop visualization command or notebook code here once finalized.
@@ -221,7 +254,6 @@ Ideally:
 Suggested caption:
 "Newport hillshade with Globato spatial metadata showing where source elevation datasets contribute to the DEM."
 -->
-
 The spatial metadata lets us connect the finished surface back to the data used to build it.
 
 Instead of asking only:
