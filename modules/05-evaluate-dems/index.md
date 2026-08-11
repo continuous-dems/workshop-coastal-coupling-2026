@@ -41,9 +41,7 @@ source prioritization
       ↓
 finished DEM
       +
-independent ICESat-2 observations
-      ↓
-IVERT
+IVERT: independent ICESat-2 observations
       ↓
 independent check on the resulting surface
 ```
@@ -467,9 +465,6 @@ To interpret those results responsibly, we also consider:
 3. whether they are independent of the DEM inputs
 4. how the observed differences relate back to the DEM's source data and processing
 
-Independent evaluation does not replace understanding how the DEM was built.
-
-It **completes the picture**.
 :::
 
 ---
