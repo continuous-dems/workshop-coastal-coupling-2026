@@ -19,22 +19,22 @@ Introductions, JupyterHub setup, and confirmation that the workshop tools are re
 **2:10–2:30 p.m. — Build the Newport DEM**  
 Define the Newport study area, inspect the national coastal data recipe, find local topobathymetric lidar in NOAA Digital Coast DAV, and launch the DEM build.
 
-**2:30–2:55 p.m. — Inside the workflow**  
+**2:30–2:50 p.m. — Inside the workflow**  
 Follow the Newport build as it discovers and prepares source data, uses Fetchez and Transformez, standardizes reference systems, prioritizes measurements, and generates the coastal DEM.
 
-**2:55–3:05 p.m. — Break / Newport build catch-up**  
+**2:50–3:00 p.m. — Break / Newport build catch-up**  
 Short break while the Newport workflow finishes if needed.
 
-**3:05–3:25 p.m. — Explore the Newport DEM and spatial metadata**  
+**3:00–3:20 p.m. — Explore the Newport DEM and spatial metadata**  
 Inspect the DEM and hillshade, then use the spatial-metadata GeoPackage to connect the finished surface back to its source data.
 
-**3:25–3:45 p.m. — Evaluate the DEM with IVERT**  
+**3:20–3:35 p.m. — Evaluate the DEM with IVERT**  
 Compare the Newport DEM with independent ICESat-2 observations and interpret the validation results in the context of their spatial coverage.
 
-**3:45–3:55 p.m. — Same recipe, new region**  
+**3:35–3:50 p.m. — Same recipe, new region**  
 Move to Sarasota, Florida, find local topobathymetric lidar in NOAA Digital Coast DAV, adapt the Newport recipe, and launch a second DEM build.
 
-**3:55–4:00 p.m. — Wrap-up and questions**  
+**3:50–4:00 p.m. — Wrap-up and questions**  
 Review the reusable workflow and discuss how participants can apply it to their own coastal study areas.
 
 ## Workshop flow
