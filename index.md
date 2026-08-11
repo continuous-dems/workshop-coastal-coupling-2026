@@ -10,7 +10,7 @@
 
 Scientists from NOAA’s National Centers for Environmental Information (NCEI) and the Cooperative Institute for Research in Environmental Sciences (CIRES) will lead a hands-on introduction to open-source coastal DEM workflows.
 
-Using a hosted JupyterHub environment, participants will inspect and run a reproducible workflow for generating a 1/9 arc-second coastal DEM for Newport, Oregon. The workshop will demonstrate how tools from the [Continuous DEMs project](https://github.com/continuous-dems) support source-data access, vertical datum harmonization, DEM generation, and independent validation.
+Using a hosted JupyterHub environment, participants will inspect and run a reproducible workflow for generating a 1/9 arc-second coastal DEM for Newport, Oregon and Sarasota, Florida. The workshop will demonstrate how tools from the [Continuous DEMs project](https://github.com/continuous-dems) support source-data access, processing, vertical datum harmonization, DEM generation, and independent validation.
 
 This workshop builds on the April 16, 2026 webinar, [“Open-Source Workflows for Coastal DEM Generation.”](https://www.weather.gov/media/watercommunity/Webinar/2026Apr16/Coastal%20Coupling%20Webinar_Amante_04162026.pdf)
 
