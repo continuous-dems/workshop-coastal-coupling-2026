@@ -618,5 +618,5 @@ Continue when either:
 
 Next:
 
-> **Module 3 — Explore and Evaluate the DEM**
+> **Module 3 — Explore the DEM**
 :::
