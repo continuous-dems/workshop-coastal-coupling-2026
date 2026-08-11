@@ -153,7 +153,7 @@ Ask:
 
 1. How many observations are available?
 2. Where are they located?
-3. Are they primarily on land or in the water?
+3. Are they over the land or water?
 4. What part of the DEM do they sample?
 5. Which source data support those locations?
 
@@ -164,7 +164,7 @@ A validation statistic is not automatically a measure of the entire DEM.
 
 It summarizes the part of the surface sampled by the available independent observations.
 
-For Newport, those observations primarily sample the terrestrial/topographic domain.
+For Newport, those observations sample the terrestrial/topographic domain.
 :::
 
 ---
