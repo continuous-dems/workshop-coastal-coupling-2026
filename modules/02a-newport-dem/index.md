@@ -363,7 +363,7 @@ Other important pieces are:
 
 | Part | Purpose |
 |---|---|
-| `-X 6:5` | #cells to extend DEM beyound study area:input data buffer area percentage |
+| `-X 6:5` | Tile overlap / source-data buffer settings |
 | `-O newport` | Output name |
 | `-D newport_dem` | Processing/output directory |
 | `--shared-cache shared/newport_data` | Shared workshop source-data cache |
