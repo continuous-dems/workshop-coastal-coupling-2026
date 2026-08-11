@@ -4,9 +4,9 @@ title: "4 - Same Recipe, New Region"
 
 # Same Recipe, New Region
 
-We built and evaluated a coastal DEM for **Newport, Oregon**.
+We built and explored a coastal DEM for **Newport, Oregon**.
 
-For the final exercise, we will test whether the same workflow can be reused in a very different coastal setting:
+Now we will test whether the same workflow can be reused in a very different coastal setting:
 
 > **Sarasota, Florida**
 
@@ -22,17 +22,7 @@ what changes locally?
 new coastal DEM
 ```
 
-:::{important}
-## If we only have a few minutes left
-
-Focus on three things:
-
-1. Identify what changes from Newport to Sarasota.
-2. Find the Sarasota DAV dataset ID.
-3. Launch the Sarasota build.
-
-The Sarasota DEM does **not** need to finish during the workshop.
-:::
+We will adapt the Newport recipe, launch the Sarasota build, and then **leave it running** while we move on to IVERT in Module 5.
 
 ---
 
@@ -141,6 +131,19 @@ local choices
         ↓
 region-specific DEM
 ```
+
+Here is the full Newport-to-Sarasota comparison:
+
+| Setting | Newport | Sarasota |
+|---|---|---|
+| Region | `-124.10/-124.00/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
+| National bundle | `coupling-bathy-topo` | `coupling-bathy-topo` |
+| Local DAV dataset | `9693` | `10196` |
+| Output directory | `newport_dem` | `sarasota_dem` |
+| Shared cache | `shared/newport_data` | `shared/sarasota_data` |
+| Resolution | ~1/9 arc-second | ~1/9 arc-second |
+| Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
+| Tile overlap / source-data buffer | `-X 6:5` | `-X 6:5` |
 
 :::
 
@@ -376,16 +379,17 @@ globato build \
 :::{important}
 ## Success check
 
-You do **not** need to wait for the DEM to finish.
+Once the Sarasota command is running successfully:
 
-You have completed the main exercise once:
-
-- the command starts successfully
-- Globato begins discovering or reusing data
+- Globato has started the workflow
+- cached or source data are being discovered or reused
 - the Sarasota DAV source appears in the workflow
 
-That is enough to demonstrate that the recipe transferred to the new region. 
-The instructors will provide you with the completed DEM if there is not enough time.
+**Leave this terminal running.**
+
+Do not wait here for the DEM to finish.
+
+We will introduce IVERT and evaluate Newport while Sarasota continues building, then return to Sarasota later in Module 5.
 :::
 
 <!-- TERMINAL SCREENSHOT PLACEHOLDER
@@ -398,175 +402,28 @@ Suggested caption:
 
 ---
 
-# 7. Compare Newport and Sarasota
+# Next: evaluate the DEMs
 
-While Sarasota starts, compare the two builds.
+Sarasota is now building in the background.
 
-| Setting | Newport | Sarasota |
-|---|---|---|
-| Region | `-124.10/-124.00/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
-| National bundle | `coupling-bathy-topo` | `coupling-bathy-topo` |
-| Local DAV dataset | `9693` | `10196` |
-| Output directory | `newport_dem` | `sarasota_dem` |
-| Shared cache | `shared/newport_data` | `shared/sarasota_data` |
-| Resolution | ~1/9 arc-second | ~1/9 arc-second |
-| Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
-| Tile overlap / source-data buffer | `-X 6:5` | `-X 6:5` |
+Next:
 
-:::{important}
-## One-sentence challenge
+> **Module 5 — Evaluate the DEMs with IVERT**
 
-Complete:
-
-> **To move the workflow from Newport to Sarasota, we kept __________ and changed __________.**
-:::
-
-:::{dropdown} One possible answer
-
-> **We kept the reusable coastal recipe and processing settings, and changed the study area, locally appropriate DAV dataset, and output/cache locations.**
-
-:::
-
----
-
-# 8. Visual payoff
-
-Even if your Sarasota build is still running, look at the instructor-provided Sarasota result.
-
-<!-- IMAGE PLACEHOLDER
-Highest-value final-workshop visual:
-
-Side-by-side:
-1. Newport hillshade
-2. Sarasota hillshade
-
-Use comparable framing if possible.
-
-Suggested caption:
-"The same coastal DEM recipe applied to two very different coastal settings."
-
-This image is especially valuable because it gives participants a visual payoff
-even if their Sarasota build does not finish during the workshop.
--->
-
-Ask:
-
-- How does the coastal morphology differ?
-- Where does the surface look especially detailed?
-- Where does interpolation appear to play a larger role?
-- What local dataset made sense to add in each region?
-
-Do not perform a full Sarasota evaluation here.
-
-The purpose is to see that the **workflow transfers**.
-
----
-
-:::{dropdown} If your Sarasota DEM finishes
-
-Look inside:
+We will:
 
 ```text
-sarasota_dem/
+introduce IVERT
+      ↓
+evaluate Newport
+      ↓
+return to Sarasota
+      ↓
+evaluate Sarasota
 ```
-
-If the final products are available, open the DEM or hillshade and compare them briefly with Newport.
-
-Focus on the large-scale difference in coastal setting rather than performing another full analysis.
-
-:::
-
----
-
-# The pattern we used today
-
-Across the workshop, we followed the same general workflow:
-
-```text
-define the study area
-        ↓
-start with a national coastal data recipe
-        ↓
-look for useful local data
-        ↓
-add local data to the recipe
-        ↓
-build the coastal DEM
-        ↓
-inspect sources and processing
-        ↓
-evaluate with appropriate independent observations
-        ↓
-reuse the workflow somewhere else
-```
-
-<!-- IMAGE PLACEHOLDER
-Optional final summary graphic:
-A polished version of the workflow above, with Newport and Sarasota as
-two example branches from the same reusable recipe.
-
-Suggested caption:
-"A reusable workflow can combine national-scale data with local scientific knowledge in different coastal regions."
--->
-
----
-
-# Final takeaway
-
-The most important result of the workshop is not a single Newport or Sarasota DEM.
-
-It is the framework:
-
-> **Start with a reusable national-scale recipe, add locally appropriate data, and keep the workflow transparent enough to inspect and evaluate.**
 
 :::{tip}
-## Try your own study area
+Keep the Sarasota build terminal open.
 
-For another U.S. coastal region:
-
-1. Define your bounds.
-2. Start with `coupling-bathy-topo`.
-3. Search NOAA Digital Coast DAV for useful local lidar.
-4. Add the appropriate dataset when it improves the recipe.
-5. Build the DEM.
-6. Inspect where the elevations came from.
-7. Evaluate the result using appropriate independent observations.
-
-That is the same workflow we used for both Newport and Sarasota.
+We will come back to it after the Newport IVERT exercise.
 :::
-
----
-
-# One final question
-
-If you applied this workflow to your own region:
-
-> **What local dataset would you want to add first?**
-
-# Want to learn more? Join the Continuous-DEMs community!
-
-Have a dataset we should support?  
-Want to request a feature, suggest a new method, or ask a question?
-
-<p>
-  <a href="https://cudem.zulipchat.com/">
-    <img src="../../assets/images/zulip-icon-circle.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Join the CUDEM Zulip community</strong>
-  </a>
-</p>
-
-We would love to hear how you are using the tools and what would make them more useful.
-
-## Want to contribute code?
-
-Continuous-DEMs is proudly open source, and we would love community contributions!
-
-<p>
-  <a href="https://github.com/continuous-dems">
-    <img src="../../assets/images/mark-github-24.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Explore Continuous-DEMs on GitHub</strong>
-  </a>
-</p>
-
-If you are new to contributing to an open-source project, we are happy to help walk you through the process!
-
