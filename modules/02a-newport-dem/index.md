@@ -106,7 +106,7 @@ The bundle may include sources such as:
 | **NOAA hydrographic surveys** | Measured bathymetry, including BAG and point-based survey data |
 | **USACE eHydro** | Hydrographic surveys from navigation channels and waterways |
 | **NOAA nautical charts** | Supplemental chart-derived bathymetric information |
-| **Crowdsourced bathymetry (CSB)** | Additional depth observations where available |
+| **Crowdsourced bathymetry (CSB)** | Depth observations from routine maritime operations |
 
 :::{note}
 The exact bundle contents and options may evolve as the Continuous DEMs tools are updated, and not every source has useful coverage in every study area.
@@ -129,17 +129,7 @@ Suggested caption:
 "The coupling-bathy-topo bundle provides a reusable national-scale starting recipe."
 -->
 
-These sources give us a strong baseline:
-
-```text
-nationally available elevation data
-                ↓
-      coupling-bathy-topo
-                ↓
-       starting DEM recipe
-```
-
-But national coverage is only the beginning.
+These sources give us a strong baseline, but national coverage is only the beginning.
 
 Coastal regions often have **local or regional surveys** that are newer, denser, or better suited to a particular study area.
 
@@ -217,7 +207,7 @@ Near the end of the URL, you will see the dataset number:
 
 DAV calls this the **dataset ID**.
 
-Globato/Fetchez uses the same number with the `dav` source as:
+Globato/Fetchez uses the same number as the `dav` ID:
 
 ```text
 survey_id=####
@@ -279,11 +269,11 @@ You can return to DAV later.
 We now have:
 
 ```text
-national coastal recipe
-coupling-bathy-topo
+national coastal recipe 
+(coupling-bathy-topo)
         +
 local Newport topobathymetric lidar
-dav:survey_id=9693,weight=100
+(dav:survey_id=9693,weight=100)
 ```
 
 <!-- IMAGE PLACEHOLDER
@@ -304,7 +294,7 @@ Suggested caption:
 
 This is one of the central ideas of the workshop:
 
-> **Start with strong nationally available data, then add local scientific knowledge when it improves the DEM.**
+> **Start with strong nationally available data, then add local scientific data when it improves the DEM.**
 
 ---
 
@@ -330,7 +320,7 @@ globato build \
 
 Leave the build running.
 
-The terminal should begin printing workflow and data-access messages as Globato starts processing the recipe.
+The terminal should begin printing workflow and data specific messages as Globato starts processing the recipe.
 
 Once the build has started, **do not wait for it to finish here**. Continue with the rest of this page and then move to Module 2b.
 :::
@@ -373,7 +363,7 @@ Other important pieces are:
 
 | Part | Purpose |
 |---|---|
-| `-X 6:5` | #cells to extend DEM beyound study area:input data buffer percentage |
+| `-X 6:5` | #cells to extend DEM beyound study area:input data buffer area percentage |
 | `-O newport` | Output name |
 | `-D newport_dem` | Processing/output directory |
 | `--shared-cache shared/newport_data` | Shared workshop source-data cache |
