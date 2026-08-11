@@ -451,8 +451,6 @@ inspect the finished surface
         ↓
 inspect source-data provenance
         ↓
-reuse the workflow somewhere else
-        ↓
 evaluate with appropriate independent observations
 ```
 
