@@ -90,9 +90,9 @@ The workshop environment already includes the main tools we will use:
 
 | Tool | Role in the workshop |
 |---|---|
-| **Fetchez** | Discover and access elevation data |
+| **Fetchez** | Orchestrate the workflow and discover and stream source data |
 | **Transformez** | Support horizontal and vertical reference transformations |
-| **Globato** | Coordinate and build the coastal DEM |
+| **Globato** | Provide elevation-specific tools for building the DEM |
 | **IVERT** | Evaluate the DEM with independent observations |
 
 Run:
