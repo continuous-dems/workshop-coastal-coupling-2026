@@ -401,7 +401,7 @@ The two examples illustrate why independent evaluation must be interpreted spati
 | DEM type | Coastal topobathymetric DEM | Coastal topobathymetric DEM |
 | Independent observations | Only topographic | Both topographic and bathymetric observations |
 | Main lesson | Validation statistics describe the sampled topography | Validation statistics describe the sampled topography and bathymetry |
-| Important caution | Do not generalize topographic validation to the entire coastal DEM | Still do not generalize topographic and bathymetric validation to the entire coastal DEM |
+| Important caution | Do not generalize topographic validation to the entire coastal DEM | Do not generalize topographic and bathymetric validation to the entire coastal DEM |
 
 The scientific workflow is the same in both places:
 
