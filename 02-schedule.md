@@ -41,7 +41,7 @@ Review the reusable workflow and discuss how participants can apply it to their 
 
 **1. Get connected** — Open JupyterLab and confirm that Fetchez, Transformez, Globato, and IVERT are available.
 
-**2. Build Newport** — Start with a reusable national coastal data recipe, add locally appropriate topobathymetric lidar, and launch the Newport DEM.
+**2. Build Newport** — Start with a reusable national coastal data recipe, add local topobathymetric lidar, and launch the Newport DEM.
 
 **3. Follow the workflow** — See how the tools discover, prepare, transform, prioritize, and combine source elevation data.
 
@@ -51,4 +51,4 @@ Review the reusable workflow and discuss how participants can apply it to their 
 
 **6. Transfer the recipe** — Apply the same approach to Sarasota by changing the study area and locally appropriate data.
 
-The goal is not only to create a DEM for Newport, but to show how a transparent, reusable coastal DEM workflow can be adapted to other regions.
+The goal is not only to create a DEM for Newport, but to show how a transparent, reusable coastal DEM workflow can be adapted to Sarasota and other regions.
