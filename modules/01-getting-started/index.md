@@ -37,9 +37,10 @@ Suggested figure: screenshot of the workshop JupyterHub login / server launch pa
 Caption: "Open the workshop JupyterHub and start your server."
 -->
 
-1. Sign in using your email as the username and the provided password.
-2. Start your JupyterHub server.
-3. Wait for **JupyterLab** to open.
+1. To login, enter any username you like. It must be unique from other participants, so consider using your full name, your email address, or your GitHub username.
+2. Use the password shared in the chat.
+3. Start your JupyterHub server.
+4. Wait for **JupyterLab** to open.
 
 <!-- TODO: Add the exact server/profile name here once finalized.
 Example wording:
