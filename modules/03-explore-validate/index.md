@@ -33,14 +33,14 @@ The key question is:
 The two primary workshop products are:
 
 ```text
-newport_dem/newport_final.tif
-newport_dem/newport_hs.tif
+newport_dem/newport_n44x64_w124x10_final.tif
+newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 If your build has finished, run:
 
 ```bash
-ls -lh newport_dem/newport_final.tif newport_dem/newport_hs.tif
+ls -lh newport_dem/newport_n44x64_w124x10_final.tif newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 :::{important}
@@ -49,8 +49,8 @@ ls -lh newport_dem/newport_final.tif newport_dem/newport_hs.tif
 You should see both files listed:
 
 ```text
-newport_final.tif
-newport_hs.tif
+newport_dem/newport_n44x64_w124x10_final.tif
+newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 If your build did not finish, use the instructor-provided Newport outputs and continue with the group.
@@ -75,8 +75,8 @@ for the remainder of Module 3."
 Open:
 
 ```text
-newport_dem/newport_final.tif
-newport_dem/newport_hs.tif
+newport_dem/newport_n44x64_w124x10_final.tif
+newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 Use the hillshade first to get oriented.
@@ -135,7 +135,7 @@ Globato writes a spatial-metadata GeoPackage in the Newport output directory wit
 newport_n44x64_w124x10_sm.gpkg
 ```
 
-The exact filename is based on the DEM tile or region, so yours may differ slightly.
+The exact filename is based on the DEM region specified in the command with -R , so yours may differ slightly.
 
 First, find it:
 
@@ -159,18 +159,21 @@ This is one of the most useful supporting products from the build.
 
 ## View the spatial metadata with the hillshade
 
-The most useful way to inspect this product is to view the spatial metadata **on top of the Newport hillshade**.
+The most useful way to inspect this product is to view the spatial metadata **on top of the Newport hillshade**. 
+You can download the file and open locally in QGIS, ArcGIS, etc. Or you can use the internal JupyterGIS. 
+See here for a tour of JupyterGIS:
+https://jupytergis.readthedocs.io/en/latest/getting_started/index.html
 
 Use:
 
 ```text
-newport_dem/newport_hs.tif
+newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 as the background, and overlay:
 
 ```text
-newport_dem/*_sm.gpkg
+newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
 <!-- CODE PLACEHOLDER
@@ -225,7 +228,7 @@ we can also ask:
 
 ---
 
-## Your turn: connect the surface to the source data
+## Your turn: connect the DEM to the source data
 
 Return to the location you picked in the previous section.
 
@@ -410,7 +413,7 @@ Run:
 
 ```bash
 ivert validate \
-  newport_dem/newport_final.tif \
+  newport_dem/newport_n44x64_w124x10_final.tif \
   -V navd88 \
   -n newport \
   -mc
@@ -418,7 +421,7 @@ ivert validate \
 
 | Option | Meaning |
 |---|---|
-| `newport_dem/newport_final.tif` | DEM to evaluate |
+| `newport_dem/newport_n44x64_w124x10_final.tif` | DEM to evaluate |
 | `-V navd88` | Vertical datum of the DEM |
 | `-n newport` | Validation-run name |
 | `-mc` | Generate the configured validation products |
@@ -590,6 +593,7 @@ If we wanted to independently evaluate the bathymetric portion of the Newport DE
 
 Examples could include:
 
+- ICESat-2 ATL24 data product
 - independent hydrographic soundings
 - withheld sonar observations
 - independent bathymetric lidar
