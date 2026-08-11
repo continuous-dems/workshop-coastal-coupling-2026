@@ -384,7 +384,8 @@ You have completed the main exercise once:
 - Globato begins discovering or reusing data
 - the Sarasota DAV source appears in the workflow
 
-That is enough to demonstrate that the recipe transferred to the new region.
+That is enough to demonstrate that the recipe transferred to the new region. 
+The instructors will provide you with the completed DEM if there is not enough time.
 :::
 
 <!-- TERMINAL SCREENSHOT PLACEHOLDER
