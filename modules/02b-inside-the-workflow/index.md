@@ -230,10 +230,18 @@ Suggested caption:
 "Shared source data reduce duplicate downloads while each participant keeps their own DEM outputs."
 -->
 
-:::{tip}
-If you see messages about **reusing cached data**, that is expected.
+For the workshop, `shared/newport_data` points to a pre-staged shared cache so that participants can reuse the same source data without downloading separate copies.
 
-The cache is part of the workshop setup, and the same command would automatically download the data if it wasn't available.
+Your own Newport processing and output files are written to:
+
+```text
+newport_dem/
+```
+
+:::{tip}
+If you see messages about reusing cached data, that is expected.
+
+The shared cache has been prepared for the workshop. If a required source is missing, let an instructor know.
 :::
 
 ---
