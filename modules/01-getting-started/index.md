@@ -208,9 +208,10 @@ build the DEM
         ↓
 inspect how the workflow used the data
         ↓
-evaluate the result
-        ↓
 reuse the approach in another region
+        ↓
+evaluate the results
+
 ```
 
 For Newport, we will use NOAA Digital Coast to find a local **topobathymetric lidar dataset** and add it to the national-scale recipe.
