@@ -32,7 +32,7 @@ Inspect the DEM and hillshade, then use the spatial-metadata GeoPackage to conne
 Compare the Newport DEM with independent ICESat-2 observations and interpret the validation results in the context of their spatial coverage.
 
 **3:45–3:55 p.m. — Same recipe, new region**  
-Move to Sarasota, Florida, find a locally appropriate Digital Coast lidar dataset, adapt the Newport recipe, and launch a second DEM build.
+Move to Sarasota, Florida, find local topobathymetric lidar in NOAA Digital Coast DAV, adapt the Newport recipe, and launch a second DEM build.
 
 **3:55–4:00 p.m. — Wrap-up and questions**  
 Review the reusable workflow and discuss how participants can apply it to their own coastal study areas.
