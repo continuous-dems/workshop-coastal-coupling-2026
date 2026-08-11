@@ -15,6 +15,10 @@ Source data for the Newport exercise have been staged in shared storage so that 
 
 ## JupyterHub
 
-[Add login URL and any participant-specific instructions here.]
+[Open the workshop JupyterHub](https://workshop.nmfs-openscapes.2i2c.cloud/)
 
-During the workshop, we will start by confirming that everyone can open JupyterLab and a terminal.
+The workshop password will be provided by the instructors.
+
+Use the **default server settings**. They are already configured for this workshop.
+
+See [Starting your server](reference/01-starting-your-server.md) for more detailed instructions.
