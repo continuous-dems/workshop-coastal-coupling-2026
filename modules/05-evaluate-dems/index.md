@@ -217,8 +217,6 @@ There is one important piece of context we need before generalizing the statisti
 
 For Newport, the available observations primarily sample the terrestrial/topographic portion of the DEM.
 
-That does not reduce the value of the independent comparison.
-
 It tells us **which part of the DEM the independent check represents most directly**.
 
 Inspect the validation observations spatially and ask:
@@ -406,12 +404,6 @@ Consider whether the elevation differences behave similarly or differently acros
 The bathymetric observations make the Sarasota example especially useful, but the same interpretation rule still applies:
 
 > **The independent check is strongest where the observations actually sample the DEM.**
-
-Bathymetric ICESat-2 observations do not independently test every submerged DEM cell.
-
-Instead, they give us valuable independent evidence about the parts of the submerged surface they cross.
-
-That is a limitation to understand — not a reason to discount the evaluation.
 
 ---
 
