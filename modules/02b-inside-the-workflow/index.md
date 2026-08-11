@@ -212,24 +212,6 @@ source already cached?
         └── no  → access it
 ```
 
-For the workshop, we generated a shared-cache with all the data to save time.
-
-Your own Newport processing and output files are still written to your home directory in:
-
-```text
-newport_dem/
-```
-
-<!-- OPTIONAL VISUAL PLACEHOLDER
-A tiny schematic may help:
-
-shared source cache  →  reused by participants
-participant workspace → Newport processing + outputs
-
-Suggested caption:
-"Shared source data reduce duplicate downloads while each participant keeps their own DEM outputs."
--->
-
 For the workshop, `shared/newport_data` points to a pre-staged shared cache so that participants can reuse the same source data without downloading separate copies.
 
 Your own Newport processing and output files are written to:
