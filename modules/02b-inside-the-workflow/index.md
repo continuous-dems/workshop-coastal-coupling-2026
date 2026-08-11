@@ -432,7 +432,7 @@ The reported `Z` range can provide a quick reality check on the elevations being
 
 `W` reflects the recipe priorities used when sources overlap; higher weight=higher priority
 
-Not every input provides explicit uncertainty information, so `U` defaults to zero.
+A default U=0 indicates that no explicit uncertainty value was provided; it should not be interpreted as zero real-world uncertainty.
 :::
 
 ---
