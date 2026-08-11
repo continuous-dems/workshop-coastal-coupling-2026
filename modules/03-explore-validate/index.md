@@ -159,10 +159,16 @@ This is one of the most useful supporting products from the build.
 
 ## View the spatial metadata with the hillshade
 
-The most useful way to inspect this product is to view the spatial metadata **on top of the Newport hillshade**. 
-You can download the file and open locally in QGIS, ArcGIS, etc. Or you can use the internal JupyterGIS. 
-See here for a tour of JupyterGIS:
-https://jupytergis.readthedocs.io/en/latest/getting_started/index.html
+The easiest way to interpret the spatial metadata is to view it **on top of the Newport hillshade**. This lets you compare the finished DEM surface with the source-data coverage behind it.
+
+You have two options:
+
+1. **Use JupyterGIS in the workshop environment** to view the hillshade and spatial metadata together.
+2. **Download the files** and open them locally in QGIS, ArcGIS Pro, or another GIS application.
+
+If you have not used JupyterGIS before, see the introductory tour:
+
+[JupyterGIS: Getting Started](https://jupytergis.readthedocs.io/en/latest/getting_started/index.html)
 
 Use:
 
