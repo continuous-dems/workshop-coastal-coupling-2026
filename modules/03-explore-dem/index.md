@@ -160,11 +160,9 @@ This is one of the most useful supporting products from the build.
 
 The easiest way to interpret the spatial metadata is to view it **on top of the Newport hillshade**. This lets you compare the finished DEM surface with the source-data coverage behind it.
 
-You have two options.
+For this exercise, use the desktop GIS application you are most comfortable with, such as **QGIS, ArcGIS Pro, or another GIS**.
 
-### Option 1 — Download the files and use your desktop GIS
-
-You can download the outputs and open them locally in QGIS, ArcGIS Pro, or another GIS application.
+### Download the files
 
 In the **JupyterLab file browser** on the left side of the screen:
 
@@ -175,7 +173,7 @@ In the **JupyterLab file browser** on the left side of the screen:
 
 :::{tip} Files to download
 
-For this exercise, download these two files:
+Download these two files:
 
 **Hillshade**
 
@@ -192,27 +190,15 @@ newport_dem/newport_n44x64_w124x10_sm.gpkg
 Open both files in your GIS and display the **spatial metadata on top of the hillshade**.
 :::
 
-### Option 2 — View the files in JupyterGIS
+:::{note}
+## Don't have a desktop GIS available?
 
-You can also view the hillshade and spatial metadata directly in the workshop environment using JupyterGIS.
+No problem.
 
-In JupyterLab, open JupyterGIS and add:
+Follow along as the instructor shares their screen and explores the Newport hillshade and spatial metadata.
 
-```text
-newport_dem/newport_n44x64_w124x10_hs.tif
-```
-
-and:
-
-```text
-newport_dem/newport_n44x64_w124x10_sm.gpkg
-```
-
-Display the **spatial metadata on top of the hillshade**, just as you would in a desktop GIS.
-
-If you have not used JupyterGIS before, see:
-
-[JupyterGIS: Getting Started](https://jupytergis.readthedocs.io/en/latest/getting_started/index.html)
+The important part of this exercise is understanding **what the spatial metadata tells us about the source data behind the DEM**, not learning a particular GIS application.
+:::
 
 <!-- IMAGE PLACEHOLDER
 HIGHEST-VALUE FIGURE FOR THIS SECTION:
