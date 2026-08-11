@@ -11,7 +11,7 @@ All workshop software is installed in the hosted Openscapes JupyterHub environme
 
 We will provide the log-in information and password.
 
-Source data for the Newport exercise have been staged in shared storage so that participants do not need to download separate copies of the same datasets.
+Source data for the DEM exercises have been staged in shared storage so that participants do not need to download separate copies of the same datasets.
 
 ## JupyterHub
 
