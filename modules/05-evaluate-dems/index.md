@@ -399,9 +399,9 @@ The two examples illustrate why independent evaluation must be interpreted spati
 | | Newport | Sarasota |
 |---|---|---|
 | DEM type | Coastal topobathymetric DEM | Coastal topobathymetric DEM |
-| Independent observations | Primarily terrestrial/topographic | Includes bathymetric observations |
-| Main lesson | Validation statistics describe the sampled domain | Bathymetric observations provide a more direct check of the submerged surface |
-| Important caution | Do not generalize topographic validation to the entire coastal DEM | Do not generalize sampled bathymetry to areas without independent observations |
+| Independent observations | Only topographic | Both topographic and bathymetric observations |
+| Main lesson | Validation statistics describe the sampled topography | Validation statistics describe the sampled topography and bathymetry |
+| Important caution | Do not generalize topographic validation to the entire coastal DEM | Still do not generalize topographic and bathymetric validation to the entire coastal DEM |
 
 The scientific workflow is the same in both places:
 
