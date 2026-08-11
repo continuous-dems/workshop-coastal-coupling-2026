@@ -451,6 +451,8 @@ inspect the finished surface
         ↓
 inspect source-data provenance
         ↓
+adapt the workflow to a new region
+        ↓
 evaluate with appropriate independent observations
 ```
 
