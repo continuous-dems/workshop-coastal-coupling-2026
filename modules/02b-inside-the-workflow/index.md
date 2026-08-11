@@ -170,8 +170,7 @@ As the terminal runs, watch for data being:
 
 - discovered
 - opened
-- downloaded
-- reused from cache
+- downloaded or reused from cache
 
 <!-- TERMINAL SCREENSHOT PLACEHOLDER
 Suggested figure:
@@ -186,7 +185,7 @@ Suggested caption:
 -->
 
 :::{important}
-## Can you spot a source?
+## Can you spot a data source?
 
 Look at your running terminal.
 
@@ -213,9 +212,9 @@ source already cached?
         └── no  → access it
 ```
 
-For the workshop, this avoids unnecessary duplicate downloads.
+For the workshop, we generated a shared-cache with all the data to save time.
 
-Your own Newport processing and output files are still written to:
+Your own Newport processing and output files are still written to your home directory in:
 
 ```text
 newport_dem/
@@ -234,7 +233,7 @@ Suggested caption:
 :::{tip}
 If you see messages about **reusing cached data**, that is expected.
 
-The cache is part of the workshop setup, not a shortcut around the workflow.
+The cache is part of the workshop setup, and the same command would automatically download the data if it wasn't available.
 :::
 
 ---
@@ -255,7 +254,7 @@ The important idea is:
 
 > **Use one reproducible workflow while still treating each source according to what that source requires.**
 
-This matters because topographic lidar, hydrographic surveys, chart data, and other coastal observations were collected differently and should not automatically be processed in exactly the same way.
+This matters because topographic lidar, hydrographic surveys, chart data, and other coastal observations were collected and stored differently and should not automatically be processed in exactly the same way.
 
 ---
 
@@ -313,7 +312,7 @@ Before those measurements can be combined meaningfully, they need to be expresse
 
 Watch the terminal for transformation steps.
 
-This is where **Transformez** and the broader transformation framework support the workflow.
+This is where **Transformez** supports the workflow.
 
 ## Explore Transformez
 
@@ -377,7 +376,7 @@ The same physical location can have different numerical elevation values when re
 
 A vertical transformation changes the **reference used to describe the elevation**. It does not change the physical terrain or seafloor.
 
-That standardization is essential before elevations from different sources can be stacked together.
+That standardization is essential before elevations from different sources can be integrated seamlessly together.
 :::
 
 ---
@@ -395,9 +394,7 @@ higher-priority measurements
           ↓
 lower-priority measurements
           ↓
-supplemental observations
-          ↓
-remaining gaps
+interpolate remaining gaps
 ```
 
 For Newport, we explicitly added:
@@ -443,9 +440,9 @@ A useful shorthand is:
 
 The reported `Z` range can provide a quick reality check on the elevations being processed.
 
-`W` reflects the recipe priorities used when sources overlap.
+`W` reflects the recipe priorities used when sources overlap; higher weight=higher priority
 
-Not every input provides explicit uncertainty information, so `U` may be absent or zero for some sources.
+Not every input provides explicit uncertainty information, so `U` defaults to zero.
 :::
 
 ---
@@ -521,15 +518,15 @@ When processing is complete, Globato writes the final DEM and supporting product
 The two primary workshop products are:
 
 ```text
-newport_dem/newport_final.tif
-newport_dem/newport_hs.tif
+newport_dem/newport_n44x64_w124x10_final.tif
+newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 where:
 
 ```text
-newport_final.tif   finished Newport coastal DEM
-newport_hs.tif      hillshade for visual inspection
+newport_n44x64_w124x10_final.tif   finished Newport coastal DEM
+newport_n44x64_w124x10_hs.tif      hillshade for visual inspection
 ```
 
 <!-- IMAGE PLACEHOLDER
@@ -544,10 +541,10 @@ Suggested caption:
 
 :::{dropdown} If your build finishes early
 
-You can confirm the two main products with:
+You can confirm the two main products were generated with:
 
 ```bash
-ls -lh newport_dem/newport_final.tif newport_dem/newport_hs.tif
+ls -lh newport_dem/newport_n44x64_w124x10_final.tif newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 Do not spend much time interpreting them yet.
@@ -583,7 +580,7 @@ Different datasets and cached files can cause participants to move through stage
 
 That is okay.
 
-The goal of this module is to understand the **shape of the workflow**, not to wait on the same terminal line as everyone else.
+The goal of this module is to understand the **structure of the workflow**, not to wait on the same terminal line as everyone else.
 
 <!-- TODO / RESCUE PATH PLACEHOLDER
 Add the exact instructor-provided fallback location once known.
