@@ -1,9 +1,14 @@
 # 0 - Working in JupyterHub
 
-[Open the workshop JupyterHub](https://workshop.nmfs-openscapes.2i2c.cloud/)
+This workshop provides you with a personal server, managed by
+[JupyterHub](https://jupyter.org/hub) that has all the required Continuous DEMs software
+pre-installed.
 
-The workshop password will be provided by the instructors.
+To get started, follow the instructions in the [](/reference/01-starting-your-server.md)
+reference document.
 
-Use the **default server settings**. They are already configured for this workshop.
-
-See [Starting your server](reference/01-starting-your-server.md) for more detailed instructions.
+:::{important}
+When you're not using it, please [stop your server](/reference/02-stopping-your-server.md).
+This will limit the costs of running the workshop and enable us to do more in the
+future!
+:::
