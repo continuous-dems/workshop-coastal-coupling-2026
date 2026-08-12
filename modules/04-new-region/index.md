@@ -43,6 +43,7 @@ North:  27.34
 :align: center
 
 **Sarasota, Florida Study Area.** The red box shows the region used to build the workshop DEM.
+:::
 
 Compare this with Newport:
 
@@ -90,7 +91,7 @@ coupling-bathy-topo
 local DAV dataset
 output name
 output directory
-shared-cache location
+--shared-cache location
 ```
 :::
 
@@ -112,7 +113,7 @@ coupling-bathy-topo
 local DAV dataset
 output name
 output directory
-shared-cache location
+--shared-cache location
 ```
 
 That separation is central to the framework:
@@ -132,11 +133,11 @@ Here is the full Newport-to-Sarasota comparison:
 | Region | `-124.10/-124.00/44.59/44.64` | `-82.59/-82.53/27.28/27.34` |
 | National bundle | `coupling-bathy-topo` | `coupling-bathy-topo` |
 | Local DAV dataset | `9693` | `10196` |
-| Output directory | `newport_dem` | `sarasota_dem` |
-| Shared cache | `shared/newport_data` | `shared/sarasota_data` |
+| Output directory | `~/workshop/newport_dem` | `~/workshop/sarasota_dem` |
+| Prepared cache | `~/workshop/newport_data` | `~/workshop/sarasota_data` |
 | Resolution | ~1/9 arc-second | ~1/9 arc-second |
 | Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
-| Tile overlap / source-data buffer | `-X 6:5` | `-X 6:5` |
+| Tile overlap / source-data buffer | `-X 6:5` (6 cells / 5%) | `-X 6:5` (6 cells / 5%) |
 
 :::
 
@@ -153,7 +154,7 @@ Newport
          > coupling-bathy-topo + common settings
         /
 Sarasota
-[AOI + DAV ????]
+[AOI + DAV 10196]
 
 Suggested caption:
 "Most of the workflow is reusable; the study area and locally appropriate data change."
@@ -282,7 +283,13 @@ Only the locally appropriate dataset changes.
 
 DAV is helping us **discover and inspect** the local dataset.
 
-Once we know the ID, Globato/Fetchez can access it through the `dav` source.
+For the workshop, `setup_workshop.sh` has already staged the prepared Sarasota source-data cache at:
+
+```text
+~/workshop/sarasota_data/
+```
+
+Once we know the dataset ID, we use the same `dav:survey_id=...` source specification in the Globato command while the workflow reuses the staged cache.
 :::
 
 :::{dropdown} Short on time?
@@ -313,8 +320,8 @@ globato build \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O newport \
-  -D newport_dem \
-  --shared-cache shared/newport_data \
+  -D ~/workshop/newport_dem \
+  --shared-cache ~/workshop/newport_data \
   coupling-bathy-topo \
   dav:survey_id=9693,weight=100
 ```
@@ -342,8 +349,8 @@ globato build \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O sarasota \
-  -D sarasota_dem \
-  --shared-cache shared/sarasota_data \
+  -D ~/workshop/sarasota_dem \
+  --shared-cache ~/workshop/sarasota_data \
   coupling-bathy-topo \
   dav:survey_id=10196,weight=100
 ```
@@ -354,7 +361,19 @@ globato build \
 
 # 6. Launch the Sarasota build
 
-Run:
+First, confirm the Sarasota cache and output directory are available:
+
+```bash
+ls -ld ~/workshop/sarasota_data ~/workshop/sarasota_dem
+```
+
+If either path is missing because workshop setup was skipped or your temporary workspace was recreated, rerun:
+
+```bash
+bash ~/shared/setup_workshop.sh
+```
+
+Then launch the build:
 
 ```bash
 globato build \
@@ -363,8 +382,8 @@ globato build \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O sarasota \
-  -D sarasota_dem \
-  --shared-cache shared/sarasota_data \
+  -D ~/workshop/sarasota_dem \
+  --shared-cache ~/workshop/sarasota_data \
   coupling-bathy-topo \
   dav:survey_id=10196,weight=100
 ```
@@ -375,12 +394,12 @@ globato build \
 Once the Sarasota command is running successfully:
 
 - Globato has started the workflow
-- cached or source data are being discovered or reused
+- the prepared Sarasota cache is available for the workflow to reuse
 - the Sarasota DAV source appears in the workflow
 
 **Leave this terminal running.**
 
-Do not wait here for the DEM to finish.
+Do not wait here for the DEM to finish. Open a **new terminal** in JupyterLab for Module 5 so the Sarasota build can continue uninterrupted.
 
 We will introduce IVERT and evaluate Newport while Sarasota continues building, then return to Sarasota later in Module 5.
 :::
@@ -395,7 +414,7 @@ Suggested caption:
 
 ---
 
-Sarasota is now building in the background. Here is a sneak peek of the final DEM.
+Keep the Sarasota build running while you continue to Module 5. Here is a sneak peek of the final DEM.
 
 :::{figure} ../../assets/images/sarasota_hs.png
 :alt: Hillshade of the Sarasota, Florida coastal DEM.
@@ -417,3 +436,4 @@ introduce IVERT
 evaluate Newport
       ↓
 evaluate Sarasota
+```
