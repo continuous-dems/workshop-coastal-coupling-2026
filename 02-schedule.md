@@ -13,10 +13,10 @@ This two-hour workshop follows an end-to-end coastal DEM workflow using the Cont
 
 All times are Eastern.
 
-**2:00–2:10 p.m. — Welcome and getting started**  
-Introductions, JupyterHub setup, and confirmation that the workshop tools are ready.
+**2:00–2:15 p.m. — Welcome and getting started**  
+Introductions, JupyterHub setup, and confirmation that the workshop tools and data are ready.
 
-**2:10–2:30 p.m. — Build the Newport DEM**  
+**2:15–2:30 p.m. — Build the Newport DEM**  
 Define the Newport study area, inspect the national coastal data recipe, find local topobathymetric lidar in NOAA Digital Coast DAV, and launch the DEM build.
 
 **2:30–2:50 p.m. — Inside the workflow**  
