@@ -37,19 +37,12 @@ South:  27.28
 North:  27.34
 ```
 
-<!-- IMAGE PLACEHOLDER
-High-value figure:
+:::{figure} ../../assets/images/sarasota_aoi.png
+:alt: Satellite and aerial imagery of the Sarasota, Florida workshop study area around Siesta Key, with the final DEM region outlined in red.
+:width: 100%
+:align: center
 
-Map of the Sarasota workshop AOI.
-
-Ideally show:
-- Sarasota coastline
-- workshop bounding box
-- enough regional context to orient participants
-
-Suggested caption:
-"Sarasota workshop study area on the west coast of Florida."
--->
+**Sarasota, Florida Study Area.** The red box shows the region used to build the workshop DEM.
 
 Compare this with Newport:
 
