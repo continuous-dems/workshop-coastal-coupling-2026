@@ -7,3 +7,6 @@
 
 # MyST build outputs
 _build
+
+# Local agent session files
+.claude/
