@@ -165,11 +165,13 @@ ls
 
 `ls` lists the files and directories in your current location.
 
-Your workshop home directory should include:
+At the start of the workshop, you should see:
 
 ```text
-newport_dem  sarasota_dem  shared  shared-public
+shared  shared-public
 ```
+
+The DEM output directories do **not** exist yet. We will create them when we start the Newport and Sarasota builds.
 
 ## Move into a directory
 
@@ -206,11 +208,15 @@ ivert  newport_data  sarasota_data
 ```
 
 :::{figure} ../../assets/images/basic_commands.png
-:alt: JupyterLab terminal demonstrating pwd, ls, cd shared, listing the staged workshop data directories, and cd dot dot.
+:alt: JupyterLab terminal for a new workshop user demonstrating pwd, ls, cd shared, listing ivert, newport_data, and sarasota_data, and cd dot dot.
 :width: 75%
 :align: center
 
-**Basic terminal navigation.** This example shows `pwd`, `ls`, moving into `shared`, inspecting the staged workshop data, and returning to the parent directory.
+**Basic terminal navigation.** A new workshop session starts in `/home/jovyan` with `shared/` and `shared-public/`. This example shows how to inspect the staged workshop data in `shared/` and then return to the parent directory.
+:::
+
+:::{note}
+Your terminal prompt includes your JupyterHub username, so it will look slightly different from the example above.
 :::
 
 ## Move back one directory
@@ -302,7 +308,7 @@ You do **not** need to memorize these commands.
 This page is here as a quick reference during the workshop.
 :::
 
-You do not need to create or modify the Newport DEM yet. We will start the build together in **Module 2**.
+You do not need to create the Newport DEM yet. We will start the build together in **Module 2**.
 
 :::{important}
 ## Success check
@@ -313,7 +319,20 @@ Before continuing, confirm that `shared/` contains:
 - `sarasota_data/`
 - `ivert/`
 
-These staged directories help keep the hands-on exercises moving during the workshop.
+Then return to your home directory:
+
+```bash
+cd ~
+pwd
+```
+
+You should see:
+
+```text
+/home/jovyan
+```
+
+This is where we will start the Newport build in Module 2.
 :::
 
 ---
