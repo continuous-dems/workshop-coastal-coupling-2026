@@ -7,24 +7,6 @@ Welcome to the **NOAA NCEI/CIRES Coastal DEM Workshop**.
 
 Today we will use a hosted Openscapes JupyterHub environment to build and explore a high-resolution coastal DEM for **Newport, Oregon**, then reuse the same workflow for a second coastal DEM for **Sarasota, Florida**.
 
-The workshop path is:
-
-```text
-get connected
-      ↓
-set up your workshop workspace
-      ↓
-build the Newport DEM
-      ↓
-look inside the workflow
-      ↓
-explore the DEM
-      ↓
-reuse the recipe in Sarasota
-      ↓
-evaluate the DEMs
-```
-
 The goal of this first module is simple:
 
 > **Get everyone into JupyterLab, open a terminal, confirm that the workshop tools are ready, and set up the workshop workspace.**
