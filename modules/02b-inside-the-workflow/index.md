@@ -121,7 +121,8 @@ fetchez modules info MODULE_NAME
 ```
 
 For example, learn more about the USACE eHydro module:
-```text
+
+```bash
 fetchez modules info ehydro
 ```
 
@@ -131,8 +132,9 @@ Recall that we also added the Newport Digital Coast lidar directly:
 dav:survey_id=9693,weight=100
 ```
 
-Learn more about the Digital Coast module dav:
-```text
+Learn more about the Digital Coast `dav` module:
+
+```bash
 fetchez modules info dav
 ```
 
@@ -178,12 +180,12 @@ Can you recognize the name of **one dataset or provider** from the national bund
 
 ---
 
-# Shared workshop data
+# Workshop cache and output folders
 
 Our command includes:
 
 ```text
---shared-cache shared/newport_data
+--shared-cache ~/workshop/newport_data
 ```
 
 The logic is simple:
@@ -196,34 +198,31 @@ source already cached?
         └── no  → access it
 ```
 
-For the workshop, `shared/newport_data` points to a pre-staged shared cache so that participants can reuse the same source data without downloading separate copies.
-
-Your own Newport processing and output files are written to:
+For this workshop, `setup_workshop.sh` staged a participant-local copy of the prepared Newport cache at:
 
 ```text
-newport_dem/
+~/workshop/newport_data/
 ```
 
-A completed instructor-generated copy of the Newport outputs is also available in:
+The Globato option is still named `--shared-cache`, but in this workshop it points to the cache in your own `~/workshop` workspace.
+
+Your Newport processing and output files are written to:
 
 ```text
-shared/newport_dem/
+~/workshop/newport_dem/
 ```
 
-These directories serve different purposes:
+These two directories serve different purposes:
 
 ```text
-shared/newport_data/   → pre-staged source-data cache used by your build
-newport_dem/           → outputs created by your own Newport build
-shared/newport_dem/    → known-good backup outputs if your build does not finish
+~/workshop/newport_data/    → prepared source-data cache used by your build
+~/workshop/newport_dem/     → processing files and outputs created by your Newport build
 ```
-
-Continue using your own `newport_dem/` during the workshop unless an instructor directs you to the backup copy.
 
 :::{tip}
 If you see messages about reusing cached data, that is expected.
 
-The shared cache has been prepared for the workshop. If a required source is missing, let an instructor know.
+The Newport cache was staged when you ran `setup_workshop.sh`. If a required source is missing, let an instructor know.
 :::
 
 ---
@@ -430,9 +429,9 @@ A useful shorthand is:
 
 The reported `Z` range can provide a quick reality check on the elevations being processed.
 
-`W` reflects the recipe priorities used when sources overlap; higher weight=higher priority
+`W` reflects the recipe priorities used when sources overlap; higher weight means higher priority.
 
-A default U=0 indicates that no explicit uncertainty value was provided; it should not be interpreted as zero real-world uncertainty.
+A default `U=0` indicates that no explicit uncertainty value was provided; it should not be interpreted as zero real-world uncertainty.
 :::
 
 ---
@@ -508,8 +507,8 @@ When processing is complete, Globato writes the final DEM and supporting product
 The two primary workshop products are:
 
 ```text
-newport_dem/newport_n44x64_w124x10_final.tif
-newport_dem/newport_n44x64_w124x10_hs.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 where:
@@ -530,6 +529,7 @@ These files provide different views of the source data, provenance, and gridding
 | **Source masks** (`tmp_sources/`) | A separate raster mask for each input data file. Cells are `1` where that file contributes data and `0` where it does not. | Where each individual input data file contributes to the DEM. |
 | **Sources VRT** (`*_sources.vrt`) | A virtual raster that brings the individual source masks together. | A combined view of source-data coverage. |
 | **Spatial metadata** (`*_sm.gpkg`) | A GeoPackage generated from the source masks and dissolved by **module + weight**. | An easy-to-view vector representation of which sources support different parts of the DEM. |
+| **Spatial metadata style** (`*_sm.qml`) | A QGIS style file associated with the spatial metadata GeoPackage. | Applies the prepared symbology when viewing the spatial metadata in QGIS. |
 | **Provenance raster** | A compact raster that assigns each module a bit value and records which source or sources contributed to each cell. | Cell-by-cell source provenance, including places where multiple sources contributed. |
 | **Stack raster** | A 7-band raster containing the accumulated information used for gridding. | The elevation, observation, weighting, uncertainty, and location information Globato accumulated before producing the final surface. |
 
@@ -586,7 +586,7 @@ For a more detailed description, see the [Globato DEM generation documentation](
 In **Module 3**, we will focus on the spatial metadata GeoPackage:
 
 ```text
-newport_dem/newport_n44x64_w124x10_sm.gpkg
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
 It provides a convenient GIS view of **which source data support different parts of the finished DEM**.
@@ -607,7 +607,9 @@ Suggested caption:
 You can confirm the two main products were generated with:
 
 ```bash
-ls -lh newport_dem/newport_n44x64_w124x10_final.tif newport_dem/newport_n44x64_w124x10_hs.tif
+ls -lh \
+  ~/workshop/newport_dem/newport_n44x64_w124x10_final.tif \
+  ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 Do not spend much time interpreting them yet.
@@ -648,32 +650,39 @@ The goal of this module is to understand the **structure of the workflow**, not 
 :::{important}
 ## If your Newport build did not finish
 
-A completed copy of the Newport outputs is available in:
+Known-good Newport fallback files are available in:
 
 ```text
-shared/newport_dem/
+~/workshop/reference_outputs/newport/
 ```
 
-If an instructor directs you to use the backup, first stop your running Newport build with **Ctrl+C** if it is still running.
+If an instructor directs you to use them, first stop your running Newport build with **Ctrl+C** if it is still running.
 
-Then replace the incomplete output directory with the known-good workshop copy:
+Then replace the incomplete Newport output directory with the known-good files:
 
 ```bash
-cd ~
-rm -rf newport_dem
-cp -a shared/newport_dem .
-cd newport_dem
+rm -rf ~/workshop/newport_dem
+mkdir -p ~/workshop/newport_dem
+cp -a ~/workshop/reference_outputs/newport/. ~/workshop/newport_dem/
+cd ~/workshop/newport_dem
 ```
 
-Confirm the files are available with:
+Confirm the four fallback files are available:
 
 ```bash
-ls
+ls -lh
 ```
 
-The backup contains the completed DEM and the supporting outputs needed for **Module 3**, including the hillshade and spatial metadata GeoPackage.
+The fallback set contains the completed DEM, hillshade, spatial metadata GeoPackage, and its QGIS style file:
 
-You can now continue with the group.
+```text
+newport_n44x64_w124x10_final.tif
+newport_n44x64_w124x10_hs.tif
+newport_n44x64_w124x10_sm.gpkg
+newport_n44x64_w124x10_sm.qml
+```
+
+That is enough to continue with the Newport exploration in **Module 3**.
 :::
 
 :::{important}
@@ -682,7 +691,7 @@ You can now continue with the group.
 Continue when either:
 
 - your Newport build has finished, **or**
-- you have copied the instructor-provided backup from `shared/newport_dem/`.
+- you have copied the known-good files from `~/workshop/reference_outputs/newport/` into `~/workshop/newport_dem/`.
 
 Next:
 
