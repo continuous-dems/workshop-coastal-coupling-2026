@@ -89,18 +89,13 @@ Look at:
 - nearshore bathymetry
 - transitions between detailed and smoother areas
 
-<!-- IMAGE PLACEHOLDER
-Highest-value visual for this section:
+:::{figure} ../../assets/images/newport_hs.png
+:alt: Hillshade of the finished Newport, Oregon coastal DEM around Yaquina Bay.
+:width: 100%
+:align: center
 
-Side-by-side:
-1. Newport DEM
-2. Newport hillshade
-
-Ideally use the same map extent and include a small locator or coastline outline.
-
-Suggested caption:
-"The finished Newport coastal DEM and hillshade."
--->
+**Newport coastal DEM hillshade.** The hillshade helps reveal the shape and texture of the finished elevation surface around Yaquina Bay.
+:::
 
 :::{important}
 ## Your turn: pick one place
