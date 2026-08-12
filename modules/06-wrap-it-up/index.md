@@ -5,15 +5,7 @@ subject: "Tutorial"
 
 # 🏁 Wrap it up
 
-:::{tip} 🧭 Where we are going
-:icon: false
-
-We have built, explored, and validated two coastal DEMs.
-Here we will tidy up the credentials we left behind and release the virtual machine.
-We will also point to where this work continues after the workshop ends.
-:::
-
-There are a few final steps we'd like you to take before logging off of your virtual machine.
+A few final steps before logging off your virtual machine.
 
 ## 🔧 1. Delete your .netrc file
 
@@ -25,7 +17,9 @@ rm ~/.netrc
 
 ## 🔧 2. Stop your server
 
-When you're finished, please shut down your server so resources are released. We are charged for uptime on these virtual machines, they stay "on" if you just close the browser.
+**Download anything you want to keep first.** `~/workshop` points at `/tmp/workshop`, which is wiped when the server shuts down — DEMs, IVERT results, and all. Right-click any file in the JupyterLab file browser and choose Download.
+
+When you're finished, please shut down your server so resources are released. We are charged for uptime on these virtual machines, and they stay "on" if you just close the browser.
 
 See [Stopping your server](../../reference/02-stopping-your-server.md) for the steps.
 
