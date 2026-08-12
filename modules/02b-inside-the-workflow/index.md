@@ -204,6 +204,22 @@ Your own Newport processing and output files are written to:
 newport_dem/
 ```
 
+A completed instructor-generated copy of the Newport outputs is also available in:
+
+```text
+shared/newport_dem/
+```
+
+These directories serve different purposes:
+
+```text
+shared/newport_data/   → pre-staged source-data cache used by your build
+newport_dem/           → outputs created by your own Newport build
+shared/newport_dem/    → known-good backup outputs if your build does not finish
+```
+
+Continue using your own `newport_dem/` during the workshop unless an instructor directs you to the backup copy.
+
 :::{tip}
 If you see messages about reusing cached data, that is expected.
 
@@ -629,23 +645,36 @@ That is okay.
 
 The goal of this module is to understand the **structure of the workflow**, not to wait on the same terminal line as everyone else.
 
-<!-- TODO / RESCUE PATH PLACEHOLDER
-Add the exact instructor-provided fallback location once known.
+:::{important}
+## If your Newport build did not finish
 
-Suggested wording:
+A completed copy of the Newport outputs is available in:
 
-"If your Newport build is still running or encountered an error, use the
-instructor-provided Newport outputs in:
+```text
+shared/newport_dem/
+```
 
-[EXACT SHARED OUTPUT PATH]
+If an instructor directs you to use the backup, first stop your running Newport build with **Ctrl+C** if it is still running.
 
-Copy/open:
-- newport_final.tif
-- newport_hs.tif
-- any provenance/source products needed for Module 3
+Then replace the incomplete output directory with the known-good workshop copy:
 
-Then continue with the group."
--->
+```bash
+cd ~
+rm -rf newport_dem
+cp -a shared/newport_dem .
+cd newport_dem
+```
+
+Confirm the files are available with:
+
+```bash
+ls
+```
+
+The backup contains the completed DEM and the supporting outputs needed for **Module 3**, including the hillshade and spatial metadata GeoPackage.
+
+You can now continue with the group.
+:::
 
 :::{important}
 ## Ready for Module 3?
@@ -653,7 +682,7 @@ Then continue with the group."
 Continue when either:
 
 - your Newport build has finished, **or**
-- the instructor has directed you to the provided Newport outputs.
+- you have copied the instructor-provided backup from `shared/newport_dem/`.
 
 Next:
 
