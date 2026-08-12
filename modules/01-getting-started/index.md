@@ -32,7 +32,7 @@ The goal of this first module is simple:
 
 # 1. Open the workshop JupyterHub
 
-Open the JupyterHub link provided by the instructors.
+Click on the [Workshop JupyterHub](https://workshop.nmfs-openscapes.2i2c.cloud/).
 
 :::{figure} ../../assets/images/openscapes_login_screen.png
 :alt: NOAA Fisheries Openscapes 2i2c JupyterHub sign-in screen with username and password fields.
