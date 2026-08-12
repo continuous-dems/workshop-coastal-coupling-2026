@@ -126,16 +126,140 @@ Let an instructor know which command failed so we can keep your workshop environ
 
 # 4. Get oriented in your workspace
 
+If you have not worked in a Linux terminal before, these few commands will help you move around and see what is in your workspace.
+
+## Where am I?
+
 Run:
 
 ```bash
 pwd
+```
+
+`pwd` means **print working directory**. It shows the folder you are currently working in.
+
+## What is here?
+
+Run:
+
+```bash
 ls
 ```
 
-`pwd` shows your current working directory.
+`ls` lists the files and directories in your current location.
 
-`ls` shows the files and directories available there.
+
+This shows file sizes in an easier-to-read format.
+
+## Move into a directory
+
+Use `cd` followed by the directory name:
+
+```bash
+cd newport_dem
+```
+
+Then check where you are:
+
+```bash
+pwd
+```
+
+and what is there:
+
+```bash
+ls
+```
+
+## Move back one directory
+
+Run:
+
+```bash
+cd ..
+```
+
+`..` means the **parent directory**, or one level up.
+
+For example:
+
+```text
+home/newport_dem
+        ↓
+      cd ..
+        ↓
+home
+```
+
+## Return to your home directory
+
+From anywhere, run:
+
+```bash
+cd ~
+```
+
+or simply:
+
+```bash
+cd
+```
+
+Both return you to your home directory.
+
+:::{tip}
+## A few useful terminal habits
+
+**Use the Tab key for autocomplete**
+
+Start typing a filename or directory name and press **Tab**. The terminal can often complete the rest for you.
+
+For example:
+
+```text
+cd newp<Tab>
+```
+
+may complete to:
+
+```text
+cd newport_dem/
+```
+
+**Use the Up Arrow**
+
+Press the **Up Arrow** to bring back commands you ran previously. This is useful when you want to make a small change and run a command again.
+
+**Stop a running command**
+
+If you need to stop a command that is currently running, press:
+
+```text
+Ctrl+C
+```
+
+Only do this when you intentionally want to stop that process.
+:::
+
+## Quick reference
+
+| Command | What it does |
+|---|---|
+| `pwd` | Show your current directory |
+| `ls` | List files and directories |
+| `cd directory_name` | Move into a directory |
+| `cd ..` | Move up one directory |
+| `cd ~` or `cd` | Return to your home directory |
+| `Tab` | Autocomplete a filename or directory |
+| `Up Arrow` | Recall a previous command |
+| `Ctrl+C` | Stop the currently running command |
+
+:::{important}
+You do **not** need to memorize these commands.
+
+This page is here as a quick reference during the workshop.
+:::
+
 
 You do not need to create the Newport DEM yet. We will start the build together in **Module 2**.
 
