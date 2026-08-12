@@ -244,7 +244,6 @@ The spatial metadata shows the **measurement support behind that surface**.
 ## Inspect the metadata attributes
 
 The GeoPackage also contains attributes describing the source-data features.
-:::
 
 :::{figure} ../../assets/images/newport_hs_attributes.png
 :alt: Newport hillshade with the spatial-metadata attribute table open, showing the useful source-data information associated with mapped areas of the DEM.
@@ -253,7 +252,6 @@ The GeoPackage also contains attributes describing the source-data features.
 
 **Inspecting the Newport spatial-metadata attributes.** The attribute table provides additional information about the source data supporting each mapped area of the DEM, such as the source module and relative weight or priority.
 :::
-
 
 :::{important}
 ## One-location challenge
