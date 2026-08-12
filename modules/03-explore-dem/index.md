@@ -310,3 +310,4 @@ Next:
 We will move to **Sarasota, Florida**, identify locally appropriate topobathymetric lidar, adapt the Newport recipe, and launch a second DEM build.
 
 We will then leave Sarasota running while we introduce **IVERT** and evaluate both DEMs in **Module 5 — Evaluate the DEMs with IVERT**.
+
