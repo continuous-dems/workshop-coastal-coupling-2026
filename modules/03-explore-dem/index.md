@@ -195,22 +195,14 @@ Follow along as the instructor shares their screen and explores the Newport hill
 The important part of this exercise is understanding **what the spatial metadata tells us about the source data behind the DEM**, not learning a particular GIS application.
 :::
 
-<!-- IMAGE PLACEHOLDER
-HIGHEST-VALUE FIGURE FOR THIS SECTION:
+:::{figure} ../../assets/images/newport_sm.png
+:alt: Newport, Oregon hillshade with spatial metadata overlaid, showing the source elevation datasets contributing to different parts of the DEM.
+:width: 100%
+:align: center
 
-A Newport hillshade with the spatial-metadata GeoPackage overlaid.
+**Newport hillshade with spatial metadata.** The overlay shows where different source elevation datasets contribute to the finished DEM.
+:::
 
-Ideally:
-- use the Newport hillshade as a grayscale background
-- show the spatial metadata with transparent fills or outlines
-- distinguish source datasets clearly
-- include a concise legend
-- preserve enough hillshade visibility to see Yaquina Bay, the entrance
-  channel, coastline, and surrounding topography
-
-Suggested caption:
-"Newport hillshade with Globato spatial metadata showing where source elevation datasets contribute to the DEM."
--->
 The spatial metadata lets us connect the finished surface back to the data used to build it.
 
 Instead of asking only:
