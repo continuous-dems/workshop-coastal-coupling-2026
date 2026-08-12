@@ -523,44 +523,9 @@ That is the same workflow we used for Newport and Sarasota.
 ## EXTRA: Build your own IVERT database
 In addition to validating a DEM, IVERT can be used to **build a database of classified ICESat-2 photons** for your own DEM validations, or for other purposes entirely.
 
-This process is often lengthy (min 20 minutes, >1 hour for larger queries) and not covered directly here, but if you want to try it yourself, we have a side-tutorial for Generating an IVERT database. Try it out yourself after this tutorial is over.
-
-<!-- TODO: Add IVERT database build tutorial link, in a separate document. -->
+This process is often lengthy (min 20 minutes, >1 hour for larger queries) and not covered directly here, but if you want to try it yourself, see [Building your own IVERT database](./building-an-ivert-database.md). Try it out yourself after this tutorial is over.
 :::
 
 # Before you leave
-There are a few final steps we'd like you to take before logging off of your virtual machine. Please read the **6 - Wrap it up** section before closing your browser.
 
-<!-- TODO: Move the items below to a new #6 module titled "6 - Wrap it up" that contains the following information. -->
-
-# Want to learn more? Join the Continuous-DEMs community!
-
-Have a dataset we should support?
-Want to request a feature, suggest a new method, or ask a question?
-
-<p>
-  <a href="https://cudem.zulipchat.com/">
-    <img src="../../assets/images/zulip-icon-circle.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Join the CUDEM Zulip community</strong>
-  </a>
-</p>
-
-We would love to hear how you are using the tools and what would make them more useful.
-
-## Want to contribute code?
-
-Continuous-DEMs is proudly open source, and we would love community contributions! Contributions can include:
-- Identified bugs you've hit (we'd like to know!)
-- Suggestions for improvements
-- New code, bug fixes, or feature upgrades
-
-Have an idea for an upgrade, but not sure how to get started? Join the Zulip Community above and ask! The entire team is on there and we'd be happy to answer anything you need. **All contributions are welcome,** big or small!
-
-<p>
-  <a href="https://github.com/continuous-dems">
-    <img src="../../assets/images/mark-github-24.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Explore Continuous-DEMs on GitHub</strong>
-  </a>
-</p>
-
-If you are new to contributing to an open-source project, we are happy to help walk you through the process!
+There are a few final steps we'd like you to take before logging off of your virtual machine. Please read **[6 - Wrap it up](../06-wrap-it-up/index.md)** before closing your browser.

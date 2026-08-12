@@ -19,7 +19,16 @@ project:
 
     - title: "Workshop"
       children:
-        - pattern: "modules/[0-9]*-*/index.md"
+        - file: "modules/00-working-in-jupyterhub/index.md"
+        - file: "modules/01-getting-started/index.md"
+        - file: "modules/02a-newport-dem/index.md"
+        - file: "modules/02b-inside-the-workflow/index.md"
+        - file: "modules/03-explore-dem/index.md"
+        - file: "modules/04-new-region/index.md"
+        - file: "modules/05-evaluate-dems/index.md"
+          children:
+            - file: "modules/05-evaluate-dems/building-an-ivert-database.md"
+        - file: "modules/06-wrap-it-up/index.md"
 
     - title: "Reference"
       children:
