@@ -32,40 +32,38 @@ The key question is:
 The two primary workshop products are:
 
 ```text
-newport_dem/newport_n44x64_w124x10_final.tif
-newport_dem/newport_n44x64_w124x10_hs.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 If your build has finished, run:
 
 ```bash
-ls -lh newport_dem/newport_n44x64_w124x10_final.tif newport_dem/newport_n44x64_w124x10_hs.tif
+ls -lh \
+  ~/workshop/newport_dem/newport_n44x64_w124x10_final.tif \
+  ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 :::{important}
 ## Success check
 
-You should see both files listed:
+You should see both files listed.
 
-```text
-newport_dem/newport_n44x64_w124x10_final.tif
-newport_dem/newport_n44x64_w124x10_hs.tif
+If `~/workshop` itself is missing, rerun the workshop setup first:
+
+```bash
+bash ~/shared/setup_workshop.sh
 ```
 
-If your build did not finish, use the instructor-provided Newport outputs and continue with the group.
+If your Newport build did not finish and you have not already used the fallback from Module 2b, first stop the running build with **Ctrl+C**. Then copy the known-good workshop files into your Newport output directory:
+
+```bash
+mkdir -p ~/workshop/newport_dem
+cp -a ~/workshop/reference_outputs/newport/. ~/workshop/newport_dem/
+```
+
+This preserves any files already produced while ensuring that the four reference files needed for this module are available. Then run the `ls` command above again.
 :::
-
-<!-- TODO / RESCUE PATH PLACEHOLDER
-Add the exact shared path for instructor-provided Newport outputs.
-
-Suggested wording:
-
-"If your build is still running or failed, use:
-
-[EXACT SHARED NEWPORT OUTPUT PATH]
-
-for the remainder of Module 3."
--->
 
 ---
 
@@ -74,8 +72,8 @@ for the remainder of Module 3."
 Open:
 
 ```text
-newport_dem/newport_n44x64_w124x10_final.tif
-newport_dem/newport_n44x64_w124x10_hs.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 Use the hillshade first to get oriented.
@@ -128,13 +126,13 @@ Globato writes a spatial-metadata GeoPackage alongside the Newport DEM outputs.
 For this workshop build, the file is:
 
 ```text
-newport_dem/newport_n44x64_w124x10_sm.gpkg
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
 Confirm that it was created:
 
 ```bash
-ls -lh newport_dem/newport_n44x64_w124x10_sm.gpkg
+ls -lh ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
 :::{important}
@@ -143,7 +141,7 @@ ls -lh newport_dem/newport_n44x64_w124x10_sm.gpkg
 You should see:
 
 ```text
-newport_dem/newport_n44x64_w124x10_sm.gpkg
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
 This is one of the most useful supporting products from the build.
@@ -161,7 +159,7 @@ For this exercise, use the desktop GIS application you are most comfortable with
 
 In the **JupyterLab file browser** on the left side of the screen:
 
-1. Open the `newport_dem` folder.
+1. Open `workshop`, then open `newport_dem`.
 2. Find the file you want to download.
 3. **Right-click the file.**
 4. Select **Download**.
@@ -173,16 +171,24 @@ Download these two files:
 **Hillshade**
 
 ```text
-newport_dem/newport_n44x64_w124x10_hs.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
 **Spatial metadata**
 
 ```text
-newport_dem/newport_n44x64_w124x10_sm.gpkg
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-Open both files in your GIS and display the **spatial metadata on top of the hillshade**.
+If you are using **QGIS** and the matching style file is present, also download:
+
+```text
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.qml
+```
+
+Keep the `.gpkg` and `.qml` files together. The QML file contains the prepared QGIS styling for the spatial-metadata layer. If QGIS does not apply it automatically, load the `.qml` as the layer style.
+
+Open the hillshade and spatial metadata in your GIS and display the **spatial metadata on top of the hillshade**.
 :::
 
 :::{note}
@@ -264,8 +270,6 @@ The purpose is not to catalog every source.
 
 It is to learn how to use the spatial metadata to interpret the finished DEM.
 :::
-
----
 
 ---
 
