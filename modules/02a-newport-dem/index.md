@@ -48,19 +48,13 @@ represented in the workflow as:
 epsg:4269+5703
 ```
 
-<!-- IMAGE PLACEHOLDER
-High-value figure:
-Map or screenshot showing the Newport workshop AOI around Yaquina Bay.
+:::{figure} ../../assets/images/newport_aoi.png
+:alt: Satellite and aerial imagery of the Newport, Oregon workshop study area around Yaquina Bay, with the final DEM region outlined in red.
+:width: 100%
+:align: center
 
-Ideally show:
-- coastline
-- Yaquina Bay
-- workshop bounding box
-- enough regional context to orient participants
-
-Suggested caption:
-"Newport workshop study area around Yaquina Bay, Oregon."
--->
+**Newport, Oregon Study Area.** The red box shows the region used to build the workshop DEM.
+:::
 
 :::{tip}
 You do not need to memorize the coordinates or EPSG codes.
