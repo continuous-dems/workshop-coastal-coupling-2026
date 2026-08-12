@@ -245,18 +245,14 @@ The spatial metadata shows the **measurement support behind that surface**.
 
 The GeoPackage also contains attributes describing the source-data features.
 
-<!-- TODO / CODE PLACEHOLDER
-Once the final spatial-metadata schema is confirmed, add one simple command
-or short Python snippet that prints only the useful columns.
+:::{figure} ../../assets/images/newport_hs_attributes.png
+:alt: Newport hillshade with the spatial-metadata attribute table open, showing the useful source-data information associated with mapped areas of the DEM.
+:width: 100%
+:align: center
 
-For example, show:
-- source/provider
-- dataset or survey identifier
-- weight/priority if present
-- any field that distinguishes source-data support from interpolation
+**Inspecting the Newport spatial-metadata attributes.** The attribute table provides additional information about the source data supporting each mapped area of the DEM, such as the source module and relative weight or priority.
+:::
 
-Do not expose a long table of implementation-specific fields.
--->
 
 :::{important}
 ## One-location challenge
