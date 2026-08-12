@@ -382,6 +382,16 @@ The plot should look something like this:
 
 Sarasota has a greater amount of shallow, non-turbid waters than Newport, OR, and ICESat-2 laser was able to survey some of the shallow seafloor in this DEM.
 
+As you did for Newport, download `sarasota_n27x34_w082x59_final_errors.gpkg` and load it into your local GIS on top of the Sarasota hillshade, with a "Graduated" display on the "error" field:
+
+:::{figure} ../../assets/images/sarasota_ivert_errors_qgis.jpg
+:alt: QGIS window showing the Sarasota IVERT errors GeoPackage displayed over the Sarasota hillshade, with validation points symbolized by graduated elevation error values over both land and shallow water.
+:width: 100%
+:align: center
+
+**Sarasota errors in QGIS.** The `_errors.gpkg` validation points are displayed over the Sarasota hillshade, with a graduated symbology on the `error` field. Unlike Newport, many of these points fall **over water**, where ICESat-2 sampled the shallow seafloor — those cells are checking the bathymetric portion of the DEM.
+:::
+
 If anything does not work as expected, post a comment in the workshop chat and we will help you sort it out.
 
 ---
