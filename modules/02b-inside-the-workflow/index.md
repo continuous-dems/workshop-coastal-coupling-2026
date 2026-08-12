@@ -519,6 +519,79 @@ newport_n44x64_w124x10_final.tif   finished Newport coastal DEM
 newport_n44x64_w124x10_hs.tif      hillshade for visual inspection
 ```
 
+## Supporting outputs behind the DEM
+
+Along with the final DEM, Globato creates several supporting products that help document **how the DEM was built**.
+
+These files provide different views of the source data, provenance, and gridding information behind the finished elevation surface. You will not need to use all of them during the workshop, but it is useful to know what they represent.
+
+| Output | High-level description | What it tells you |
+|---|---|---|
+| **Source masks** (`tmp_sources/`) | A separate raster mask for each data module. Cells are `1` where that module contributes data and `0` where it does not. | Where each individual source contributes to the DEM. |
+| **Sources VRT** (`*_sources.vrt`) | A virtual raster that brings the individual source masks together. | A combined view of source-data coverage. |
+| **Spatial metadata** (`*_sm.gpkg`) | A GeoPackage generated from the source masks and dissolved by **module + weight**. | An easy-to-view vector representation of which sources support different parts of the DEM. |
+| **Provenance raster** | A compact raster that assigns each module a bit value and records which source or sources contributed to each cell. | Cell-by-cell source provenance, including places where multiple sources contributed. |
+| **Stack raster** | A 7-band raster containing the accumulated information used for gridding. | The elevation, observation, weighting, uncertainty, and location information Globato accumulated before producing the final surface. |
+
+:::{dropdown} Sources and provenance
+
+The **sources** and **provenance** outputs both describe where data came from, but they store that information differently.
+
+The source masks are straightforward:
+
+```text
+1 = this module contributes data here
+0 = this module does not contribute data here
+```
+
+Each input data file gets its own mask in `tmp_sources/`, and the masks are brought together in the `*_sources.vrt`.
+
+The provenance raster stores source information more compactly. Each module receives a unique bit value. For example:
+
+```text
+MOD_csb=1
+MOD_nos_hydro=2
+MOD_charts=4
+MOD_tnm=8
+MOD_ehydro=16
+```
+
+If multiple sources contribute to a cell, those source IDs can be combined in the same provenance value.
+
+The source masks are generally easier to inspect directly, while provenance provides a compact cell-by-cell record of source contributions.
+:::
+
+:::{dropdown} What is in the stack raster?
+
+The stack contains seven bands:
+
+| Band | Contents |
+|---|---|
+| **z** | Weighted-average elevation |
+| **count** | Number of accumulated observations |
+| **weight** | Data weight / priority |
+| **uncertainty** | Accumulated uncertainty information |
+| **source uncertainty** | Uncertainty associated with the source data |
+| **x** | Weighted-average x coordinate |
+| **y** | Weighted-average y coordinate |
+
+Data are accumulated by weight groups. In mixed-mode stacking, higher-weight groups supersede lower-weight groups.
+
+For a more detailed description, see the [Globato DEM generation documentation](https://globato.readthedocs.io/en/stable/user_guide/dem_generation.html).
+:::
+
+:::{tip}
+## Which supporting output will we use?
+
+In **Module 3**, we will focus on the spatial metadata GeoPackage:
+
+```text
+newport_dem/newport_n44x64_w124x10_sm.gpkg
+```
+
+It provides a convenient GIS view of **which source data support different parts of the finished DEM**.
+:::
+
 <!-- IMAGE PLACEHOLDER
 Very useful payoff image:
 Side-by-side screenshot of:
