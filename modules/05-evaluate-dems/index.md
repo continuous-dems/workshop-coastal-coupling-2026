@@ -202,13 +202,26 @@ In the **JupyterLab file browser** on the left side of the screen (the little fo
 2. Open `newport_n44x64_w124x10_final_plot.png`.
 3. If the image appears too large, press the `-` key to zoom out. It should look something like this:
 
-<!-- TODO: Add validation plot here: Place file "1_ivert_results_newport.png" -->
+:::{figure} ../../assets/images/newport_ivert_plot.png
+:alt: IVERT validation plot for the Newport, Oregon DEM, showing a histogram of DEM-minus-ICESat-2 land elevation differences centered near zero and a one-to-one scatter plot of DEM against ICESat-2 elevations.
+:width: 100%
+:align: center
+
+**Newport, Oregon IVERT results.** Panel A is the distribution of land elevation differences (0.04 ± 0.52 m); panel B compares DEM and ICESat-2 elevations directly. Overall RMSE is 0.526 m across 343 cells.
+:::
 
 4. Also open `newport_n44x64_w124x10_summary_stats.txt`.
 5. Download the GeoPackage file `newport_n44x64_w124x10_final_errors.gpkg`. Right-click, download, and load into a local GIS (*Arc, QGIS, etc*) on top of your NewPort hillshade. You should be able to choose/inspect any point to see its values, and/or set the Display properties to a "Graduated" display on the "error" field to see the results. Here, for instance, is the Newport-errors Geopackage file in QGIS, atop the hillshade
 
 
-<!-- TODO: Add 2_QGIS_screenshot_newport.png image here -->
+:::{figure} ../../assets/images/newport_ivert_errors_qgis.jpg
+:alt: QGIS window showing the Newport IVERT errors GeoPackage displayed over the Newport hillshade, with validation points symbolized by graduated elevation error values.
+:width: 100%
+:align: center
+
+**Newport errors in QGIS.** The `_errors.gpkg` validation points are displayed over the Newport hillshade, with a graduated symbology on the `error` field.
+:::
+
 (If you cannot view the GeoPackage file in your local GIS, skip this step and get back to it later.)
 
 Between the plot and the summary statistics, IVERT gives us:
@@ -359,7 +372,13 @@ sarasota_n27x34_w082x59_summary_stats.txt
 
 The plot should look something like this:
 
-<!-- TODO: Insert 3_ivert_results_sarasota.png -->
+:::{figure} ../../assets/images/sarasota_ivert_plot.png
+:alt: IVERT validation plot for the Sarasota, Florida DEM, showing separate histograms of land and bathymetric elevation differences alongside a one-to-one scatter plot of DEM against ICESat-2 elevations.
+:width: 100%
+:align: center
+
+**Sarasota, Florida IVERT results.** Panel A is the land elevation differences (-0.03 ± 0.28 m), panel B the bathymetric differences (-0.01 ± 0.51 m), and panel C compares DEM and ICESat-2 elevations across both. Overall RMSE is 0.350 m across 1,027 cells. Note the separate bathymetric distribution — the terrestrial and submerged parts of the DEM are evaluated independently.
+:::
 
 Sarasota has a greater amount of shallow, non-turbid waters than Newport, OR, and ICESat-2 laser was able to survey some of the shallow seafloor in this DEM.
 
