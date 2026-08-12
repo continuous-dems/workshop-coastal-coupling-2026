@@ -44,10 +44,7 @@ Caption: "Open the workshop JupyterHub and start your server."
 3. Start your JupyterHub server.
 4. Wait for **JupyterLab** to open.
 
-<!-- TODO: Add the exact server/profile name here once finalized.
-Example wording:
-"Choose the **[PROFILE NAME]** server option for this workshop."
--->
+Choose the workshop server option specified by the instructors.
 
 :::{tip}
 Starting the server may take a few minutes.
@@ -145,7 +142,7 @@ ls -ld ~/workshop
 ls ~/workshop
 ```
 
-You should see directories similar to:
+You should see these directories:
 
 ```text
 ivert
@@ -187,7 +184,11 @@ Download or copy any DEM results you want to keep before ending your workshop se
 You are ready when this command works:
 
 ```bash
-ls ~/workshop/newport_data ~/workshop/sarasota_data ~/workshop/ivert ~/workshop/reference_outputs
+ls ~/workshop/newport_data \
+   ~/workshop/sarasota_data \
+   ~/workshop/ivert \
+   ~/workshop/reference_outputs/newport \
+   ~/workshop/reference_outputs/sarasota
 ```
 
 and `~/workshop/newport_dem` and `~/workshop/sarasota_dem` both exist.
