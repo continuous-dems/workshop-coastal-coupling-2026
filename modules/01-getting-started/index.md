@@ -34,20 +34,28 @@ The goal of this first module is simple:
 
 Open the JupyterHub link provided by the instructors.
 
-<!-- IMAGE PLACEHOLDER
-Suggested figure: screenshot of the workshop JupyterHub login / server launch page.
-Caption: "Open the workshop JupyterHub and start your server."
--->
+:::{figure} ../../assets/images/openscapes_login_screen.png
+:alt: NOAA Fisheries Openscapes 2i2c JupyterHub sign-in screen with username and password fields.
+:width: 70%
+:align: center
 
-1. To login, enter any username you like. It must be unique from other participants, so consider using your full name, your email address, or your GitHub username.
+**Workshop JupyterHub sign-in.** Enter a unique username and the workshop password shared by the instructors.
+:::
+
+1. To log in, enter any username you like. It must be unique from other participants, so consider using your full name, your email address, or your GitHub username.
 2. Use the password shared in the chat.
-3. Start your JupyterHub server.
-4. Wait for **JupyterLab** to open.
+3. On the **Server Options** page, choose the **Workshop Coastal Coupling 2026** image.
+4. Under **Resource Allocation**, choose the **~7 GB RAM** server option for this workshop.
+5. Click **Start**.
+6. Wait for **JupyterLab** to open.
 
-<!-- TODO: Add the exact server/profile name here once finalized.
-Example wording:
-"Choose the **[PROFILE NAME]** server option for this workshop."
--->
+:::{figure} ../../assets/images/openscapes_image_server.png
+:alt: JupyterHub Server Options page showing the Workshop Coastal Coupling 2026 image selector and the Resource Allocation selector.
+:width: 80%
+:align: center
+
+**Workshop server options.** Select the **Workshop Coastal Coupling 2026** image, then choose the **~7 GB RAM** resource allocation before starting your server.
+:::
 
 :::{tip}
 Starting the server may take a few minutes.
@@ -67,10 +75,13 @@ You are ready for the next step when you can see the JupyterLab interface.
 
 We will run the workshop commands from a Linux terminal inside JupyterLab.
 
-<!-- IMAGE PLACEHOLDER
-Suggested figure: screenshot of the JupyterLab Launcher with Terminal highlighted.
-Caption: "Open a Terminal from the JupyterLab Launcher."
--->
+:::{figure} ../../assets/images/launch_terminal.png
+:alt: JupyterLab Launcher showing the Terminal button under the Other section.
+:width: 85%
+:align: center
+
+**Open a terminal.** In the JupyterLab Launcher, select **Terminal** under **Other**.
+:::
 
 In JupyterLab:
 
@@ -138,6 +149,12 @@ pwd
 
 `pwd` means **print working directory**. It shows the folder you are currently working in.
 
+When your terminal first opens, you should be in your home directory:
+
+```text
+/home/jovyan
+```
+
 ## What is here?
 
 Run:
@@ -148,10 +165,17 @@ ls
 
 `ls` lists the files and directories in your current location.
 
+Your workshop home directory should include:
+
+```text
+newport_dem  sarasota_dem  shared  shared-public
+```
 
 ## Move into a directory
 
-Use `cd` followed by the directory name:
+For this workshop, the `shared` directory contains staged data that we will use in later modules.
+
+Move into it:
 
 ```bash
 cd shared
@@ -163,11 +187,31 @@ Then check where you are:
 pwd
 ```
 
-and what is there:
+You should now see:
+
+```text
+/home/jovyan/shared
+```
+
+List its contents:
 
 ```bash
 ls
 ```
+
+You should see:
+
+```text
+ivert  newport_data  sarasota_data
+```
+
+:::{figure} ../../assets/images/basic_commands.png
+:alt: JupyterLab terminal demonstrating pwd, ls, cd shared, listing the staged workshop data directories, and cd dot dot.
+:width: 75%
+:align: center
+
+**Basic terminal navigation.** This example shows `pwd`, `ls`, moving into `shared`, inspecting the staged workshop data, and returning to the parent directory.
+:::
 
 ## Move back one directory
 
@@ -182,11 +226,11 @@ cd ..
 For example:
 
 ```text
-home/shared
+/home/jovyan/shared
         ↓
       cd ..
         ↓
-home
+/home/jovyan
 ```
 
 ## Return to your home directory
@@ -221,7 +265,7 @@ cd shar<Tab>
 may complete to:
 
 ```text
-cd shared
+cd shared/
 ```
 
 **Use the Up Arrow**
@@ -258,22 +302,19 @@ You do **not** need to memorize these commands.
 This page is here as a quick reference during the workshop.
 :::
 
+You do not need to create or modify the Newport DEM yet. We will start the build together in **Module 2**.
 
-You do not need to create the Newport DEM yet. We will start the build together in **Module 2**.
+:::{important}
+## Success check
 
-<!-- TODO: If participants need to change into a specific workshop directory,
-add the exact `cd ...` command here.
+Before continuing, confirm that `shared/` contains:
 
-Example:
+- `newport_data/`
+- `sarasota_data/`
+- `ivert/`
 
-```bash
-cd [WORKSHOP_DIRECTORY]
-```
--->
-
-<!-- TODO: Add a one-line shared-cache check here if you want participants
-to verify the staged workshop data before Module 2. Use the exact path that
-will exist in the deployed JupyterHub environment. -->
+These staged directories help keep the hands-on exercises moving during the workshop.
+:::
 
 ---
 
