@@ -175,13 +175,14 @@ ivert validate *_final.tif -n "Newport, OR"
 IVERT compares the DEM elevations with the available independent ICESat-2 observations, and writes its outputs to an `ivert_results` sub-directory in that folder. (You can use a "-o" flag to specify another folder to write the output.)
 
 You should see five (5) files output in your "ivert_results" directory:
+
 | File | Meaning |
 |---|---|
-| `newport_n44x64_w124x10_final_**results.h5**` | An HDF5 database of cell-level results. Generally unused for visual analysis, but useful for processing. All other results are different "views" of this file. |
-| `newport_n44x64_w124x10_final_**plot.png**` | A plot showing a histogram of errors (including bathymetry results if they exist), and a 1:1 line, as well as the total RMSE at the top. |
-| `newport_n44x64_w124x10_final_**errors.gpkg**` | A Point vector GeoPackage file of cell-level errors. Viewable in a GIS. |
-| `newport_n44x64_w124x10_final_**errors.tif**` | A sparse GeoTiff of cell-level errors. Same as the GeoPackage, but in raster format. |
-| `newport_n44x64_w124x10_final_**summary_stats.txt**` | A text file with high-level statistics from the validation. Useful for exporting to reports, etc. |
+| `newport_n44x64_w124x10_final_`**`results.h5`** | An HDF5 database of cell-level results. Generally unused for visual analysis, but useful for processing. All other results are different "views" of this file. |
+| `newport_n44x64_w124x10_final_`**`plot.png`** | A plot showing a histogram of errors (including bathymetry results if they exist), and a 1:1 line, as well as the total RMSE at the top. |
+| `newport_n44x64_w124x10_final_`**`errors.gpkg`** | A Point vector GeoPackage file of cell-level errors. Viewable in a GIS. |
+| `newport_n44x64_w124x10_final_`**`errors.tif`** | A sparse GeoTiff of cell-level errors. Same as the GeoPackage, but in raster format. |
+| `newport_n44x64_w124x10_final_`**`summary_stats.txt`** | A text file with high-level statistics from the validation. Useful for exporting to reports, etc. |
 
 
 :::{important}
