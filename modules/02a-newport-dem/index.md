@@ -294,6 +294,24 @@ This is one of the central ideas of the workshop:
 
 # 6. Start the Newport build
 
+Module 1 staged the prepared Newport source-data cache and created the output directory under your workshop workspace.
+
+Before starting the build, confirm both are available:
+
+```bash
+ls -ld ~/workshop/newport_data ~/workshop/newport_dem
+```
+
+If either path is missing, rerun the workshop setup:
+
+```bash
+bash ~/shared/setup_workshop.sh
+```
+
+:::{note}
+The option is named `--shared-cache`, but for this workshop it points to the **participant-local staged cache** at `~/workshop/newport_data`.
+:::
+
 Run:
 
 ```bash
@@ -303,8 +321,8 @@ globato build \
   -P epsg:4269+5703 \
   -E 0.1111111s \
   -O newport \
-  -D newport_dem \
-  --shared-cache shared/newport_data \
+  -D ~/workshop/newport_dem \
+  --shared-cache ~/workshop/newport_data \
   coupling-bathy-topo \
   dav:survey_id=9693,weight=100
 ```
@@ -314,7 +332,7 @@ globato build \
 
 Leave the build running.
 
-The terminal should begin printing workflow and data specific messages as Globato starts processing the recipe.
+The terminal should begin printing workflow- and data-specific messages as Globato starts processing the recipe.
 
 Once the build has started, **do not wait for it to finish here**. Continue with the rest of this page and then move to Module 2b.
 :::
@@ -357,10 +375,10 @@ Other important pieces are:
 
 | Part | Purpose |
 |---|---|
-| `-X 6:5` | Tile overlap / source-data buffer settings |
+| `-X 6:5` | `6` cells of overlap between adjacent DEM tiles and a `5%` source-data processing buffer |
 | `-O newport` | Output name |
-| `-D newport_dem` | Processing/output directory |
-| `--shared-cache shared/newport_data` | Shared workshop source-data cache |
+| `-D ~/workshop/newport_dem` | Processing/output directory |
+| `--shared-cache ~/workshop/newport_data` | Prepared participant-local Newport source-data cache |
 
 :::
 
@@ -392,7 +410,7 @@ coupling-bathy-topo
 local DAV dataset
 output name
 output directory
-shared-cache location
+study-area cache directory
 ```
 
 The pattern is:
@@ -442,7 +460,8 @@ write the final DEM
 You are ready to continue when:
 
 - [ ] you found or were given DAV dataset ID `9693`
-- [ ] the Newport `globato build` command is running
+- [ ] `~/workshop/newport_data` is available
+- [ ] the Newport `globato build` command is running with output directed to `~/workshop/newport_dem`
 - [ ] the terminal is printing workflow messages
 
 You do **not** need to wait for the DEM to finish.
