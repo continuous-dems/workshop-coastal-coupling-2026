@@ -10,7 +10,7 @@ This page is optional and is not part of the guided workshop. It takes approxima
 :::
 
 The workshop uses a database of ICESat-2 granules that was prepared ahead of time and
-placed on the shared drive. This page will cover building an equivalent database
+staged in `~/workshop/ivert`. This page will cover building an equivalent database
 yourself, for your own study area.
 
 :::{tip} 🧭 Where we are going
@@ -18,13 +18,13 @@ yourself, for your own study area.
 
 In this tutorial we will build our own database of classified ICESat-2 photons, covering any region we choose.
 Along the way we will meet NASA Earthdata and the Harmony subsetting service.
-By the end we will be able to validate a DEM anywhere ICESat-2 flies, without depending on the shared workshop data.
+By the end we will be able to validate a DEM anywhere ICESat-2 flies, without depending on the prepared workshop data.
 :::
 
 The workflow is:
 
 ```text
-reset IVERT to your own directories
+point IVERT at a database directory of your own
       ↓
 set up NASA Earthdata credentials
       ↓
@@ -39,18 +39,21 @@ clear the download cache
 
 ---
 
-## 🔧 1. Reset IVERT to your own directories
+## 🔧 1. Point IVERT at a database directory of your own
 
-In Module 5 we pointed IVERT at the **shared** workshop database on the cloud drive. To build a database of your own, we first send IVERT back to its default directories in your home drive.
+In Module 5 we pointed IVERT at the **prepared** workshop database in `~/workshop/ivert`. That directory is read-only reference data for the workshop, so to build a database of your own we point IVERT at a fresh, writable directory instead:
 
 ```bash
-ivert options reset --yes
+ivert options ivert_database_directory=~/workshop/ivert_database/granules cache_directory=~/workshop/ivert_database/cache --yes
 ```
 
 | Option | Meaning |
 |---|---|
-| `reset` | Restore all settings to IVERT's defaults by deleting your user config file |
+| `ivert_database_directory=...` | Directory IVERT will write your new granules into |
+| `cache_directory=...` | Directory for the raw downloads and conversion grids IVERT builds along the way |
 | `--yes` | Skip the interactive confirmation prompt |
+
+Note that this is a **different** directory from the prepared `~/workshop/ivert` database — nothing you do here touches the workshop copy.
 
 You can see where IVERT will now read and write with:
 
@@ -60,21 +63,27 @@ ivert options list
 
 The two settings that matter here are:
 
-| Setting | Default value |
+| Setting | Value you just set |
 |---|---|
-| `ivert_database_directory` | `~/.ivert/database/granules` |
-| `cache_directory` | `~/.ivert/cache` |
+| `ivert_database_directory` | `~/workshop/ivert_database/granules` |
+| `cache_directory` | `~/workshop/ivert_database/cache` |
 
 :::{note} Getting the workshop database back
 :icon: false
 
-Resetting discards the pointer to the shared workshop database. If you want it back later, just re-run the command from Module 5:
+Changing these settings replaces the pointer to the prepared workshop database. If you want it back later, just re-run the command from Module 5:
 
 ```bash
-ivert options ivert_database_directory=~/shared/ivert/granules cache_directory=~/shared/ivert/cache --yes
+ivert options ivert_database_directory=~/workshop/ivert/granules cache_directory=~/workshop/ivert/cache --yes
 ```
 
-Nothing is deleted by the reset — both databases can coexist, and you switch between them by changing this one setting.
+Nothing is deleted — both databases can coexist, and you switch between them by changing this one setting.
+:::
+
+:::{warning} `~/workshop` is temporary storage
+:icon: false
+
+`~/workshop` points at `/tmp/workshop`, which does not survive your JupyterHub server being stopped and recreated. Download anything you want to keep before you finish. On your own machine, point these same settings anywhere you like — or run `ivert options reset --yes` to go back to IVERT's defaults under `~/.ivert`.
 :::
 
 ---
@@ -117,7 +126,7 @@ An IVERT database is built to cover a **geographic region**. The easiest way to 
 Move into the directory holding that DEM:
 
 ```bash
-cd ~/sarasota_dem
+cd ~/workshop/sarasota_dem
 ```
 
 :::{note}
@@ -285,7 +294,7 @@ Your database is intact and you reclaimed your scratch space.
 
 ## 🔧 7. Validate against your own database
 
-Your new database is now IVERT's default, so validation works exactly as it did in Module 5 — no extra flags needed:
+IVERT is still pointing at your new database from step 1, so validation works exactly as it did in Module 5 — no extra flags needed:
 
 ```bash
 ivert validate *_final.tif -n "Sarasota, FL" --overwrite

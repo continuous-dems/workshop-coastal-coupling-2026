@@ -85,12 +85,12 @@ File → New → Terminal
 
 Before validating anything, IVERT needs to know **where the independent observations live**.
 
-Usually at home, you would **build** an IVERT database from NASA ICESat-2 data before running a validation. For simplicity in this workshop, a database of ICESat-2 granules has already been prepared and placed in the shared drive, so we will point IVERT at that copy instead of its default location. Additionally, some pre-built conversion grids live in a cache directory we will also use.
+Usually at home, you would **build** an IVERT database from NASA ICESat-2 data before running a validation. For simplicity in this workshop, a database of ICESat-2 granules has already been prepared and staged in your `~/workshop/ivert` directory, so we will point IVERT at that copy instead of its default location. Additionally, some pre-built conversion grids live in a cache directory we will also use.
 
 ### Use the pre-built database
 In your new terminal, copy this command and run:
 ```bash
-ivert options ivert_database_directory=~/shared/ivert/granules cache_directory=~/shared/ivert/cache --yes
+ivert options ivert_database_directory=~/workshop/ivert/granules cache_directory=~/workshop/ivert/cache --yes
 ```
 
 | Option | Meaning |
@@ -104,7 +104,7 @@ ivert options ivert_database_directory=~/shared/ivert/granules cache_directory=~
 
 The command should complete without an error and report that it has written your new options to ~/.ivert/user_config.ini
 
-IVERT will now use the shared workshop granules for every validation in this module.
+IVERT will now use the prepared workshop granules in `~/workshop/ivert` for every validation in this module.
 :::
 
 ### What's in the database?
@@ -151,16 +151,16 @@ If IVERT reveals systematic or spatially organized differences, that gives us a 
 Navigate to the folder where your Newport DEM was written:
 
 ```bash
-cd ~/newport_dem
+cd ~/workshop/newport_dem
 ```
 
 :::{dropdown} Don't have a Newport DEM?
 
-No problem — a ready-made backup DEM is available on the shared drive. Copy it to your home directory and run the validation there:
+No problem — a ready-made backup DEM is staged in your workshop workspace. Copy it into your Newport output directory and run the validation there:
 
 ```bash
 # Run this ONLY if you don't already have your own Newport DEM
-mkdir ~/newport_dem && cp ~/shared/ivert/example_dems/newport_n44x64_w124x10_final.tif ~/newport_dem && cd ~/newport_dem
+mkdir -p ~/workshop/newport_dem && cp ~/workshop/ivert/example_dems/newport_n44x64_w124x10_final.tif ~/workshop/newport_dem && cd ~/workshop/newport_dem
 ```
 
 :::
@@ -169,7 +169,7 @@ mkdir ~/newport_dem && cp ~/shared/ivert/example_dems/newport_n44x64_w124x10_fin
 
 ### Run the Newport validation
 
-From your `newport_dem` directory, run:
+From your `~/workshop/newport_dem` directory, run:
 
 ```bash
 ivert validate *_final.tif -n "Newport, OR"
@@ -308,7 +308,7 @@ Now check the terminal where the Sarasota build has been running.
 First, see whether the final DEM has been created:
 
 ```bash
-ls -lh sarasota_dem/*_final.tif
+ls -lh ~/workshop/sarasota_dem/*_final.tif
 ```
 :::{important} 🧪 Sarasota build check
 :icon: false
@@ -336,16 +336,16 @@ That lets IVERT provide an independent check on part of the **submerged coastal 
 The database is already configured, so we can go straight to the DEM:
 
 ```bash
-cd ~/sarasota_dem
+cd ~/workshop/sarasota_dem
 ```
 
 :::{dropdown} Don't have a Sarasota DEM?
 
-If your build has not finished — or you would rather not wait — use the backup DEM from the shared drive:
+If your build has not finished — or you would rather not wait — use the backup DEM staged in your workshop workspace. We put it in a separate directory so it does not collide with the build still running:
 
 ```bash
 # ONLY if you don't already have your own Sarasota DEM
-mkdir ~/sarasota_dem_sample && cp ~/shared/ivert/example_dems/sarasota_n27x34_w082x59_final.tif ~/sarasota_dem_sample && cd ~/sarasota_dem_sample
+mkdir -p ~/workshop/sarasota_dem_sample && cp ~/workshop/ivert/example_dems/sarasota_n27x34_w082x59_final.tif ~/workshop/sarasota_dem_sample && cd ~/workshop/sarasota_dem_sample
 ```
 
 :::
@@ -354,7 +354,7 @@ mkdir ~/sarasota_dem_sample && cp ~/shared/ivert/example_dems/sarasota_n27x34_w0
 
 ### Run the Sarasota comparison
 
-From your `sarasota_dem` directory, run the Sarasota validation:
+From your `~/workshop/sarasota_dem` or `~/workshop/sarasota_dem_sample` directory, run the Sarasota validation:
 
 ```bash
 ivert validate *_final.tif -n "Sarasota, FL"
