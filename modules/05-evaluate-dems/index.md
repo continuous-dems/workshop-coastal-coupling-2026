@@ -1,8 +1,17 @@
 ---
 title: "5 - Evaluate the DEMs with IVERT"
+subject: "Tutorial"
 ---
 
-# Evaluate the DEMs with IVERT
+# 🛰️ Evaluate the DEMs with IVERT
+
+:::{tip} 🧭 Where we are going
+:icon: false
+
+We have built two coastal DEMs, but we have not yet checked whether they are *right*.
+In this module we will compare both surfaces against independent ICESat-2 satellite observations using IVERT.
+Along the way we will see how an independent check can reveal bias and spatial patterns that a hillshade cannot.
+:::
 
 We now have:
 
@@ -72,14 +81,14 @@ Let's launch a new terminal so that we can explore IVERT while our Sarasota DEM 
 File → New → Terminal
 ```
 
-# 1. Point IVERT at the workshop database
+## 🔧 1. Point IVERT at the workshop database
 
 Before validating anything, IVERT needs to know **where the independent observations live**.
 
-Usually at home, you would **build** an IVERT database from NASA ICESat-2 data before running a validation. For simplicity in this workshop, a database of ICESat-2 granules has already been prepared and placed in the shared drive, so we will point IVERT at that copy instead of its default location. Additionally, some pre-built vertical conversion grids live in a cache file that we will also use.
+Usually at home, you would **build** an IVERT database from NASA ICESat-2 data before running a validation. For simplicity in this workshop, a database of ICESat-2 granules has already been prepared and placed in the shared drive, so we will point IVERT at that copy instead of its default location. Additionally, some pre-built conversion grids live in a cache directory we will also use.
 
-## Use the pre-built database
-In your new terminal, run:
+### Use the pre-built database
+In your new terminal, copy this command and run:
 ```bash
 ivert options ivert_database_directory=~/shared/ivert/granules cache_directory=~/shared/ivert/cache --yes
 ```
@@ -90,15 +99,15 @@ ivert options ivert_database_directory=~/shared/ivert/granules cache_directory=~
 | `cache_directory=...` | Directory where cached conversion grids have been pre-built |
 | `--yes` | Accept the changes without an interactive confirmation |
 
-:::{important}
-## Success check
+:::{important} 🧪 Success check
+:icon: false
 
 The command should complete without an error and report that it has written your new options to ~/.ivert/user_config.ini
 
-IVERT will now use the shared workshop granules for every validation we run today.
+IVERT will now use the shared workshop granules for every validation in this module.
 :::
 
-## What's in the database?
+### What's in the database?
 
 ```bash
 ivert database list
@@ -106,25 +115,24 @@ ivert database list
 
 You should see roughly **41 granules**.
 
-These are **subsetted ATL03 granules with classified photons**. Looking at the filenames tells us quite a bit:
+These are **subsetted ATL03 granules with classified photons**. Looking at the filenames tells us:
 
 - they span **2020 through 2024**
 - they cover **two geographic areas**
 
-Those two areas are not a coincidence — they are the Newport, Oregon and Sarasota, Florida regions we have been building DEMs for all workshop.
+Those two areas are not a coincidence — they are the Newport, Oregon and Sarasota, Florida regions we've built DEMs for today.
 
-:::{important}
-## Success check
+:::{important} 🧪 Success check
+:icon: false
 
-`ivert database list` prints granule filenames, and you can see about 41 of them.
+`ivert database list` prints granule filenames. You can see about 41 of them.
 
 If the list comes back empty, IVERT is probably still pointing at its default directory. Re-run the `ivert options` command above.
 :::
-(***If you would like to build your own database***: we don't have the time in this workshop, but there is a link at the bottom with instructions to do so on your own time!)
 
 ---
 
-# 2. Evaluate Newport first
+## 🔧 2. Evaluate Newport first
 
 While Sarasota continues building, we will run a Newport validation.
 
@@ -138,7 +146,7 @@ If IVERT reveals systematic or spatially organized differences, that gives us a 
 
 ---
 
-## Go to your Newport DEM
+### Go to your Newport DEM
 
 Navigate to the folder where your Newport DEM was written:
 
@@ -159,9 +167,9 @@ mkdir ~/newport_dem && cp ~/shared/ivert/example_dems/newport_n44x64_w124x10_fin
 
 ---
 
-## Run the Newport comparison
+### Run the Newport validation
 
-Run:
+From your `newport_dem` directory, run:
 
 ```bash
 ivert validate *_final.tif -n "Newport, OR"
@@ -169,23 +177,41 @@ ivert validate *_final.tif -n "Newport, OR"
 
 | Option | Meaning |
 |---|---|
-| `*_final.tif` | DEM(s) to evaluate. In this case it matches any file in this directory ending in "_final.tif" (namely, your newport_n44x64_w124x10_final.tif file. It can validate multiple DEMs matching a pattern. |
+| `*_final.tif` | DEM(s) to evaluate. In this case it matches any file in this folder ending in "_final.tif" (namely, your newport_n44x64_w124x10_final.tif file. It can validate multiple DEMs simultaneously that match such a pattern. |
 | `-n "Newport, OR"` | Title for the DEM. This name will appear on the plot. |
 
-IVERT compares the DEM elevations with the available independent ICESat-2 observations, and writes its outputs to an `ivert_results` sub-directory in that folder. (You can use a "-o" flag to specify another folder to write the output.)
+IVERT compares the DEM elevations with the available independent ICESat-2 observations, and writes its outputs to an `ivert_results` sub-directory in that folder.
+
+:::{warning} Watch your vertical datum
+
+The DEMs we built today have well-formatted headers, so IVERT reads the vertical reference datum directly from the DEM and transforms the ICESat-2 data to match it. We don't have to do anything.
+
+Not every DEM is so well behaved. Some do not clearly define their vertical datum in the header, and IVERT can then match the photons to the **wrong** datum — producing results that appear offset by meters, or even **dozens of meters**.
+
+A validation that comes back with a large, suspiciously uniform bias is very often a datum problem, not a DEM problem.
+
+If you are ever unsure, state the datum explicitly with the `-V`/`--vdatum` flag:
+
+```bash
+ivert validate *_final.tif -n "Newport, OR" --vdatum navd88
+```
+
+It accepts an EPSG code (`EPSG:5703`, `5703`) or a common short name (`navd88`, `egm2008`, `mllw`, …). Run `ivert validate --list-vdatums` to see every name IVERT recognizes.
+:::
 
 You should see five (5) files output in your "ivert_results" directory:
+
 | File | Meaning |
 |---|---|
-| `newport_n44x64_w124x10_final_**results.h5**` | An HDF5 database of cell-level results. Generally unused for visual analysis, but useful for processing. All other results are different "views" of this file. |
-| `newport_n44x64_w124x10_final_**plot.png**` | A plot showing a histogram of errors (including bathymetry results if they exist), and a 1:1 line, as well as the total RMSE at the top. |
-| `newport_n44x64_w124x10_final_**errors.gpkg**` | A Point vector GeoPackage file of cell-level errors. Viewable in a GIS. |
-| `newport_n44x64_w124x10_final_**errors.tif**` | A sparse GeoTiff of cell-level errors. Same as the GeoPackage, but in raster format. |
-| `newport_n44x64_w124x10_final_**summary_stats.txt**` | A text file with high-level statistics from the validation. Useful for exporting to reports, etc. |
+| `newport_n44x64_w124x10_final_`**`results.h5`** | An HDF5 database of cell-level results. Generally unused for visual analysis, but useful for processing. All other results are different "views" of this file. |
+| `newport_n44x64_w124x10_final_`**`plot.png`** | A plot showing a histogram of errors (including bathymetry results if they exist), and a 1:1 line, as well as the total RMSE at the top. |
+| `newport_n44x64_w124x10_final_`**`errors.gpkg`** | A Point vector GeoPackage file of cell-level errors. Viewable in a GIS. |
+| `newport_n44x64_w124x10_final_`**`errors.tif`** | A sparse GeoTiff of cell-level errors. Same as the GeoPackage, but in raster format. |
+| `newport_n44x64_w124x10_final_`**`summary_stats.txt`** | A text file with high-level statistics from the validation. Useful for exporting to reports, etc. |
 
 
-:::{important}
-## Success check
+:::{important} 🧪 Success check
+:icon: false
 
 You should see IVERT begin processing the Newport DEM and the available ICESat-2 observations.
 
@@ -194,7 +220,7 @@ The result is an **independent check of the finished Newport surface**.
 
 ---
 
-## Look at the Newport results
+### Look at the Newport results
 
 In the **JupyterLab file browser** on the left side of the screen (the little folder icon):
 
@@ -222,7 +248,7 @@ In the **JupyterLab file browser** on the left side of the screen (the little fo
 **Newport errors in QGIS.** The `_errors.gpkg` validation points are displayed over the Newport hillshade, with a graduated symbology on the `error` field.
 :::
 
-(If you cannot view the GeoPackage file in your local GIS, skip this step and get back to it later.)
+*(If you cannot view the GeoPackage file in your local GIS, skip this step or come back to it later.)*
 
 Between the plot and the summary statistics, IVERT gives us:
 
@@ -232,8 +258,8 @@ Between the plot and the summary statistics, IVERT gives us:
 - standard deviation and error percentiles
 - the distribution of elevation differences
 
-:::{important}
-## Success check
+:::{important} 🧪 Success check
+:icon: false
 
 You can see both the validation plot and the summary statistics for Newport.
 
@@ -242,44 +268,28 @@ Those two files are the independent evidence we will interpret next.
 
 ---
 
-## What can the Newport results tell us?
+### What can the Newport results tell us?
 
 Look at the IVERT statistics.
 
 Ask:
 
-1. Is the DEM systematically high or low relative to the independent observations?
-2. Is the distribution of errors well-distributed (in a general bell curve), or is it bimodal or multi-modal?
+1. Is the DEM systematically high or low relative to ICESat-2?
+2. Is the distribution of errors well-distributed (a bell curve), or is it bimodal or multi-modal?
 3. How large are the elevation differences overall?
 4. How much spread is there in those differences?
-5. Are there a larger-than-expected number of outliers?
+5. Are there a larger-than-expected number of outliers or "long tails"?
 
 These results can reveal behavior that may not be obvious from the hillshade alone.
 
-You can then start to explore the errors spatially. For example:
-
-```text
-IVERT identifies a spatial pattern in large errors
-        ↓
-where does it occur?
-        ↓
-spatial metadata shows
-what source supports that area
-        ↓
-inspect the source or processing context
-        ↓
-investigate a possible cause
-```
-
-IVERT identifies **where the finished result differs from independent observations**.
-
+You can then start to explore the errors spatially.
 The spatial metadata helps us investigate **what went into the DEM at those locations**.
 
 That combination makes the workflow much more transparent and diagnosable.
 
 ---
 
-## Connect Newport IVERT results back to spatial metadata
+### Connect Newport IVERT results back to spatial metadata
 
 Return mentally to the spatial metadata from Module 3. Load it up in your GIS if it's available.
 
@@ -287,11 +297,11 @@ Choose an area sampled by IVERT and ask:
 
 > **Which source data support the DEM at this location?**
 
-This connects possible source-context to your errors, especially if errors happen to be particularly large in one specific portion of your DEM.
+This connects possible source-context to your errors, especially if errors happen to be particularly large in one specific portion of your DEM compared to others.
 
 ---
 
-# 3. Return to Sarasota
+## 🔧 3. Return to Sarasota
 
 Now check the terminal where the Sarasota build has been running.
 
@@ -300,8 +310,8 @@ First, see whether the final DEM has been created:
 ```bash
 ls -lh sarasota_dem/*_final.tif
 ```
-:::{important}
-## Sarasota build check
+:::{important} 🧪 Sarasota build check
+:icon: false
 
 If you see a Sarasota file ending in:
 
@@ -321,7 +331,7 @@ That lets IVERT provide an independent check on part of the **submerged coastal 
 
 ---
 
-## Go to your Sarasota DEM
+### Go to your Sarasota DEM
 
 The database is already configured, so we can go straight to the DEM:
 
@@ -342,17 +352,16 @@ mkdir ~/sarasota_dem_sample && cp ~/shared/ivert/example_dems/sarasota_n27x34_w0
 
 ---
 
-## Run the Sarasota comparison
+### Run the Sarasota comparison
 
-Run the Sarasota validation:
+From your `sarasota_dem` directory, run the Sarasota validation:
 
 ```bash
 ivert validate *_final.tif -n "Sarasota, FL"
 ```
 
-
-:::{important}
-## Success check
+:::{important} 🧪 Success check
+:icon: false
 
 You should see IVERT begin processing the Sarasota DEM and the available independent ICESat-2 observations.
 
@@ -361,7 +370,7 @@ This gives us a second **independent end-to-end check of the DEM-building workfl
 
 ---
 
-## Look at the Sarasota results
+### Look at the Sarasota results
 
 As before, open the `ivert_results` directory and inspect:
 
@@ -382,7 +391,7 @@ The plot should look something like this:
 
 Sarasota has a greater amount of shallow, non-turbid waters than Newport, OR, and ICESat-2 laser was able to survey some of the shallow seafloor in this DEM.
 
-As you did for Newport, download `sarasota_n27x34_w082x59_final_errors.gpkg` and load it into your local GIS on top of the Sarasota hillshade, with a "Graduated" display on the "error" field:
+If you have time, as you did for Newport, download `sarasota_n27x34_w082x59_final_errors.gpkg` and load it into your local GIS on top of the Sarasota hillshade, with a "Graduated" display on the "error" field:
 
 :::{figure} ../../assets/images/sarasota_ivert_errors_qgis.jpg
 :alt: QGIS window showing the Sarasota IVERT errors GeoPackage displayed over the Sarasota hillshade, with validation points symbolized by graduated elevation error values over both land and shallow water.
@@ -396,7 +405,7 @@ If anything does not work as expected, post a comment in the workshop chat and w
 
 ---
 
-## What can the Sarasota results tell us?
+### What can the Sarasota results tell us?
 
 Inspect the IVERT statistics and spatial outputs, similar to your Newport DEM.
 
@@ -414,66 +423,10 @@ But Sarasota gives us an additional opportunity:
 
 This is particularly valuable for a topobathymetric workflow because we can independently check elevations **below the water surface**, not only the terrestrial terrain.
 
-:::{important}
-## Compare land and water
-
-Look at where the Sarasota IVERT observations occur.
-
-Can you identify:
-
-- terrestrial validation observations
-- bathymetric validation observations
-- portions of the DEM where those observations provide an independent check?
-
-Consider whether the elevation differences behave similarly or differently across the terrestrial and submerged portions of the DEM.
-:::
-
 ---
 
-## Keep the Sarasota coverage in context
-
-The bathymetric observations make the Sarasota example especially useful, but the same interpretation rule still applies:
-
-> **The independent check is strongest where the observations actually sample the DEM.**
-
----
-
-# 4. Compare what Newport and Sarasota teach us
-
-Together, the two study areas show the value of IVERT across different parts of a coastal DEM.
-
-| | Newport | Sarasota |
-|---|---|---|
-| **DEM type** | Coastal topobathymetric DEM | Coastal topobathymetric DEM |
-| **Independent observations** | Primarily topographic | Includes topographic and bathymetric observations |
-| **What IVERT adds** | Independent evidence about the finished Newport surface | Independent evidence across both land and submerged coastal terrain |
-| **What we can investigate** | Bias, elevation differences, spread, outliers, spatial patterns | The same metrics, including bathymetric performance |
-| **Interpretation context** | Results are strongest where observations sample the DEM | Results are strongest where topographic and bathymetric observations sample the DEM |
-
-The main point is the same in both places:
-
-> **IVERT provides an external check on the result of the complete DEM-building process.**
-
-The observation coverage tells us **where that check applies most directly**.
-
-Conceptually:
-
-```text
-finished DEM
-      +
-independent observations
-      ↓
-IVERT
-      ↓
-bias + error statistics + spatial patterns
-      ↓
-independent evidence about DEM performance
-      ↓
-connect patterns back to provenance when needed
-```
-
-:::{important}
-## The IVERT takeaway
+:::{important} The IVERT takeaway
+:icon: false
 
 IVERT gives us something we did not have during the DEM build:
 
@@ -485,23 +438,21 @@ To interpret those results responsibly, we also consider:
 
 1. where the independent observations are located
 2. what part of the DEM they sample
-3. whether they are independent of the DEM inputs
+3. whether they are independent of the DEM inputs (*Note*: you should probably not use ICESat-2 to validate a DEM if you used any ICESat-2 data in the DEM itself. Avoid circular logic!)
 4. how the observed differences relate back to the DEM's source data and processing
 
 :::
 
 ---
 
-# One final question
+## Extensions
 
-If you applied this workflow to your own region:
+These virtual machines persist about ~1 week after the workshop. You can re-login and continue your work during that time, or better yet, install the `globato` and `ivert` packages on your own machine to use them permanently!
 
-> **What local dataset would you want to add first?**
+Here are some "extra tasks" to try in the cloud (or on your own machine), if you have want to explore more.
 
----
-
-:::{tip}
-## EXTRA: Try your own study area
+:::{tip} EXTRA: Try your own study area
+:icon: false
 
 For another U.S. coastal region:
 
@@ -518,48 +469,13 @@ For another U.S. coastal region:
 That is the same workflow we used for Newport and Sarasota.
 :::
 
-:::{tip}
-## EXTRA: Build your own IVERT database
+:::{tip} EXTRA: Build your own IVERT database
+:icon: false
 In addition to validating a DEM, IVERT can be used to **build a database of classified ICESat-2 photons** for your own DEM validations, or for other purposes entirely.
 
-This process is often lengthy (min 20 minutes, >1 hour for larger queries) and not covered directly here, but if you want to try it yourself, we have a side-tutorial for Generating an IVERT database. Try it out yourself after this tutorial is over.
-
-<!-- TODO: Add IVERT database build tutorial link, in a separate document. -->
+This process is often lengthy (min 20 minutes, >1 hour for larger queries) and not covered directly here, but if you want to try it yourself, see [Building your own IVERT database](./building-an-ivert-database.md). Try it out yourself after this tutorial is over.
 :::
 
-# Before you leave
-There are a few final steps we'd like you to take before logging off of your virtual machine. Please read the **6 - Wrap it up** section before closing your browser.
+## Before you leave
 
-<!-- TODO: Move the items below to a new #6 module titled "6 - Wrap it up" that contains the following information. -->
-
-# Want to learn more? Join the Continuous-DEMs community!
-
-Have a dataset we should support?
-Want to request a feature, suggest a new method, or ask a question?
-
-<p>
-  <a href="https://cudem.zulipchat.com/">
-    <img src="../../assets/images/zulip-icon-circle.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Join the CUDEM Zulip community</strong>
-  </a>
-</p>
-
-We would love to hear how you are using the tools and what would make them more useful.
-
-## Want to contribute code?
-
-Continuous-DEMs is proudly open source, and we would love community contributions! Contributions can include:
-- Identified bugs you've hit (we'd like to know!)
-- Suggestions for improvements
-- New code, bug fixes, or feature upgrades
-
-Have an idea for an upgrade, but not sure how to get started? Join the Zulip Community above and ask! The entire team is on there and we'd be happy to answer anything you need. **All contributions are welcome,** big or small!
-
-<p>
-  <a href="https://github.com/continuous-dems">
-    <img src="../../assets/images/mark-github-24.svg" alt="" width="22" height="22" style="vertical-align: -0.28em; margin-right: 0.35em;">
-    <strong>Explore Continuous-DEMs on GitHub</strong>
-  </a>
-</p>
-
-If you are new to contributing to an open-source project, we are happy to help walk you through the process!
+There are a few final steps we'd like you to take before logging off of your virtual machine. Please read **[6 - Wrap it up](../06-wrap-it-up/index.md)** before closing your browser.
