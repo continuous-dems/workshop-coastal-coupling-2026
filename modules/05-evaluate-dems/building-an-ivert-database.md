@@ -6,42 +6,16 @@ subject: "Tutorial"
 # 🗄️ Building your own IVERT database
 
 :::{note}
-This page is optional and is not part of the guided workshop. It takes approximately **20 minutes** to do on your own, and can take **an hour or more** for a larger region.
+This page is optional and is not part of the guided workshop. It takes approximately **20 minutes** on your own, and an hour or more for a larger region.
 :::
 
-The workshop uses a database of ICESat-2 granules that was prepared ahead of time and
-staged in `~/workshop/ivert`. This page will cover building an equivalent database
-yourself, for your own study area.
-
-:::{tip} 🧭 Where we are going
-:icon: false
-
-In this tutorial we will build our own database of classified ICESat-2 photons, covering any region we choose.
-Along the way we will meet NASA Earthdata and the Harmony subsetting service.
-By the end we will be able to validate a DEM anywhere ICESat-2 flies, without depending on the prepared workshop data.
-:::
-
-The workflow is:
-
-```text
-point IVERT at a database directory of your own
-      ↓
-set up NASA Earthdata credentials
-      ↓
-choose the region to cover
-      ↓
-download + classify ICESat-2 photons
-      ↓
-inspect the resulting database
-      ↓
-clear the download cache
-```
+The workshop uses a database of ICESat-2 granules prepared ahead of time and staged in `~/workshop/ivert`. Here we build an equivalent database for a study area of your own, so you can validate a DEM anywhere ICESat-2 flies.
 
 ---
 
 ## 🔧 1. Point IVERT at a database directory of your own
 
-In Module 5 we pointed IVERT at the **prepared** workshop database in `~/workshop/ivert`. That directory is read-only reference data for the workshop, so to build a database of your own we point IVERT at a fresh, writable directory instead:
+The prepared `~/workshop/ivert` database is workshop reference data, so we point IVERT at a fresh, writable directory instead:
 
 ```bash
 ivert options ivert_database_directory=~/workshop/ivert_database/granules cache_directory=~/workshop/ivert_database/cache --yes
@@ -49,67 +23,41 @@ ivert options ivert_database_directory=~/workshop/ivert_database/granules cache_
 
 | Option | Meaning |
 |---|---|
-| `ivert_database_directory=...` | Directory IVERT will write your new granules into |
-| `cache_directory=...` | Directory for the raw downloads and conversion grids IVERT builds along the way |
+| `ivert_database_directory=...` | Where IVERT writes your new granules |
+| `cache_directory=...` | Where raw downloads and conversion grids go |
 | `--yes` | Skip the interactive confirmation prompt |
 
-Note that this is a **different** directory from the prepared `~/workshop/ivert` database — nothing you do here touches the workshop copy.
+This is a **different** directory from the prepared `~/workshop/ivert` database — nothing here touches the workshop copy. Check the current settings any time with `ivert options list`.
 
-You can see where IVERT will now read and write with:
+:::{dropdown} Switching back to the workshop database
 
-```bash
-ivert options list
-```
-
-The two settings that matter here are:
-
-| Setting | Value you just set |
-|---|---|
-| `ivert_database_directory` | `~/workshop/ivert_database/granules` |
-| `cache_directory` | `~/workshop/ivert_database/cache` |
-
-:::{note} Getting the workshop database back
-:icon: false
-
-Changing these settings replaces the pointer to the prepared workshop database. If you want it back later, just re-run the command from Module 5:
+Re-run the command from Module 5:
 
 ```bash
 ivert options ivert_database_directory=~/workshop/ivert/granules cache_directory=~/workshop/ivert/cache --yes
 ```
 
-Nothing is deleted — both databases can coexist, and you switch between them by changing this one setting.
+Nothing is deleted by switching — both databases can coexist, and you move between them by changing this one setting.
 :::
 
-:::{warning} `~/workshop` is temporary storage
-:icon: false
+:::{dropdown} ⚠️ `~/workshop` is temporary storage
 
-`~/workshop` points at `/tmp/workshop`, which does not survive your JupyterHub server being stopped and recreated. Download anything you want to keep before you finish. On your own machine, point these same settings anywhere you like — or run `ivert options reset --yes` to go back to IVERT's defaults under `~/.ivert`.
+`~/workshop` points at `/tmp/workshop`, which does not survive your JupyterHub server being stopped and recreated — the database you are about to spend 20+ minutes building included. Do this in a session you keep open, and download anything you want to keep before you finish. If you do log back in later, re-run `bash ~/shared/setup_workshop.sh` to re-stage the workshop data.
+
+On your own machine, point these settings anywhere you like — or run `ivert options reset --yes` to return to IVERT's defaults under `~/.ivert`.
 :::
 
 ---
 
 ## 🔧 2. Set up your NASA Earthdata credentials
 
-IVERT gets its data from **NASA Earthdata**, which requires a free account.
-
-1. If you don't already have one, create an account at [NASA Earthdata user account setup](https://urs.earthdata.nasa.gov/users/new).
-2. If you already have an account, retrieve your existing username and password.
-
-Copy your Earthdata username and password somewhere handy — you'll use them in a moment.
-
-Now run IVERT's setup command, which creates the local data directories and checks for your credentials:
+IVERT gets its data from **NASA Earthdata**, which requires a free account. Create one at [NASA Earthdata user account setup](https://urs.earthdata.nasa.gov/users/new) if you don't have one, then run:
 
 ```bash
 ivert setup
 ```
 
-If IVERT does not find Earthdata credentials already stored, it will prompt you for them and offer to save them.
-
-:::{tip}
-Credentials are saved to a `~/.netrc` file in your home directory, so **you only have to enter them once**. Every later IVERT download will read them from there.
-
-If you skip this step, the download command in the next section will prompt you for the same credentials instead.
-:::
+This creates the local data directories and checks for your credentials, prompting you for them if it doesn't find any.
 
 :::{important} 🧪 Success check
 :icon: false
@@ -117,29 +65,19 @@ If you skip this step, the download command in the next section will prompt you 
 `ivert setup` completes without an error and reports that your NASA Earthdata credentials are in place.
 :::
 
----
+:::{dropdown} Where do the credentials go?
 
-## 🔧 3. Choose the region to cover
-
-An IVERT database is built to cover a **geographic region**. The easiest way to define that region is to hand IVERT the DEM you eventually want to validate — IVERT reads its extent directly.
-
-Move into the directory holding that DEM:
-
-```bash
-cd ~/workshop/sarasota_dem
-```
-
-:::{note}
-Use another directory here if you have a different DEM you'd like to validate. Everything below works the same way — only the extent changes.
+They are saved to a `~/.netrc` file in your home directory, so **you only enter them once** — every later IVERT download reads them from there. If you skip this step, the download command in the next section prompts you for the same credentials instead.
 :::
 
 ---
 
-## 🔧 4. Download the ICESat-2 data
+## 🔧 3. Choose the region and download
 
-From that directory, run:
+An IVERT database covers a **geographic region**. The easiest way to define it is to hand IVERT the DEM you want to validate — it reads the extent directly.
 
 ```bash
+cd ~/workshop/sarasota_dem
 ivert database download --date-start 2023.10.01 --date-end 2024.11.01 *_final.tif
 ```
 
@@ -149,27 +87,20 @@ ivert database download --date-start 2023.10.01 --date-end 2024.11.01 *_final.ti
 | `--date-end 2024.11.01` | End date for the search |
 | `*_final.tif` | The DEM(s) whose combined extent defines the download region |
 
-:::{tip} How much data should I grab?
-:icon: false
+This sends a request to the **NASA Harmony** cloud service, which subsets the granules *before* downloading them, saving many GB of transfer. IVERT then downloads the ancillary products needed to classify the photons.
 
-We generally recommend grabbing **at least a year** of ICESat-2 data to perform a good validation. ICESat-2 repeats its orbits every 90 days (and cannot collect through clouds), so a shorter window can leave large parts of your DEM unsampled.
+This usually takes about **20 minutes**, and more than an hour for larger queries. Grab a coffee.
+
+:::{dropdown} How much data should I request?
+
+Request **at least a year**. ICESat-2 repeats its orbits every 90 days and cannot collect through clouds, so a shorter window leaves large parts of your DEM unsampled.
+
+**Why the November 2024 end date?** ICESat-2's **ATL24** bathymetry product is only processed periodically, and as of **August 2026** it runs through **November 7, 2024**. NASA will process newer data in fall 2026, but for now request photons on or before November 2024 for the best chance of bathymetry classifications in a coastal area. IVERT knows this cutoff — the `atl24_date_cutoff` setting — and warns you if your range extends past it.
+
+If your DEM is not near a coastline, none of this matters. ICESat-2 began collecting on October 13, 2018 and is still going in August 2026.
 :::
 
-:::{warning} Why the November 2024 end date?
-:icon: false
-
-ICESat-2's **ATL24** data product (bathymetry classification) is only processed periodically, and as of **August 2026** it only has data through **November 7, 2024**. NASA will process newer data this fall 2026, but for now we recommend requesting photons **on or before November 2024** to get the best chance of having bathymetry classifications in a coastal area.
-
-IVERT knows this cutoff — it is the `atl24_date_cutoff` setting — and will warn you interactively if your date range extends past it.
-
-If your DEM is **not** near a coastline, none of this matters and you can request any date range you like.
-
-*Of note:* ICESat-2 began collecting data on October 13, 2018, and is still going strong in August 2026.
-:::
-
-If prompted, enter your NASA Earthdata login info (unless you already saved it in step 2).
-
-:::{dropdown} Prefer to specify a bounding box instead of a DEM?
+:::{dropdown} Prefer a bounding box instead of a DEM?
 
 `ivert database download` also accepts a 4-value bounding box in **W/E/S/N** order:
 
@@ -177,32 +108,18 @@ If prompted, enter your NASA Earthdata login info (unless you already saved it i
 ivert database download --date-start 2023.10.01 --date-end 2024.11.01 -- -82.7/-82.5/27.3/27.5
 ```
 
-Note the `--` delimiter. It explicitly ends the command-line options, which is required whenever your coordinates begin with a negative `-`.
-
-Add `--wsen` if you would rather give the box in W/S/E/N (lower-left, upper-right) order.
-:::
-
-### What is actually happening
-
-This sends a request to the **NASA Harmony** cloud service, which subsets your ICESat-2 granules *before* downloading them, saving you many GB of downloads. IVERT then downloads the ancillary data products needed to complete the photon classifications.
-
-:::{tip}
-It's probably a good idea to grab a cup of coffee or check your email while this runs.
-
-It usually takes about **20 minutes** for short jobs like this, and can take **more than an hour** for larger queries, especially if the NASA Harmony server is busy.
+The `--` delimiter explicitly ends the command-line options, which is required whenever your coordinates begin with a negative `-`. Add `--wsen` to give the box in W/S/E/N order instead.
 :::
 
 ---
 
-## 🔧 5. Check your database
-
-When the classification is complete, look at what you have:
+## 🔧 4. Check your database
 
 ```bash
 ivert database list
 ```
 
-You should see one row per granule, something like this (this example is from a small Newport, Oregon region):
+You should see one row per granule:
 
 ```text
 File                                                                   Total    Ground    BathyFloor    BathySurf
@@ -212,16 +129,22 @@ ATL03_20231124062932_10122102_007_01_subsetted_..._20231001_20241101.nc  24,434 
 ATL03_20240223020859_10122202_007_01_subsetted_..._20231001_20241101.nc  12,512         0             0            1
 ```
 
-The columns tell you whether the download was useful:
-
 | Column | Meaning |
 |---|---|
 | `Total` | All photons retained in that granule |
-| `Ground` | Photons classified as ground returns (ATL08) — these validate the **terrestrial** part of your DEM |
-| `BathyFloor` | Seafloor photons (ATL24) — these validate the **submerged** part of your DEM |
+| `Ground` | Ground returns (ATL08) — these validate the **terrestrial** part of your DEM |
+| `BathyFloor` | Seafloor photons (ATL24) — these validate the **submerged** part |
 | `BathySurf` | Water-surface photons |
 
-The granule filenames are informative too:
+:::{important} 🧪 Success check
+:icon: false
+
+There are files in the database, and they contain classified **ground** photons. If your DEM is coastal, check whether any have **bathymetry** photons (`BathyFloor`).
+
+An empty list means the download found no overlapping granules or did not complete — re-check your date range and DEM extent. `BathyFloor` counts of `0` are not necessarily an error; clear, shallow water is a prerequisite for ICESat-2 bathymetry and many coastlines lack it.
+:::
+
+:::{dropdown} Reading the granule filenames
 
 ```text
 ATL03_20231028200109_06082106_007_01_subsetted_W124.10019_W123.99981_N44.58981_N44.64019_20231001_20241101.nc
@@ -234,96 +157,54 @@ ATL03_20231028200109_06082106_007_01_subsetted_W124.10019_W123.99981_N44.58981_N
   └── source product
 ```
 
-You can also check how much disk space the database is using:
-
-```bash
-ivert database size
-```
-
-:::{important} 🧪 Success check
-:icon: false
-
-Ask yourself:
-
-1. Are there files in the database at all?
-2. Do they have classified **ground** photons in them?
-3. If your DEM is coastal, do any of them have **bathymetry** photons (`BathyFloor`)?
-
-If the list comes back empty, the download either found no overlapping granules or did not complete. Re-check your date range and your DEM's extent.
-
-If you have granules but every `BathyFloor` count is `0`, that is not necessarily an error — clear, shallow water is a prerequisite for ICESat-2 bathymetry, and many coastlines simply don't have it.
+`ivert database size` reports how much disk space the database is using.
 :::
 
 ---
 
-## 🔧 6. Check and clear your cache
+## 🔧 5. Clear the download cache
 
-Downloading happens in two stages. IVERT first pulls **raw** ICESat-2 granules and ancillary data products into a **cache** directory, then writes the classified, subsetted photons out to the database.
-
-That cache is scratch space, and it is often **100x larger than the database it produced**. Once the database has been built successfully, you can reclaim that space.
-
-Check the size first:
+IVERT pulls **raw** granules and ancillary products into a cache, then writes the classified photons out to the database. That cache is scratch space and is often **100x larger than the database it produced**.
 
 ```bash
 ivert cache list
-```
-
-The `icesat2` subdirectory is nearly all of this disk-space, holding the raw granules (including noise photons) that have already been subsetted and classified into your database.
-
-To clear it:
-
-```bash
 ivert cache delete
 ```
-
-:::{warning}
-Only clear the cache **after** you have confirmed your database looks right in step 5.
-
-Deleting the cache does not touch your database — the classified photons are already saved. But the cache also holds reusable ancillary files (`proj` conversion grids, the `bing` building mask, the `osm_landmask`), and IVERT will re-download or rebuild those the next time if it needs them.
-:::
 
 :::{important} 🧪 Success check
 :icon: false
 
-`ivert cache list` reports a `TOTAL` of 0 files, while `ivert database size` still reports all of your `.nc` granules.
+`ivert cache list` reports a `TOTAL` of 0 files, while `ivert database size` still reports all of your `.nc` granules. Your database is intact and you reclaimed the scratch space.
+:::
 
-Your database is intact and you reclaimed your scratch space.
+:::{dropdown} What exactly am I deleting?
+
+The `icesat2` subdirectory is nearly all of the disk space, holding raw granules — including noise photons — that have already been subsetted and classified into your database.
+
+Only clear the cache **after** confirming your database looks right in step 4. Deleting it does not touch your database, but the cache also holds reusable ancillary files (`proj` conversion grids, the `bing` building mask, the `osm_landmask`), and IVERT will re-download or rebuild those if it needs them again.
 :::
 
 ---
 
-## 🔧 7. Validate against your own database
+## 🔧 6. Validate against your own database
 
-IVERT is still pointing at your new database from step 1, so validation works exactly as it did in Module 5 — no extra flags needed:
+IVERT is still pointing at your new database, so validation works exactly as it did in Module 5:
 
 ```bash
 ivert validate *_final.tif -n "Sarasota, FL" --overwrite
 ```
 
-The results land in an `ivert_results` sub-directory, with the same five output files described in [Module 5](./index.md).
+`--overwrite` tells IVERT to replace any previous results in the `ivert_results` sub-directory. The five output files are the same ones described in [Module 5](./index.md).
 
-Note: the `--overwrite` flag just tells IVERT to ignore any previous IVERT results in the subdirectory, and overwrite them with fresh results.
+:::{dropdown} The takeaway
 
----
-
-:::{important} The takeaway
-:icon: false
-
-Building your own database is the step that makes IVERT portable to **your** work:
-
-> **Any DEM, anywhere ICESat-2 orbits, can be checked against independent observations.**
-
-The three things to get right are:
+Three things to get right when building a database:
 
 1. **Extent** — cover the DEM you actually want to validate
 2. **Time span** — at least a year, and mind the ATL24 cutoff for coastal work
 3. **Content** — confirm with `ivert database list` that you have classified photons, not just granules
 
-And once it's built, clear the cache. The database is the durable product; the multi-gigabyte download cache is not.
-
-Once the database exists, it is reusable. Any number of DEMs overlapping that region can be validated against it without downloading anything again.
-
-If you want to download new areas or a greater time-span, you can make more requests. IVERT will only download areas and time-spans that have not been requested. It will automatically subset your new areas if they partially overlap previous requests, so you will know that your area contains a full record of all the areas and dates you requested, *without duplicate granules.*
+Once built, the database is reusable: any number of DEMs overlapping that region can be validated without downloading anything again. Later requests only download areas and time spans you haven't already asked for, and IVERT subsets new areas that partially overlap old ones, so you get a full record without duplicate granules.
 :::
 
 ---
@@ -331,6 +212,6 @@ If you want to download new areas or a greater time-span, you can make more requ
 ## Where to go next
 
 - Return to **[5 - Evaluate the DEMs with IVERT](./index.md)** for the validation workflow and how to interpret the outputs.
-- Run `ivert classes` to see the full list of photon classification codes, which you can select with the `-c/--classes` option at download time.
-- Run `ivert database export` to write your photons out to GeoPackage, Shapefile, or XYZ for use in a GIS or another workflow.
+- `ivert classes` lists the photon classification codes, selectable with `-c/--classes` at download time.
+- `ivert database export` writes your photons out to GeoPackage, Shapefile, or XYZ.
 - Every command has detailed help: `ivert <command> --help`.
