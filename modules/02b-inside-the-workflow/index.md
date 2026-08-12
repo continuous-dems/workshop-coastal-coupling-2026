@@ -72,7 +72,7 @@ Together, Fetchez, Transformez, and Globato turn that recipe into the final coas
 
 The diagram below shows the overall workflow we are about to step through.
 
-:::{figure} ../../assets/images/workflow_no_title.png
+:::{figure} ../../assets/images/workflow_final.png
 :alt: End-to-end coastal DEM workflow showing Fetchez orchestration, national and local source data, Transformez and Globato processing, stacked measurements, interpolation, the final DEM and spatial metadata, and independent validation with ICESat-2.
 :width: 85%
 :align: center
