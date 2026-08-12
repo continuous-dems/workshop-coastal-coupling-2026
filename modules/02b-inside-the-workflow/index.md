@@ -24,33 +24,6 @@ interpolate across multiple scales
 write the final DEM
 ```
 
-<!-- IMAGE PLACEHOLDER
-Highest-value figure for this module:
-
-A single workflow diagram showing:
-
-National + local data sources
-        ↓
-Fetchez
-workflow + data orchestration
-        ↓
-source-specific processing
-   ↙                   ↘
-Transformez          Globato
-transformations   elevation tools
-   ↘                   ↙
-    stacked measurements
-            ↓
-    DEM interpolation
-            ↓
-    final DEM + hillshade
-
-Suggested caption:
-"Major stages in the Newport coastal DEM workflow."
-
-If possible, use the same terminology that appears in the terminal output.
--->
-
 :::{tip}
 ## Follow the stages, not every log line
 
@@ -97,6 +70,17 @@ The DAV source adds the locally useful Newport topobathymetric lidar.
 
 Together, Fetchez, Transformez, and Globato turn that recipe into the final coastal DEM.
 
+The diagram below shows the overall workflow we are about to step through.
+
+:::{figure} ../../assets/images/workflow_no_title.png
+:alt: End-to-end coastal DEM workflow showing Fetchez orchestration, national and local source data, Transformez and Globato processing, stacked measurements, interpolation, the final DEM and spatial metadata, and independent validation with ICESat-2.
+:width: 85%
+:align: center
+
+**How the coastal DEM workflow works.** The workflow moves from data discovery through reference transformations, DEM construction, and independent validation.
+:::
+
+You do not need to understand every implementation detail during the workshop. The goal is to recognize the main stages and how the tools fit together.
 
 ---
 
