@@ -36,6 +36,14 @@ For that, we use **IVERT:** the **ICESat-2 Validation of Elevations Reporting To
 
 ICESat-2 is a NASA Satellite with an photon-counting green altimeter lidar called ATLAS. It scans the earth with 6 beams, repeats its orbits every 90 days, shoots 10,000 shots a second, and measures individual green photons coming back to the sensor.
 
+:::{figure} ../../assets/images/icesat2_satellite.jpeg
+:alt: Illustration of the ICESat-2 satellite in orbit, emitting six green laser beams arranged in three pairs that strike the surface below and trace six parallel ground tracks across the terrain.
+:width: 60%
+:align: center
+
+**ICESat-2 and its six beams.** The ATLAS instrument splits its green laser into three pairs of beams, which trace six parallel ground tracks beneath the satellite. Elevations are measured only along those narrow tracks — not as a continuous grid — which is why IVERT compares a DEM cell-by-cell where tracks happen to cross it. *Image credit: NASA.*
+:::
+
 IVERT compares a finished DEM against ICESat-2 elevations and produces statistical and spatial views of the comparison. IVERT provides an **independent end-to-end check on the result of your DEM workflow**.
 
 Conceptually:
