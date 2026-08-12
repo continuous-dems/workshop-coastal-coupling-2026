@@ -395,9 +395,15 @@ Suggested caption:
 
 ---
 
-# Next: evaluate the DEMs
+Sarasota is now building in the background. Here is a sneak peek of the final DEM.
 
-Sarasota is now building in the background.
+:::{figure} ../../assets/images/sarasota_hs.png
+:alt: Hillshade of the Sarasota, Florida coastal DEM.
+:width: 100%
+:align: center
+
+**Sneak peek of the Sarasota coastal DEM.** We will return to this DEM after evaluating Newport with IVERT.
+:::
 
 Next:
 
@@ -410,13 +416,4 @@ introduce IVERT
       ↓
 evaluate Newport
       ↓
-return to Sarasota
-      ↓
 evaluate Sarasota
-```
-
-:::{tip}
-Keep the Sarasota build terminal open.
-
-We will come back to it after the Newport IVERT exercise.
-:::
