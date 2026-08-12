@@ -527,7 +527,7 @@ These files provide different views of the source data, provenance, and gridding
 
 | Output | High-level description | What it tells you |
 |---|---|---|
-| **Source masks** (`tmp_sources/`) | A separate raster mask for each data module. Cells are `1` where that module contributes data and `0` where it does not. | Where each individual source contributes to the DEM. |
+| **Source masks** (`tmp_sources/`) | A separate raster mask for each input data file. Cells are `1` where that file contributes data and `0` where it does not. | Where each individual input data file contributes to the DEM. |
 | **Sources VRT** (`*_sources.vrt`) | A virtual raster that brings the individual source masks together. | A combined view of source-data coverage. |
 | **Spatial metadata** (`*_sm.gpkg`) | A GeoPackage generated from the source masks and dissolved by **module + weight**. | An easy-to-view vector representation of which sources support different parts of the DEM. |
 | **Provenance raster** | A compact raster that assigns each module a bit value and records which source or sources contributed to each cell. | Cell-by-cell source provenance, including places where multiple sources contributed. |
@@ -544,7 +544,7 @@ The source masks are straightforward:
 0 = this module does not contribute data here
 ```
 
-Each input data file gets its own mask in `tmp_sources/`, and the masks are brought together in the `*_sources.vrt`.
+Each input data file gets its own mask in `tmp_sources/`, and those masks are brought together in the `*_sources.vrt`.
 
 The provenance raster stores source information more compactly. Each module receives a unique bit value. For example:
 
