@@ -19,7 +19,7 @@ look inside the workflow
       ↓
 explore the DEM
       ↓
-reuse the recipe in Sarasota
+reuse the basic recipe in Sarasota
       ↓
 evaluate the DEMs
 ```
@@ -149,14 +149,12 @@ ls
 `ls` lists the files and directories in your current location.
 
 
-This shows file sizes in an easier-to-read format.
-
 ## Move into a directory
 
 Use `cd` followed by the directory name:
 
 ```bash
-cd newport_dem
+cd shared
 ```
 
 Then check where you are:
@@ -184,7 +182,7 @@ cd ..
 For example:
 
 ```text
-home/newport_dem
+home/shared
         ↓
       cd ..
         ↓
@@ -217,13 +215,13 @@ Start typing a filename or directory name and press **Tab**. The terminal can of
 For example:
 
 ```text
-cd newp<Tab>
+cd shar<Tab>
 ```
 
 may complete to:
 
 ```text
-cd newport_dem/
+cd shared
 ```
 
 **Use the Up Arrow**
