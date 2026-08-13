@@ -8,7 +8,7 @@ Welcome to the **NOAA NCEI/CIRES Coastal DEM Workshop**.
 
 In this module, we will get everyone into JupyterLab, confirm that the workshop tools are ready, and set up the workspace we will use for the exercises.
 
-> **Goal:** Get connected, open a terminal, confirm the tools, and prepare `~/workshop`.
+> **Goal:** Get connected, open a terminal, confirm the tools, and prepare workshop data.
 
 ---
 
@@ -16,8 +16,8 @@ In this module, we will get everyone into JupyterLab, confirm that the workshop 
 
 Open the **[Coastal Coupling Workshop JupyterHub](https://workshop.nmfs-openscapes.2i2c.cloud/)**.
 
-1. Enter a username that is unique from the other participants.
-2. Use the workshop password shared by the instructors.
+1. Enter a username that is unique from other participants.
+2. Use the workshop password shared by the instructors in the chat.
 3. Start your JupyterHub server.
 4. Wait for **JupyterLab** to open.
 
@@ -91,7 +91,7 @@ If all four commands work, **do not install or update anything** during the work
 
 Do not try to fix the environment with `pip install`.
 
-Let an instructor know which command failed so we can keep your workshop environment consistent with everyone else's.
+Let an instructor know which command failed in the chat.
 :::
 
 ---
@@ -166,7 +166,7 @@ Before moving on, confirm that:
 
 - [ ] JupyterLab is open.
 - [ ] You have a terminal open.
-- [ ] all four version commands work.
+- [ ] All four tool version commands work.
 - [ ] `bash ~/shared/setup_workshop.sh` completed successfully.
 - [ ] `ls ~/workshop` shows the prepared workshop directories.
 
@@ -185,11 +185,11 @@ Open the JupyterLab Launcher with the **+** button and look under **Other**.
 
 **One of the version commands fails**
 
-Do not install or update the package yourself during the workshop. Show the error to an instructor.
+Do not install or update the package yourself during the workshop.
 
 **The workshop setup script fails**
 
-Copy the error message from the terminal and show it to an instructor. Do not manually move or rebuild the workshop data directories unless an instructor asks you to.
+Do not manually move or rebuild the workshop data directories unless an instructor asks you to. Show the error in the chat.
 
 **I am not sure which directory I am in**
 
