@@ -230,9 +230,12 @@ same recipe + new local choices = new local DEM
 
 You changed the **study area, local lidar, and output locations** while keeping the reusable coastal recipe and core processing settings.
 
----
+The Sarasota build shows how the same workflow can be transferred to a new coastal region by changing only the local choices.
 
-Next:
+Next, we ask the question that matters after any DEM is built:
 
-> ***Module 5 — Evaluate the DEMs with IVERT***
+> **How well does it agree with independent observations?**
+
+**Next: Module 5 — Evaluate the DEMs with IVERT**
+
 
