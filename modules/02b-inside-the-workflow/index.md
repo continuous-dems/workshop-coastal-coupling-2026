@@ -175,19 +175,6 @@ so the selected local topobathymetric lidar receives strong priority where it ov
 A source weight is a **recipe priority**, not a formal measurement uncertainty.
 :::
 
-:::{dropdown} If you see Z, W, and U
-
-A useful shorthand is:
-
-| Value | Meaning |
-|---|---|
-| `Z` | Elevation |
-| `W` | Source priority / weight |
-| `U` | Uncertainty information when available |
-
-A default `U=0` means no explicit uncertainty value was provided. It does **not** mean zero real-world uncertainty.
-:::
-
 ---
 
 # 5. Interpolate across multiple scales
