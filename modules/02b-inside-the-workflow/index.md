@@ -6,9 +6,7 @@ title: "2b - Inside the Workflow"
 
 The Newport DEM should now be running.
 
-Keep the terminal visible as we walk through the major stages of the workflow.
-
-You do **not** need to interpret every message. Instead, try to recognize this overall sequence:
+Keep the terminal visible. You do **not** need to interpret every message—just recognize the major stages:
 
 ```text
 discover data
@@ -25,36 +23,22 @@ write the final DEM
 ```
 
 :::{tip}
-## Follow the stages, not every log line
-
-As the build runs, periodically ask:
+As the build runs, ask:
 
 > **Which stage of the workflow are we seeing right now?**
-
-That is more useful than trying to understand every terminal message.
 :::
 
 ---
 
 # The tools working together
 
-Three Continuous-DEMs tools support the build:
-
 | Tool | Main role |
 |---|---|
-| **Fetchez** | Orchestrates the workflow, manages the recipe, and discovers and streams source data |
-| **Transformez** | Supports horizontal and vertical coordinate transformations |
-| **Globato** | Provides the elevation-specific tools for filtering, gridding, and building the DEM |
+| **Fetchez** | Orchestrates the recipe and data pipeline |
+| **Transformez** | Supports horizontal and vertical reference transformations |
+| **Globato** | Provides elevation-specific filtering, gridding, and DEM construction |
 
-We launch the workflow with **Globato**:
-
-```text
-globato build ...
-```
-
-From the user's perspective, Globato is the main entry point for building a DEM.
-
-Under the hood, **Fetchez coordinates the data pipeline**, while Globato provides the elevation-specific processing needed to turn those source data into a DEM. **Transformez** supports the coordinate and vertical-reference transformations required along the way.
+We launch the build with **Globato**, while Fetchez coordinates the data pipeline and Transformez supports reference-system transformations.
 
 Our Newport recipe combines:
 
@@ -64,81 +48,23 @@ coupling-bathy-topo
 dav:survey_id=9693,weight=100
 ```
 
-The bundle provides our strong nationally available starting point.
-
-The DAV source adds the locally useful Newport topobathymetric lidar.
-
-Together, Fetchez, Transformez, and Globato turn that recipe into the final coastal DEM.
-
-The diagram below shows the overall workflow we are about to step through.
-
 :::{figure} ../../assets/images/workflow_final.png
 :alt: End-to-end coastal DEM workflow showing Fetchez orchestration, national and local source data, Transformez and Globato processing, stacked measurements, interpolation, the final DEM and spatial metadata, and independent validation with ICESat-2.
 :width: 85%
 :align: center
 
-**How the coastal DEM workflow works.** The workflow moves from data discovery through reference transformations, DEM construction, and independent validation.
+**Coastal DEM workflow.** The build moves from data discovery through source preparation, reference-system standardization, DEM construction, and final outputs.
 :::
-
-You do not need to understand every implementation detail during the workshop. The goal is to recognize the main stages and how the tools fit together.
 
 ---
 
 # 1. Discover the data
 
-The workflow first determines which configured sources actually overlap the Newport study area.
+The workflow first determines which configured sources overlap Newport.
 
-Different providers may use different:
+Fetchez provides a common way to work with data from different catalogs, APIs, formats, and providers.
 
-- catalogs
-- APIs
-- file structures
-- formats
-- download methods
-
-Fetchez gives the larger workflow a common way to access those sources.
-
-## Explore Fetchez
-
-The Newport build is already using Fetchez behind the scenes.
-
-Open a **second terminal** so the Globato build can continue running, then list the available data modules:
-
-```bash
-fetchez modules list
-```
-
-You can inspect the national coastal bundle used for Newport:
-
-```bash
-fetchez modules bundles info coupling-bathy-topo
-```
-
-If a particular source interests you, inspect it with:
-
-```bash
-fetchez modules info MODULE_NAME
-```
-
-For example, learn more about the USACE eHydro module:
-
-```bash
-fetchez modules info ehydro
-```
-
-Recall that we also added the Newport Digital Coast lidar directly:
-
-```text
-dav:survey_id=9693,weight=100
-```
-
-Learn more about the Digital Coast `dav` module:
-
-```bash
-fetchez modules info dav
-```
-
-So the Newport source recipe combines:
+For Newport:
 
 ```text
 national coastal data
@@ -146,172 +72,65 @@ national coastal data
 local Newport topobathymetric lidar
 ```
 
-:::{tip}
-You do not need to explore every Fetchez module.
-
-The goal is simply to see that the individual data providers are accessible components that Fetchez can coordinate as part of a larger DEM recipe.
-:::
-
-As the terminal runs, watch for data being:
-
-- discovered
-- opened
-- downloaded or reused from cache
-
-<!-- TERMINAL SCREENSHOT PLACEHOLDER
-Suggested figure:
-A short screenshot or cropped terminal excerpt showing one or two
-representative source-discovery messages.
-
-Keep it short enough that participants can visually match the screenshot
-to their own terminal.
-
-Suggested caption:
-"Example of source discovery during the Newport build."
--->
-
 :::{important}
-## Can you spot a data source?
+## Look at the terminal
 
-Look at your running terminal.
-
-Can you recognize the name of **one dataset or provider** from the national bundle or the local DAV lidar?
+Can you recognize the name of **one dataset or provider** being discovered, opened, or reused from cache?
 :::
 
----
+:::{dropdown} Explore Fetchez
 
-# Workshop cache and output folders
+Optional commands for a second terminal:
 
-Our command includes:
+```bash
+fetchez modules list
+fetchez modules bundles info coupling-bathy-topo
+fetchez modules info dav
+```
+
+These let you inspect available data modules, the national bundle, and the Digital Coast DAV source.
+:::
+
+:::{dropdown} About the workshop cache
+
+The command uses:
 
 ```text
 --shared-cache ~/workshop/newport_data
 ```
 
-The logic is simple:
+The workshop setup staged prepared source data there so the build can reuse them rather than download everything again.
 
 ```text
-source already cached?
-        │
-        ├── yes → reuse it
-        │
-        └── no  → access it
+~/workshop/newport_data/    → prepared source-data cache
+~/workshop/newport_dem/     → processing files and outputs
 ```
 
-For this workshop, `setup_workshop.sh` staged a participant-local copy of the prepared Newport cache at:
-
-```text
-~/workshop/newport_data/
-```
-
-The Globato option is still named `--shared-cache`, but in this workshop it points to the cache in your own `~/workshop` workspace.
-
-Your Newport processing and output files are written to:
-
-```text
-~/workshop/newport_dem/
-```
-
-These two directories serve different purposes:
-
-```text
-~/workshop/newport_data/    → prepared source-data cache used by your build
-~/workshop/newport_dem/     → processing files and outputs created by your Newport build
-```
-
-:::{tip}
-If you see messages about reusing cached data, that is expected.
-
-The Newport cache was staged when you ran `setup_workshop.sh`. If a required source is missing, let an instructor know.
+Messages about reusing cached data are expected.
 :::
 
 ---
 
-# 2. Prepare each source appropriately
+# 2. Prepare each source
 
 Coastal elevation datasets are not all equivalent.
 
-Depending on the source, the workflow may need to:
+Depending on the source, the workflow may need to clip, convert, filter, apply land/water constraints, or otherwise prepare the measurements.
 
-- clip data to the study area
-- unpack or convert files
-- filter inappropriate elevations
-- apply land/water constraints
-- transform coordinates or vertical datums
-
-The important idea is:
-
-> **Use one reproducible workflow while still treating each source according to what that source requires.**
-
-This matters because topographic lidar, hydrographic surveys, chart data, and other coastal observations were collected and stored differently and should not automatically be processed in exactly the same way.
-
----
+> **One reproducible workflow can still treat each source according to what that source requires.**
 
 :::{dropdown} Why does the coastline matter?
 
-A coastal DEM crosses a difficult boundary between dense terrestrial measurements and often sparser bathymetric observations.
+A coastal DEM crosses the boundary between terrestrial and bathymetric measurements.
 
-We do not want dense land elevations influencing interpolation far offshore.
-
-A land/water boundary can also help distinguish useful terrain or seafloor elevations from inappropriate water-surface elevations.
-
-Conceptually:
-
-```text
-land measurements      water measurements
-        \                    /
-         \                  /
-          coastline constraint
-                  ↓
-          coastal DEM surface
-```
-
-The coastline is therefore part of the processing logic, not just a map feature.
-
-<!-- IMAGE PLACEHOLDER
-Optional but useful:
-A simple cross-section or map showing dense land lidar, coastline,
-and sparse bathymetric measurements.
-
-Suggested caption:
-"Coastline constraints help keep dense terrestrial measurements from influencing offshore interpolation inappropriately."
--->
+Land/water constraints can help prevent inappropriate topographic measurements or interpolation from influencing the bathymetry. The coastline is therefore part of the processing logic, not just a map feature.
 :::
 
 ---
 
 # 3. Standardize the reference system
 
-Our target DEM is requested in:
-
-```text
-epsg:4269+5703
-```
-
-which represents:
-
-```text
-Horizontal: NAD83
-Vertical:   NAVD88
-```
-
-Source datasets may arrive in different horizontal or vertical reference systems.
-
-Before those measurements can be combined meaningfully, they need to be expressed in the requested common reference system.
-
-Watch the terminal for transformation steps.
-
-This is where **Transformez** supports the workflow.
-
-## Explore Transformez
-
-In your second terminal, list the available transformations:
-
-```bash
-transformez list
-```
-
-Our Newport DEM is requested in:
+Our target Newport DEM is:
 
 ```text
 epsg:4269+5703
@@ -320,104 +139,61 @@ epsg:4269+5703
 or:
 
 ```text
-NAD83 + NAVD88
+Horizontal: NAD83
+Vertical:   NAVD88
 ```
 
-You do not need to run the transformations manually here. Fetchez coordinates the workflow, using Transformez where transformations are required.
+Source datasets may arrive in different horizontal or vertical reference systems. Before they can be combined, they need to be expressed in the requested common system.
 
-:::{tip}
-This modular design is useful because the individual capabilities remain available on their own:
-
-```text
-Fetchez      → orchestrate the recipe and data pipeline
-Transformez  → support reference-system transformations
-Globato      → provide elevation-specific DEM tools
-```
-:::
-
-<!-- TERMINAL SCREENSHOT PLACEHOLDER
-Suggested figure:
-A short cropped terminal excerpt showing a representative transformation
-or reprojection message.
-
-Suggested caption:
-"Source data are transformed into the requested horizontal and vertical reference system before stacking."
--->
+This is where **Transformez** supports the workflow.
 
 :::{important}
-## Can you spot a transformation?
+## Look at the terminal
 
-Look at the terminal.
+Can you spot a message related to reprojection, transformation, EPSG codes, or datums?
 
-Can you find a message related to:
-
-- reprojection
-- coordinate transformation
-- vertical transformation
-- EPSG / datum information
-
-You only need to identify the stage—not interpret every parameter.
+You only need to recognize the stage.
 :::
 
 :::{dropdown} Why is the vertical datum important?
 
-The same physical location can have different numerical elevation values when referenced to different vertical surfaces.
+The same physical location can have different numerical elevations when referenced to different vertical surfaces.
 
-A vertical transformation changes the **reference used to describe the elevation**. It does not change the physical terrain or seafloor.
+A vertical transformation changes the **reference used to describe the elevation**, not the physical terrain or seafloor.
+:::
 
-That standardization is essential before elevations from different sources can be integrated seamlessly together.
+:::{dropdown} Explore Transformez
+
+In a second terminal:
+
+```bash
+transformez list
+```
+
+You do not need to run transformations manually. Fetchez coordinates the workflow and uses Transformez where needed.
 :::
 
 ---
 
-# 4. Prioritize and stack the measurements
+# 4. Prioritize and stack measurements
 
-Once the source data are prepared and standardized, the measurements are brought into a common raster framework.
+Once prepared and standardized, measurements are brought into a common raster framework.
 
-Where datasets overlap, their relative priorities help determine which information should dominate.
+Where datasets overlap, recipe priorities help determine which information should dominate.
 
-Conceptually:
-
-```text
-higher-priority measurements
-          ↓
-lower-priority measurements
-          ↓
-interpolate remaining gaps
-```
-
-For Newport, we explicitly added:
+For Newport, we added:
 
 ```text
 dav:survey_id=9693,weight=100
 ```
 
-so the locally selected topobathymetric lidar receives strong priority where it overlaps lower-priority sources.
-
-<!-- IMAGE PLACEHOLDER
-High-value figure:
-A simple stacking diagram with overlapping sources and the higher-priority
-source shown on top.
-
-Suggested caption:
-"Source priorities determine which measurements dominate where datasets overlap."
--->
+so the selected local topobathymetric lidar receives strong priority where it overlaps lower-priority sources.
 
 :::{note}
 A source weight is a **recipe priority**, not a formal measurement uncertainty.
 :::
 
----
-
-:::{dropdown} If you see Z, W, and U in the terminal
-
-You may see output containing:
-
-```text
-Z: [...]
-W: [...]
-U: [...]
-```
+:::{dropdown} If you see Z, W, and U
 
 A useful shorthand is:
 
@@ -427,73 +203,23 @@ A useful shorthand is:
 | `W` | Source priority / weight |
 | `U` | Uncertainty information when available |
 
-The reported `Z` range can provide a quick reality check on the elevations being processed.
-
-`W` reflects the recipe priorities used when sources overlap; higher weight means higher priority.
-
-A default `U=0` indicates that no explicit uncertainty value was provided; it should not be interpreted as zero real-world uncertainty.
+A default `U=0` means no explicit uncertainty value was provided. It does **not** mean zero real-world uncertainty.
 :::
 
 ---
 
 # 5. Interpolate across multiple scales
 
-Measurement density can change dramatically across a coastal region.
+Measurement density can vary dramatically across a coastal region.
 
-Dense lidar may support very fine spatial detail:
+Dense lidar can support fine spatial detail, while sparse bathymetric observations require information to be integrated across broader scales.
 
-```text
-• • • • • • • •
-• • • • • • • •
-• • • • • • • •
-```
-
-Bathymetric observations may be much farther apart:
-
-```text
-•                    •
-
-
-          •
-
-
-                         •
-```
-
-The key idea is:
-
-> **Use fine spatial information where the observations support it, and progressively broader information where measurements are sparse.**
-
-Conceptually:
-
-```text
-dense measurements
-        ↓
-fine-scale information
-
-sparser measurements
-        ↓
-broader interpolation
-```
-
-<!-- IMAGE PLACEHOLDER
-Highest-value conceptual figure after the main workflow diagram:
-
-Show:
-dense lidar → fine interpolation scale
-sparse bathymetry → broader interpolation scale
-then both contributing to one continuous DEM.
-
-Suggested caption:
-"Multiresolution processing allows the interpolation scale to broaden as measurement density decreases."
--->
+> **Use fine spatial information where observations support it, and progressively broader information where measurements are sparse.**
 
 :::{important}
-## Can you spot the multiresolution stage?
+## Look at the terminal
 
-Look for messages showing processing at progressively different scales or resolutions.
-
-You do not need to follow the interpolation mathematics.
+Can you spot processing at different scales or resolutions?
 
 The goal is simply to recognize when the workflow has moved from **preparing measurements** to **building the continuous surface**.
 :::
@@ -504,107 +230,45 @@ The goal is simply to recognize when the workflow has moved from **preparing mea
 
 When processing is complete, Globato writes the final DEM and supporting products.
 
-The two primary workshop products are:
+The two primary Newport products are:
 
 ```text
 ~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
 ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
-where:
-
 ```text
-newport_n44x64_w124x10_final.tif   finished Newport coastal DEM
-newport_n44x64_w124x10_hs.tif      hillshade for visual inspection
+*_final.tif   → finished coastal DEM
+*_hs.tif      → hillshade for visual inspection
 ```
 
-## Supporting outputs behind the DEM
-
-Along with the final DEM, Globato creates several supporting products that help document **how the DEM was built**.
-
-These files provide different views of the source data, provenance, and gridding information behind the finished elevation surface. You will not need to use all of them during the workshop, but it is useful to know what they represent.
-
-| Output | High-level description | What it tells you |
-|---|---|---|
-| **Source masks** (`tmp_sources/`) | A separate raster mask for each input data file. Cells are `1` where that file contributes data and `0` where it does not. | Where each individual input data file contributes to the DEM. |
-| **Sources VRT** (`*_sources.vrt`) | A virtual raster that brings the individual source masks together. | A combined view of source-data coverage. |
-| **Spatial metadata** (`*_sm.gpkg`) | A GeoPackage generated from the source masks and dissolved by **module + weight**. | An easy-to-view vector representation of which sources support different parts of the DEM. |
-| **Spatial metadata style** (`*_sm.qml`) | A QGIS style file associated with the spatial metadata GeoPackage. | Applies the prepared symbology when viewing the spatial metadata in QGIS. |
-| **Provenance raster** | A compact raster that assigns each module a bit value and records which source or sources contributed to each cell. | Cell-by-cell source provenance, including places where multiple sources contributed. |
-| **Stack raster** | A 7-band raster containing the accumulated information used for gridding. | The elevation, observation, weighting, uncertainty, and location information Globato accumulated before producing the final surface. |
-
-:::{dropdown} Sources and provenance
-
-The **sources** and **provenance** outputs both describe where data came from, but they store that information differently.
-
-The source masks are straightforward:
-
-```text
-1 = this module contributes data here
-0 = this module does not contribute data here
-```
-
-Each input data file gets its own mask in `tmp_sources/`, and those masks are brought together in the `*_sources.vrt`.
-
-The provenance raster stores source information more compactly. Each module receives a unique bit value. For example:
-
-```text
-MOD_csb=1
-MOD_nos_hydro=2
-MOD_charts=4
-MOD_tnm=8
-MOD_ehydro=16
-```
-
-If multiple sources contribute to a cell, those source IDs can be combined in the same provenance value.
-
-The source masks are generally easier to inspect directly, while provenance provides a compact cell-by-cell record of source contributions.
-:::
-
-:::{dropdown} What is in the stack raster?
-
-The stack contains seven bands:
-
-| Band | Contents |
-|---|---|
-| **z** | Weighted-average elevation |
-| **count** | Number of accumulated observations |
-| **weight** | Data weight / priority |
-| **uncertainty** | Accumulated uncertainty information |
-| **source uncertainty** | Uncertainty associated with the source data |
-| **x** | Weighted-average x coordinate |
-| **y** | Weighted-average y coordinate |
-
-Data are accumulated by weight groups. In mixed-mode stacking, higher-weight groups supersede lower-weight groups.
-
-For a more detailed description, see the [Globato DEM generation documentation](https://globato.readthedocs.io/en/stable/user_guide/dem_generation.html).
-:::
-
-:::{tip}
-## Which supporting output will we use?
-
-In **Module 3**, we will focus on the spatial metadata GeoPackage:
+In **Module 3**, we will also use:
 
 ```text
 ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-It provides a convenient GIS view of **which source data support different parts of the finished DEM**.
+This spatial metadata GeoPackage lets us see **which source data support different parts of the DEM**.
+
+:::{dropdown} Other supporting outputs
+
+Globato can also create:
+
+| Output | Purpose |
+|---|---|
+| **Source masks** | Show where individual input files contribute |
+| **Sources VRT** | Combines source-data coverage |
+| **Spatial metadata** (`*_sm.gpkg`) | GIS view of source support |
+| **Spatial metadata style** (`*_sm.qml`) | Prepared QGIS symbology |
+| **Provenance raster** | Compact cell-by-cell source provenance |
+| **Stack raster** | Accumulated information used during gridding |
+
+You do not need to inspect all of these during the workshop.
 :::
-
-<!-- IMAGE PLACEHOLDER
-Very useful payoff image:
-Side-by-side screenshot of:
-- newport_final.tif
-- newport_hs.tif
-
-Suggested caption:
-"Primary Newport outputs: the finished coastal DEM and hillshade."
--->
 
 :::{dropdown} If your build finishes early
 
-You can confirm the two main products were generated with:
+Confirm the primary products:
 
 ```bash
 ls -lh \
@@ -612,21 +276,16 @@ ls -lh \
   ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
-Do not spend much time interpreting them yet.
-
-We will explore the surface and supporting outputs in **Module 3**.
+We will interpret them in Module 3.
 :::
 
 ---
 
-# What stage are we in now?
+# One last look at the terminal
 
-Look back at the terminal one more time.
-
-Which of these best describes what you see?
+Which stage best describes what you see?
 
 - discovering or accessing data
-- reusing cached data
 - preparing or filtering a source
 - transforming coordinates or elevations
 - stacking measurements
@@ -634,21 +293,12 @@ Which of these best describes what you see?
 - writing final outputs
 
 :::{tip}
-If your terminal is showing something different from the instructor's, that does not necessarily mean something is wrong.
-
-Different datasets and cached files can cause participants to move through stages at slightly different times.
+Participants may be at different stages because cached files and processing times differ. Matching the instructor's exact terminal line is not important.
 :::
 
 ---
 
-# If your build is still running
-
-That is okay.
-
-The goal of this module is to understand the **structure of the workflow**, not to wait on the same terminal line as everyone else.
-
-:::{important}
-## If your Newport build did not finish
+:::{dropdown} If your Newport build did not finish
 
 Known-good Newport fallback files are available in:
 
@@ -656,24 +306,17 @@ Known-good Newport fallback files are available in:
 ~/workshop/reference_outputs/newport/
 ```
 
-If an instructor directs you to use them, first stop your running Newport build with **Ctrl+C** if it is still running.
-
-Then replace the incomplete Newport output directory with the known-good files:
+If an instructor directs you to use them, stop the running build with **Ctrl+C** if necessary, then run:
 
 ```bash
 rm -rf ~/workshop/newport_dem
 mkdir -p ~/workshop/newport_dem
 cp -a ~/workshop/reference_outputs/newport/. ~/workshop/newport_dem/
 cd ~/workshop/newport_dem
-```
-
-Confirm the four fallback files are available:
-
-```bash
 ls -lh
 ```
 
-The fallback set contains the completed DEM, hillshade, spatial metadata GeoPackage, and its QGIS style file:
+The fallback set contains:
 
 ```text
 newport_n44x64_w124x10_final.tif
@@ -682,7 +325,7 @@ newport_n44x64_w124x10_sm.gpkg
 newport_n44x64_w124x10_sm.qml
 ```
 
-That is enough to continue with the Newport exploration in **Module 3**.
+That is enough to continue with Module 3.
 :::
 
 :::{important}
@@ -691,7 +334,7 @@ That is enough to continue with the Newport exploration in **Module 3**.
 Continue when either:
 
 - your Newport build has finished, **or**
-- you have copied the known-good files from `~/workshop/reference_outputs/newport/` into `~/workshop/newport_dem/`.
+- the known-good Newport files are in `~/workshop/newport_dem/`.
 
 Next:
 
