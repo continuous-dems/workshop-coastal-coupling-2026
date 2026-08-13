@@ -208,7 +208,7 @@ ls -ld ~/workshop/sarasota_data ~/workshop/sarasota_dem
 ```
 :::
 
-:::{dropdown} Sneak peek: Sarasota DEM
+::::{dropdown} Sneak peek: Sarasota DEM
 
 :::{figure} ../../assets/images/sarasota_hs.png
 :alt: Hillshade of the Sarasota, Florida coastal DEM.
@@ -217,7 +217,8 @@ ls -ld ~/workshop/sarasota_data ~/workshop/sarasota_dem
 
 **Sarasota coastal DEM.** Module 5 will return to this DEM after evaluating Newport with IVERT.
 :::
-:::
+
+::::
 
 ---
 
@@ -228,6 +229,11 @@ same recipe + new local choices = new local DEM
 ```
 
 You changed the **study area, local lidar, and output locations** while keeping the reusable coastal recipe and core processing settings.
+
+---
+
+**Next: Module 5 — Evaluate the DEMs with IVERT**
+
 
 Next:
 
