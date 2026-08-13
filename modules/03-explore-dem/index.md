@@ -8,7 +8,7 @@ We now have a finished coastal DEM for **Newport, Oregon**.
 
 The key question in this module is:
 
-> **What source data support this part of the DEM?**
+> **What source data support different parts of the DEM?**
 
 We will answer that by viewing the **hillshade** together with the **spatial metadata** in a desktop GIS such as **QGIS** or **ArcGIS Pro**.
 
@@ -42,7 +42,7 @@ newport_n44x64_w124x10_sm.qml
 
 In the JupyterLab file browser:
 
-1. Open `workshop`, then `newport_dem`.
+1. Open `workshop` folder on the left side, then `newport_dem`.
 2. Right-click each file.
 3. Select **Download**.
 
