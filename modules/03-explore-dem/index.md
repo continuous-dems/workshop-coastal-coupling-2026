@@ -82,7 +82,7 @@ mkdir -p ~/workshop/newport_dem
 cp -a ~/workshop/reference_outputs/newport/. ~/workshop/newport_dem/
 ```
 
-Then rerun the `ls` command above and download the files from JupyterLab.
+Then download the files from JupyterLab.
 :::
 
 ---
