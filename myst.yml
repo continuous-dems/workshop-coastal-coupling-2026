@@ -19,7 +19,6 @@ project:
 
     - title: "Workshop"
       children:
-        - file: "modules/00-working-in-jupyterhub/index.md"
         - file: "modules/01-getting-started/index.md"
         - file: "modules/02a-newport-dem/index.md"
         - file: "modules/02b-inside-the-workflow/index.md"
