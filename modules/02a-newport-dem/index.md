@@ -91,7 +91,7 @@ Find a dataset that:
 
 1. overlaps the Newport DEM region
 2. contains **topobathymetric lidar**
-3. would be useful for a combined land-and-water DEM
+3. is the **most recent** dataset that meets those criteria
 
 Select the dataset to open its details.
 :::
