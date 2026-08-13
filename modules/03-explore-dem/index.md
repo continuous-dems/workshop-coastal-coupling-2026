@@ -117,7 +117,7 @@ Look for:
 
 Choose **one location** that catches your attention.
 
-Keep it in mind. Next we will determine what source data support that part of the DEM.
+Keep it in mind. Next we will determine what source data support that area of the DEM.
 :::
 
 ---
@@ -137,7 +137,7 @@ newport_n44x64_w124x10_sm.gpkg
 to your GIS and display it **on top of the Newport hillshade**.
 
 :::{figure} ../../assets/images/newport_sm.png
-:alt: Newport, Oregon hillshade with spatial metadata overlaid, showing the source elevation datasets contributing to different parts of the DEM.
+:alt: Newport, Oregon hillshade with spatial metadata overlaid, showing the source elevation datasets contributing to different areas of the DEM.
 :width: 100%
 :align: center
 
@@ -161,7 +161,7 @@ Using the hillshade and spatial metadata together, ask:
 
 Be able to describe your location in one sentence:
 
-> **This part of the DEM is supported by __________, and the surrounding surface appears __________.**
+> **This area of the DEM is supported by __________, and the surrounding surface appears __________.**
 :::
 
 :::{dropdown} Inspect the spatial-metadata attributes
