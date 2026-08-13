@@ -186,7 +186,7 @@ globato build \
 You are ready to move on when:
 
 - [ ] You included the DAV dataset `10196`
-- [ ] Globato is printing workflow messages
+- [ ] The Sarasota `globato build` command is running
 
 **Leave this terminal running.**
 
