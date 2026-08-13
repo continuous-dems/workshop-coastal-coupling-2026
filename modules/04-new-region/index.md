@@ -38,7 +38,7 @@ North:  27.34
 :width: 100%
 :align: center
 
-**Sarasota, Florida Study Area.** The red box shows the region used to build the workshop DEM.
+**Sarasota, Florida Study Area.** The red box shows the DEM area.
 :::
 
 Compared with Newport, Sarasota is a **low-relief Gulf coast with shallow nearshore waters**.
