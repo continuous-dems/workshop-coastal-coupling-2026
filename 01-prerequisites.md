@@ -5,7 +5,7 @@
 - A web browser.
 - No local software installation is required.
 - No previous experience with Continuous DEMs is required.
-- Basic familiarity with GIS or elevation data is helpful, but not required.
+- Basic familiarity with GIS software or elevation data is helpful, but not required.
 
 All workshop software is installed in the hosted Openscapes JupyterHub environment.
 
