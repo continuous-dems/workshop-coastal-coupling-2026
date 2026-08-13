@@ -87,7 +87,7 @@ shared-cache location
 | Output directory | `~/workshop/newport_dem` | `~/workshop/sarasota_dem` |
 | Prepared cache | `~/workshop/newport_data` | `~/workshop/sarasota_data` |
 | Resolution | ~1/9 arc-second | ~1/9 arc-second |
-| Reference system | NAD83 + NAVD88 | NAD83 + NAVD88 |
+| Combined reference system | `epsg:4269+5703` | `epsg:4269+5703` |
 | Tile overlap / source buffer | `-X 6:5` | `-X 6:5` |
 
 The reusable scientific recipe stays the same. The study area, local data, and output locations change.
