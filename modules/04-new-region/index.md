@@ -224,7 +224,7 @@ ls -ld ~/workshop/sarasota_data ~/workshop/sarasota_dem
 # The takeaway
 
 ```text
-same recipe + new local choices = new regional DEM
+same recipe + new local choices = new local DEM
 ```
 
 You changed the **study area, local lidar, and output locations** while keeping the reusable coastal recipe and core processing settings.
