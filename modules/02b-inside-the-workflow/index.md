@@ -119,18 +119,11 @@ Land/water constraints can help prevent topographic measurements or interpolatio
 
 # 3. Standardize the reference system
 
-Our target Newport DEM is:
+Our target Newport DEM uses:
 
-```text
-epsg:4269+5703
-```
-
-or:
-
-```text
-Horizontal: NAD83
-Vertical:   NAVD88
-```
+- **Horizontal CRS:** NAD83 geographic (EPSG:4269)
+- **Vertical CRS:** NAVD88 height (EPSG:5703)
+- **Combined reference system:** `epsg:4269+5703`
 
 Source datasets may arrive in different horizontal or vertical reference systems. Before they can be combined, they need to be expressed in the requested common system.
 
