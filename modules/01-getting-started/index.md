@@ -34,7 +34,8 @@ You are ready for the next step when you can see the JupyterLab interface.
 # 2. Open a terminal
 
 In JupyterLab:
-Under **Other**, select **Terminal**.
+
+Under **Other**, click **Terminal**.
 
 You should now see a command prompt.
 
