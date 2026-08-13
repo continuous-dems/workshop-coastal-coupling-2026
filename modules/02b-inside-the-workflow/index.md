@@ -76,11 +76,10 @@ Optional commands for a second terminal:
 
 ```bash
 fetchez modules list
-fetchez modules bundles info coupling-bathy-topo
 fetchez modules info dav
 ```
 
-These let you inspect available data modules, the national bundle, and the Digital Coast DAV source.
+These let you inspect the available data modules and learn more about a specific module, such as the Digital Coast DAV source.
 :::
 
 :::{dropdown} About the workshop cache
@@ -107,15 +106,13 @@ Messages about reusing cached data are expected.
 
 Coastal elevation datasets are not all equivalent.
 
-Depending on the source, the workflow may need to clip, convert, filter, apply land/water constraints, or otherwise prepare the measurements.
-
-> **One reproducible workflow can still treat each source according to what that source requires.**
+A reproducible workflow does not have to treat every source the same—it can apply source-specific processing within one consistent framework.
 
 :::{dropdown} Why does the coastline matter?
 
-A coastal DEM crosses the boundary between terrestrial and bathymetric measurements.
+A coastal DEM combines measurements collected over both land and water, often from sources with different sensors and data characteristics.
 
-Land/water constraints can help prevent inappropriate topographic measurements or interpolation from influencing the bathymetry. The coastline is therefore part of the processing logic, not just a map feature.
+Land/water constraints can help prevent topographic measurements or interpolation from extending inappropriately into bathymetric areas, and vice versa. The coastline is therefore part of the processing logic, not just a map feature.
 :::
 
 ---
