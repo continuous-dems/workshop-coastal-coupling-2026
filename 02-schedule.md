@@ -13,42 +13,26 @@ This two-hour workshop follows an end-to-end coastal DEM workflow using the Cont
 
 All times are Eastern.
 
-**2:00–2:15 p.m. — Welcome and getting started**  
+**2:00–2:15 p.m. — Welcome and getting started**  
 Introductions, JupyterHub setup, and confirmation that the workshop tools and data are ready.
 
-**2:15–2:30 p.m. — Build the Newport DEM**  
-Define the Newport study area, inspect the national coastal data recipe, find local topobathymetric lidar in NOAA Digital Coast DAV, and launch the DEM build.
+**2:15–2:30 p.m. — Build the Newport DEM**  
+Define the Newport study area, start with a reusable national coastal data recipe, find local topobathymetric lidar in NOAA Digital Coast DAV, and launch the DEM build.
 
-**2:30–2:50 p.m. — Inside the workflow**  
-Follow the Newport build as it discovers and prepares source data, standardizes reference systems, prioritizes measurements, and generates the coastal DEM.
+**2:30–2:50 p.m. — Inside the workflow**  
+Follow the Newport build as it discovers and prepares source data, standardizes reference systems, prioritizes measurements, interpolates across multiple scales, and writes the final DEM.
 
-**2:50–3:00 p.m. — Break / Newport build catch-up**  
+**2:50–3:00 p.m. — Break / Newport build catch-up**  
 Short break while the Newport workflow finishes if needed.
 
-**3:00–3:20 p.m. — Explore the Newport DEM**  
-Inspect the finished DEM and hillshade, then use the spatial-metadata GeoPackage to connect the surface back to its source data.
+**3:00–3:20 p.m. — Explore the Newport DEM**  
+View the hillshade and spatial metadata in a desktop GIS, then trace a location in the finished surface back to its supporting source data.
 
-**3:20–3:35 p.m. — Same recipe, new region**  
-Move to Sarasota, Florida, find a locally appropriate Digital Coast topobathymetric lidar dataset, adapt the Newport recipe, and launch the Sarasota DEM build.
+**3:20–3:30 p.m. — Same recipe, new region**  
+Move to Sarasota, Florida, identify locally appropriate topobathymetric lidar, change the local pieces of the Newport recipe, and launch the Sarasota DEM build.
 
-**3:35–3:55 p.m. — Evaluate the DEMs with IVERT**  
+**3:30–3:50 p.m. — Evaluate the DEMs with IVERT**  
 Introduce independent DEM evaluation with IVERT, evaluate Newport while the Sarasota build continues, then return to Sarasota and evaluate it with independent observations if the build has completed.
 
-**3:55–4:00 p.m. — Wrap-up and questions**  
+**3:50–4:00 p.m. — Wrap-up and questions**  
 Review the reusable workflow, community resources, and how participants can apply the approach to their own coastal study areas.
-
-## Workshop flow
-
-1. **Get connected** — Open JupyterLab and confirm that Fetchez, Transformez, Globato, and IVERT are available.
-
-2. **Build Newport** — Start with a reusable national coastal data recipe, add local topobathymetric lidar, and launch the Newport DEM.
-
-3. **Follow the workflow** — See how the tools discover, prepare, transform, prioritize, and combine source elevation data.
-
-4. **Explore Newport** — Inspect the finished DEM, hillshade, and spatial metadata to understand where the elevations came from.
-
-5. **Transfer the recipe** — Apply the same approach to Sarasota, select locally appropriate data, and launch a second DEM build.
-
-6. **Evaluate the DEMs** — Introduce IVERT, evaluate Newport with independent observations while Sarasota continues building, then return to Sarasota and evaluate its completed DEM.
-
-The goal is not only to create coastal DEMs for Newport and Sarasota, but to show how a transparent, reusable workflow can be adapted to new regions and evaluated with independent observations.
