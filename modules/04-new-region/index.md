@@ -232,9 +232,7 @@ You changed the **study area, local lidar, and output locations** while keeping 
 
 ---
 
-**Next: Module 5 — Evaluate the DEMs with IVERT**
-
-
 Next:
 
-> **Module 5 — Evaluate the DEMs with IVERT**
+> ***Module 5 — Evaluate the DEMs with IVERT***
+
