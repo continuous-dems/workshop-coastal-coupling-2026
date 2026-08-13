@@ -240,8 +240,8 @@ Globato can also create:
 |---|---|
 | **Source masks** | Show where individual input files contribute |
 | **Sources VRT** | Combines source-data coverage |
-| **Spatial metadata** (`*_sm.gpkg`) | GIS view of source support |
-| **Spatial metadata style** (`*_sm.qml`) | Prepared QGIS symbology |
+| **Spatial metadata** | GIS view of source support |
+| **Spatial metadata style** | Prepared QGIS symbology |
 | **Provenance raster** | Compact cell-by-cell source provenance |
 | **Stack raster** | Accumulated information used during gridding |
 
