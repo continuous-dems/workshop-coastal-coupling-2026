@@ -32,12 +32,12 @@ Our study area includes **Yaquina Bay**, the entrance channel, nearby coastal wa
 **Newport, Oregon Study Area.** The red box shows the DEM area.
 :::
 
-For this workshop, we will build an approximately **1/9-arc-second** DEM using:
+For this workshop, we will build a **1/9-arc-second** DEM using:
 
 - **Bounds:** `-124.10/-124.00/44.59/44.64`
-- **Horizontal datum:** NAD83
-- **Vertical datum:** NAVD88
-- **Reference system:** `epsg:4269+5703`
+- **Horizontal CRS:** NAD83 geographic (EPSG:4269)
+- **Vertical CRS:** NAVD88 height (EPSG:5703)
+- **Combined reference system:** `epsg:4269+5703`
 
 :::{tip}
 You do not need to memorize the coordinates or EPSG codes.
