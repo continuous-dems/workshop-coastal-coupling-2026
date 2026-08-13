@@ -32,13 +32,6 @@ ls -lh \
   ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-You will use:
-
-```text
-newport_n44x64_w124x10_hs.tif
-newport_n44x64_w124x10_sm.gpkg
-```
-
 If you are using **QGIS**, also use the prepared style file:
 
 ```text
