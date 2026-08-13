@@ -106,7 +106,7 @@ Messages about reusing cached data are expected.
 
 Coastal elevation datasets are not all equivalent.
 
-A reproducible workflow does not have to treat every source the same—it can apply source-specific processing within one consistent framework.
+A reproducible workflow can process each source appropriately while keeping the overall workflow consistent.
 
 :::{dropdown} Why does the coastline matter?
 
