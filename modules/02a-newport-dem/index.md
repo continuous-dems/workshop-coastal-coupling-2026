@@ -61,7 +61,11 @@ For Newport, our question is:
 
 > **Is there a useful local dataset that would improve the national recipe?**
 
-:::{dropdown} What is in `coupling-bathy-topo`?
+## What is in `coupling-bathy-topo`?
+
+`coupling-bathy-topo` is a reusable recipe that combines several nationally available topographic and bathymetric data sources.
+
+The exact sources used depend on what data are available in the study area.
 
 To inspect the bundle, run:
 
@@ -69,10 +73,7 @@ To inspect the bundle, run:
 fetchez modules bundles info coupling-bathy-topo
 ```
 
-The bundle brings together several types of nationally available topographic and bathymetric data. Exact contents and options may evolve as the Continuous DEMs tools are updated, and not every source has useful coverage in every study area.
-
-You do not need to understand every bundle option before starting the Newport build. We will look inside the workflow in Module 2b.
-:::
+We will look more closely at how these sources move through the workflow in **Module 2b — Inside the Workflow**.
 
 ---
 
