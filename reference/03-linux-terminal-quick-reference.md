@@ -1,8 +1,4 @@
----
-title: "Linux Terminal Quick Reference"
----
-
-# Linux Terminal Quick Reference
+# 💻 Linux Terminal Quick Reference
 
 You only need a few Linux terminal commands for this workshop.
 
