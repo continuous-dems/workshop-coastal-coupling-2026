@@ -6,8 +6,11 @@ It provides a computer in the cloud that's set up with all the necessary softwar
 you'll need for this workshop plus a familiar JupyterLab interface to use that computer.
 
 :::{hint}
-Your server's disk space is persistent, meaning that any files you create will still
-exist after you stop and restart your server.
+Files saved directly in your **home directory** are persistent and will still exist after you stop and restart your server.
+
+However, this workshop uses `~/workshop`, which points to temporary `/tmp/workshop` storage for faster processing. Files there—including DEM outputs—will not persist if your server is stopped and recreated.
+
+Download or copy anything you want to keep before stopping your server.
 :::
 
 
