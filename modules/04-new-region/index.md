@@ -102,11 +102,11 @@ The reusable scientific recipe stays the same. The study area, local data, and o
 :::{important}
 ## Your turn
 
-Find the topobathymetric lidar dataset that:
+Find a dataset that:
 
-1. overlaps the Sarasota study area
-2. includes land and shallow-water elevation measurements
-3. would improve a combined coastal DEM
+1. overlaps the Sarasota DEM region
+2. contains **topobathymetric lidar**
+3. is the **most recent** dataset that meets those criteria
 
 Use the same DAV dataset-ID method you used for Newport.
 :::
