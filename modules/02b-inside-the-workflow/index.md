@@ -64,14 +64,6 @@ The workflow first determines which configured sources overlap Newport.
 
 Fetchez provides a common way to work with data from different catalogs, APIs, formats, and providers.
 
-For Newport:
-
-```text
-national coastal data
-        +
-local Newport topobathymetric lidar
-```
-
 :::{important}
 ## Look at the terminal
 
