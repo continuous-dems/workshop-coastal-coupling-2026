@@ -8,7 +8,7 @@ We now have a finished coastal DEM for **Newport, Oregon**.
 
 The key question in this module is:
 
-> **What source data support different parts of the DEM?**
+> **What source data support different areas of the DEM?**
 
 We will answer that by viewing the **hillshade** together with the **spatial metadata** in a desktop GIS such as **QGIS** or **ArcGIS Pro**.
 
