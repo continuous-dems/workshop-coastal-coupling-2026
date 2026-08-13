@@ -7,7 +7,7 @@ subject: "Tutorial"
 
 We have built two coastal DEMs. Now we check them against independent observations using **IVERT**, the **ICESat-2 Validation of Elevations Reporting Tool**.
 
-ICESat-2 is a NASA satellite carrying a photon-counting green altimeter lidar called ATLAS. It scans the earth with 6 beams, repeats its orbits every 90 days, fires 10,000 shots a second, and measures individual green photons coming back to the sensor.
+ICESat-2 is a NASA satellite carrying a photon-counting green altimeter lidar called ATLAS. It scans the earth with 6 beams, repeats its orbits every 91 days, fires 10,000 shots a second, and measures individual green photons coming back to the sensor.
 
 :::{figure} ../../assets/images/icesat2_satellite.jpeg
 :alt: Illustration of the ICESat-2 satellite in orbit, emitting six green laser beams arranged in three pairs that strike the surface below and trace six parallel ground tracks across the terrain.
