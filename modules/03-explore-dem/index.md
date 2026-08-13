@@ -4,81 +4,79 @@ title: "3 - Explore the Newport DEM"
 
 # Explore the Newport DEM
 
-We now have a coastal DEM for **Newport, Oregon**.
+We now have a finished coastal DEM for **Newport, Oregon**.
 
-In this module, we will move from **building** the DEM to **understanding** it.
-
-Our workflow is:
-
-```text
-inspect the DEM
-      ↓
-inspect the spatial metadata
-      ↓
-connect the finished surface to its source data
-      ↓
-recognize where measurements directly support the DEM
-and where interpolation plays a larger role
-```
-
-The key question is:
+The key question in this module is:
 
 > **What source data support this part of the DEM?**
 
+We will answer that by viewing the **hillshade** together with the **spatial metadata**.
+
 ---
 
-# 1. Check the Newport outputs
+# 1. Confirm the Newport files
 
-The two primary workshop products are:
+You need these files:
 
 ```text
-~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
 ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-If your build has finished, run:
+If you are using QGIS, also use:
+
+```text
+~/workshop/newport_dem/newport_n44x64_w124x10_sm.qml
+```
+
+Confirm the files are present:
 
 ```bash
 ls -lh \
-  ~/workshop/newport_dem/newport_n44x64_w124x10_final.tif \
-  ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
+  ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif \
+  ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-:::{important}
-## Success check
+:::{dropdown} If your Newport build did not finish
 
-You should see both files listed.
+Known-good Newport files are available in:
 
-If `~/workshop` itself is missing, rerun the workshop setup first:
-
-```bash
-bash ~/shared/setup_workshop.sh
+```text
+~/workshop/reference_outputs/newport/
 ```
 
-If your Newport build did not finish and you have not already used the fallback from Module 2b, first stop the running build with **Ctrl+C**. Then copy the known-good workshop files into your Newport output directory:
+If needed, copy them into the Newport output directory:
 
 ```bash
+rm -rf ~/workshop/newport_dem
 mkdir -p ~/workshop/newport_dem
 cp -a ~/workshop/reference_outputs/newport/. ~/workshop/newport_dem/
+cd ~/workshop/newport_dem
+ls -lh
 ```
 
-This preserves any files already produced while ensuring that the four reference files needed for this module are available. Then run the `ls` command above again.
+Then rerun the `ls` command above.
 :::
 
 ---
 
-# 2. Look at the finished DEM
+# 2. Look at the finished surface
 
-Open:
+Open the Newport hillshade:
 
 ```text
-~/workshop/newport_dem/newport_n44x64_w124x10_final.tif
 ~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
 ```
 
-Use the hillshade first to get oriented.
+:::{figure} ../../assets/images/newport_hs.png
+:alt: Hillshade of the finished Newport, Oregon coastal DEM around Yaquina Bay.
+:width: 100%
+:align: center
 
-Look at:
+**Newport coastal DEM hillshade.** The hillshade reveals the shape and texture of the finished elevation surface around Yaquina Bay.
+:::
+
+Look for:
 
 - Yaquina Bay
 - the entrance channel
@@ -87,203 +85,105 @@ Look at:
 - nearshore bathymetry
 - transitions between detailed and smoother areas
 
-:::{figure} ../../assets/images/newport_hs.png
-:alt: Hillshade of the finished Newport, Oregon coastal DEM around Yaquina Bay.
-:width: 100%
-:align: center
-
-**Newport coastal DEM hillshade.** The hillshade helps reveal the shape and texture of the finished elevation surface around Yaquina Bay.
-:::
-
 :::{important}
-## Your turn: pick one place
+## Pick one place
 
-Choose one feature or area that catches your attention.
+Choose **one location** that catches your attention.
 
-For example:
-
-- a detailed topographic feature
-- the shoreline
-- the entrance channel
-- an area of smooth bathymetry
-- a transition between different-looking parts of the DEM
-
-Keep that location in mind.
-
-We will try to determine **what source data support it**.
+Keep it in mind. Next we will determine what source data support that part of the DEM.
 :::
 
 ---
 
-# 3. Where did those elevations come from?
+# 3. Add the spatial metadata
 
-The hillshade shows us the shape of the finished surface.
+The hillshade shows the **finished surface**.
 
-The **spatial metadata** helps us understand where the elevation data came from.
+The spatial metadata shows the **source-data support behind that surface**.
 
-Globato writes a spatial-metadata GeoPackage alongside the Newport DEM outputs.
-
-For this workshop build, the file is:
+Open:
 
 ```text
 ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
 ```
 
-Confirm that it was created:
-
-```bash
-ls -lh ~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
-```
-
-:::{important}
-## Success check
-
-You should see:
-
-```text
-~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
-```
-
-This is one of the most useful supporting products from the build.
-:::
-
----
-
-## View the spatial metadata with the hillshade
-
-The easiest way to interpret the spatial metadata is to view it **on top of the Newport hillshade**. This lets you compare the finished DEM surface with the source-data coverage behind it.
-
-For this exercise, use the desktop GIS application you are most comfortable with, such as **QGIS, ArcGIS Pro, or another GIS**.
-
-### Download the files
-
-In the **JupyterLab file browser** on the left side of the screen:
-
-1. Open `workshop`, then open `newport_dem`.
-2. Find the file you want to download.
-3. **Right-click the file.**
-4. Select **Download**.
-
-:::{tip} Files to download
-
-Download these two files:
-
-**Hillshade**
-
-```text
-~/workshop/newport_dem/newport_n44x64_w124x10_hs.tif
-```
-
-**Spatial metadata**
-
-```text
-~/workshop/newport_dem/newport_n44x64_w124x10_sm.gpkg
-```
-
-If you are using **QGIS** and the matching style file is present, also download:
-
-```text
-~/workshop/newport_dem/newport_n44x64_w124x10_sm.qml
-```
-
-Keep the `.gpkg` and `.qml` files together. The QML file contains the prepared QGIS styling for the spatial-metadata layer. If QGIS does not apply it automatically, load the `.qml` as the layer style.
-
-Open the hillshade and spatial metadata in your GIS and display the **spatial metadata on top of the hillshade**.
-:::
-
-:::{note}
-## Don't have a desktop GIS available?
-
-No problem.
-
-Follow along as the instructor shares their screen and explores the Newport hillshade and spatial metadata.
-
-The important part of this exercise is understanding **what the spatial metadata tells us about the source data behind the DEM**, not learning a particular GIS application.
-:::
+and display it **on top of the Newport hillshade**.
 
 :::{figure} ../../assets/images/newport_sm.png
 :alt: Newport, Oregon hillshade with spatial metadata overlaid, showing the source elevation datasets contributing to different parts of the DEM.
 :width: 100%
 :align: center
 
-**Newport hillshade with spatial metadata.** The overlay shows where different source elevation datasets contribute to the finished DEM.
+**Newport hillshade with spatial metadata.** The overlay connects places in the finished DEM with the source elevation data used to build it.
 :::
 
-The spatial metadata lets us connect the finished surface back to the data used to build it.
+:::{dropdown} How to download the files from JupyterLab
 
-Instead of asking only:
+In the JupyterLab file browser:
 
-> **What does the DEM look like here?**
+1. Open `workshop`, then `newport_dem`.
+2. Right-click the file.
+3. Select **Download**.
 
-we can also ask:
+Download:
 
-> **What source data support this part of the DEM?**
+```text
+newport_n44x64_w124x10_hs.tif
+newport_n44x64_w124x10_sm.gpkg
+```
+
+If you use QGIS, also download:
+
+```text
+newport_n44x64_w124x10_sm.qml
+```
+
+Keep the `.gpkg` and `.qml` files together. If QGIS does not apply the prepared style automatically, load the `.qml` as the layer style.
+:::
+
+:::{note}
+## No desktop GIS?
+
+Follow along with the instructor.
+
+The goal is to interpret the DEM and its source support—not to learn a particular GIS application.
+:::
 
 ---
 
-## Your turn: connect the DEM to the source data
+# 4. Trace one location back to its source
 
-Return to the location you picked in the previous section.
+Return to the location you selected.
 
 Using the hillshade and spatial metadata together, ask:
 
-1. Which source dataset covers this location?
-2. Is there more than one source nearby?
-3. Does the hillshade look especially detailed where dense measurements are available?
-4. Where do the spatial metadata become sparse or absent?
-5. Where might interpolation therefore play a larger role?
-
-:::{tip}
-## Spatial metadata and interpolation
-
-The spatial metadata identifies where source elevation data contribute to the DEM.
-
-Areas without direct source-data coverage are especially important to recognize because the final surface there depends more heavily on interpolation between available measurements.
-
-The hillshade shows the **surface**.
-
-The spatial metadata shows the **measurement support behind that surface**.
-:::
-
----
-
-## Inspect the metadata attributes
-
-The GeoPackage also contains attributes describing the source-data features.
-
-:::{figure} ../../assets/images/newport_sm_attributes.png
-:alt: Newport hillshade with the spatial-metadata attribute table open, showing the useful source-data information associated with mapped areas of the DEM.
-:width: 100%
-:align: center
-
-**Inspecting the Newport spatial-metadata attributes.** The attribute table provides additional information about the source data supporting each mapped area of the DEM, such as the source module and relative weight or priority.
-:::
+1. **Which source dataset supports this location?**
+2. **Is direct source-data coverage dense, sparse, or absent nearby?**
+3. **Where might interpolation therefore play a larger role?**
 
 :::{important}
 ## One-location challenge
 
-Pick one location in the Newport DEM and be able to describe it in one sentence:
+Be able to describe your location in one sentence:
 
 > **This part of the DEM is supported by __________, and the surrounding surface appears __________.**
+:::
 
-The purpose is not to catalog every source.
+:::{dropdown} Inspect the spatial-metadata attributes
 
-It is to learn how to use the spatial metadata to interpret the finished DEM.
+The GeoPackage includes attributes that provide additional information about the mapped source-data features, including the source module and relative weight or priority.
+
+:::{figure} ../../assets/images/newport_sm_attributes.png
+:alt: Newport hillshade with the spatial-metadata attribute table open, showing source-data information associated with mapped areas of the DEM.
+:width: 100%
+:align: center
+
+**Spatial-metadata attributes.** The attribute table provides additional information about the source data supporting each mapped area.
 :::
 
 ---
 
-# What have we learned?
-
-At this point, we have:
-
-- inspected the finished Newport DEM and hillshade
-- used the spatial metadata to connect the finished surface back to its source data
-- identified where direct source-data support is dense, sparse, or absent
-- considered where interpolation therefore plays a larger role
-- practiced tracing one location in the DEM back to the measurements that support it
-
-The key distinction is:
+# The takeaway
 
 ```text
 Hillshade:
@@ -293,25 +193,14 @@ Spatial metadata:
 What source data support that surface?
 ```
 
-:::{important}
-## The takeaway
-
-A DEM is more useful when we can understand not only **what the surface looks like**, but also **what measurements support it**.
-
-The spatial metadata gives us that connection.
-:::
+A DEM is more useful when we can understand both the **surface** and the **measurements behind it**.
 
 ---
 
 # Next: apply the workflow somewhere new
 
-We have built and explored Newport.
-
 Next:
 
 > **Module 4 — Same Recipe, New Region**
 
-We will move to **Sarasota, Florida**, identify locally appropriate topobathymetric lidar, adapt the Newport recipe, and launch a second DEM build.
-
-We will then leave Sarasota running while we introduce **IVERT** and evaluate both DEMs in **Module 5 — Evaluate the DEMs with IVERT**.
-
+We will move to **Sarasota, Florida**, change the local pieces of the Newport recipe, and launch a second DEM build.
