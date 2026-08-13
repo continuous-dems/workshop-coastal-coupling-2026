@@ -13,5 +13,3 @@ You'll need to be familiar with the following processes:
 * [](/reference/01-starting-your-server.md)
 * [](/reference/02-stopping-your-server.md)
 * [](/reference/03-gh-auth.md)
-
-Once you've set up GitHub authentication, you can use Git normally.
