@@ -1,5 +1,7 @@
 # 🛑 Stopping your server
 
+Before stopping your server, download or copy any files in `~/workshop` that you want to keep.
+
 **It's important to stop your server when you're not using it.**
 
 
