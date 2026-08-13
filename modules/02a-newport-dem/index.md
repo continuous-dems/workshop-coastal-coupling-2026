@@ -190,7 +190,7 @@ Once the build is running, continue to **Module 2b — Inside the Workflow**.
 |---|---|
 | `-R -124.10/-124.00/44.59/44.64` | Newport study-area bounds |
 | `-X 6:5` | 6 cells of overlap between adjacent DEM tiles; 5% source-data processing buffer |
-| `-P epsg:4269+5703` | NAD83 + NAVD88 target reference system |
+| `-P epsg:4269+5703` | NAD83 geographic + NAVD88 height target reference system |
 | `-E 0.1111111s` | Output resolution |
 | `-O newport` | Output name |
 | `-D ~/workshop/newport_dem` | Processing/output directory |
