@@ -25,4 +25,12 @@ By the end of the workshop, participants will be able to:
 - Apply the same standardized recipe to another coastal region DEM.
 - Independently evaluate the DEMs using ICESat-2.
 
-  
+---
+
+## Citation
+
+If you use or reference these workshop materials, please cite:
+
+Amante, C., Love, M., MacFerrin, M., Lim, E., & Fisher, M. (2026).  
+*NOAA NCEI/CIRES Coastal DEM Workshop: Open-Source Workflows for Coastal DEM Generation* (Version 1.0.0). Zenodo.  
+https://doi.org/10.5281/zenodo.22060065
