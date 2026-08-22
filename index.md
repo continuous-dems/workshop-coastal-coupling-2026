@@ -34,3 +34,8 @@ If you use or reference these workshop materials, please cite:
 Amante, C., Love, M., MacFerrin, M., Lim, E., & Fisher, M. (2026).  
 *NOAA NCEI/CIRES Coastal DEM Workshop: Open-Source Workflows for Coastal DEM Generation* (Version 1.0.0). Zenodo.  
 https://doi.org/10.5281/zenodo.22060065
+
+## Acknowledgments
+
+This material is based upon work supported by the U.S. National Science Foundation under Award No. 2449419.
+Any opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the U.S. National Science Foundation.
