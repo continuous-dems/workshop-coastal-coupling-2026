@@ -2,6 +2,17 @@
 
 Learn cool stuff about [continuous DEMs projects](https://github.com/continuous-dems/).
 
+## Citation
+
+The archived Version 1.0.0 workshop materials are available on Zenodo:
+
+**DOI:** https://doi.org/10.5281/zenodo.22060065
+
+If you use or reference these materials, please cite:
+
+Amante, C., Love, M., MacFerrin, M., Lim, E., & Fisher, M. (2026).  
+*NOAA NCEI/CIRES Coastal DEM Workshop: Open-Source Workflows for Coastal DEM Generation* (Version 1.0.0). Zenodo.  
+https://doi.org/10.5281/zenodo.22060065
 
 ## Contributing
 
