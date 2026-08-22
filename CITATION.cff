@@ -1,0 +1,65 @@
+cff-version: 1.2.0
+
+message: "If you use or reference these workshop materials, please cite them using the citation metadata below."
+
+title: "NOAA NCEI/CIRES Coastal DEM Workshop: Open-Source Workflows for Coastal DEM Generation"
+
+type: dataset
+
+authors:
+  - family-names: "Amante"
+    given-names: "Christopher"
+    affiliation: "Cooperative Institute for Research in Environmental Sciences (CIRES), University of Colorado Boulder"
+
+  - family-names: "Love"
+    given-names: "Matthew"
+    affiliation: "Cooperative Institute for Research in Environmental Sciences (CIRES), University of Colorado Boulder"
+
+  - family-names: "MacFerrin"
+    given-names: "Michael"
+    affiliation: "Cooperative Institute for Research in Environmental Sciences (CIRES), University of Colorado Boulder"
+
+  - family-names: "Lim"
+    given-names: "Elliot"
+    affiliation: "Cooperative Institute for Research in Environmental Sciences (CIRES), University of Colorado Boulder"
+
+  - family-names: "Fisher"
+    given-names: "Matthew"
+    affiliation: "University of California, Berkeley"
+
+version: "1.0.0"
+
+date-released: "2026-08-13"
+
+doi: "10.5281/zenodo.22060065"
+
+license: "MIT"
+
+repository-code: "https://github.com/continuous-dems/workshop-coastal-coupling-2026"
+
+url: "https://continuous-dems.github.io/workshop-coastal-coupling-2026/"
+
+abstract: >
+  Scientists from NOAA's National Centers for Environmental Information (NCEI)
+  and the Cooperative Institute for Research in Environmental Sciences (CIRES)
+  led a hands-on introduction to open-source coastal DEM workflows. Using a
+  hosted JupyterHub environment, participants inspected and ran a reproducible
+  workflow for generating 1/9 arc-second coastal DEMs for Newport, Oregon, and
+  Sarasota, Florida. The workshop demonstrated how tools from the Continuous
+  DEMs project support source-data access, processing, vertical datum
+  harmonization, DEM generation, and independent validation. This workshop
+  built on the April 16, 2026 webinar, "Open-Source Workflows for Coastal DEM
+  Generation."
+
+keywords:
+  - "digital elevation model"
+  - "DEM"
+  - "coastal DEM"
+  - "bathymetry"
+  - "topography"
+  - "Continuous DEMs"
+  - "reproducible workflows"
+  - "ICESat-2"
+  - "geospatial"
+  - "training"
+  - "workshop"
